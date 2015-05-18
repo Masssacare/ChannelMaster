@@ -8,6 +8,8 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 
+require("includes/extensions/String.js");
+
 
 require("includes/Class.Module.js");
 
