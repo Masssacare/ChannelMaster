@@ -44,11 +44,25 @@ App.onAppStart = function() {
     //start Interval for timerHandler
     setInterval(App.timerHandler, 1000);
 
+    App.refreshHooks();
+
     var modules = App.modules.onAppStart;
     for(var i = 0; i < modules; i++) {
         var module = modules[i];
         if(typeof module.onAppStart === 'function')
             module.onAppStart();
+    }
+};
+
+/**
+ * Diese Funktion wird beim Start der App aufgerufen.
+ */
+App.onAppShutdown = function() {
+    var modules = App.modules.onAppShutdown;
+    for(var i = 0; i < modules; i++) {
+        var module = modules[i];
+        if(typeof module.onAppShutdown === 'function')
+            module.onAppShutdown();
     }
 };
 
@@ -156,6 +170,7 @@ App.timerHandler = function() {
  * @returns {boolean}
  */
 App.registerModule = function(module) {
+
     var pos = App.modules.registered.indexOf(module);
     if(pos == -1) {
         App.modules.registered.push(module);
@@ -200,11 +215,15 @@ App.refreshHooks = function() {
 
         //gehe alle Module durch
         for(var i = 0; i < App.modules.registered; i++) {
-            var module = App.modules.registered[i];
-                if(typeof module[key] === 'function') { //wenn das Module den Hook besitzt hinzufügen
+                var module = App.modules.registered[i];
+                if(typeof module[key] === 'function' && module.isActivated()) { //wenn das Module den Hook besitzt hinzufügen
                     tmp_modules.push(module);
                 }
         }
         App.modules[key] = tmp_modules;
     }
 };
+
+
+
+require("includes/init.js");
