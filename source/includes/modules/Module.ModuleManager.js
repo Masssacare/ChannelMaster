@@ -1,5 +1,5 @@
 /**
- * @file Diese Datei definiert das ChannelTop Module
+ * @file Der Modulmanager verwaltet die einzelnen Module und erlaubt diese zu aktivieren und zu deaktivieren
  * @author KnuddelsTools
  * @author Vampiric Desire
  * @copyright KnuddelsTools
