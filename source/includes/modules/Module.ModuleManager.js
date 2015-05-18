@@ -19,12 +19,8 @@ function ModuleManager() {
     if(!Module.prototype.isActivated.call(this)) //aktiviere wenn es noch nicht aktiviert ist
         this.activate();
     App.registerModule(this);
-    if(this.isActivated()) {
-        this.onActivated();
-    }
-
-
 }
+
 ModuleManager.prototype = new Module;
 ModuleManager.prototype.constructor = ModuleManager;
 
