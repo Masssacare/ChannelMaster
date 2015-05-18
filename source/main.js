@@ -189,6 +189,9 @@ App.registerModule = function(module) {
     if(pos == -1) {
         App.modules.registered.push(module);
         App.refreshHooks();
+        if(module.isActivated()) {
+            module.onActivated();
+        }
         return true;
     } else {
         return false;
