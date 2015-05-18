@@ -25,4 +25,8 @@ ChannelTop.prototype.onAppStart = function() {
 
 };
 
-new ChannelTop;
+/**
+ * Speichere die eigene Instanz
+ * @type {ChannelTop}
+ */
+ChannelTop.self = new ChannelTop;
