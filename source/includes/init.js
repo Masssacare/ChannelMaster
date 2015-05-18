@@ -14,3 +14,4 @@ require("includes/Class.Module.js");
 
 
 require("includes/modules/Module.ChannelTop.js");
+require("includes/modules/Module.ModuleManager.js");
