@@ -50,7 +50,7 @@ ModuleManager.prototype.isActivated = function() {
 };
 
 /**
- * Dieses Modul kann nicht aktiviert werden
+ * Dieses Modul kann nicht deaktiviert werden
  * @returns {boolean}
  */
 ModuleManager.prototype.deactivate = function() {
