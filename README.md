@@ -1,2 +1,2 @@
 # ChannelMaster
-ChannelMaster ist eine Sammlung nützerlicher Tools für Channel
+ChannelMaster ist eine Sammlung nützerlicher Tools für Channel.
