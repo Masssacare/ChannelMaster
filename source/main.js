@@ -38,6 +38,20 @@ App.modules = {
 };
 
 /**
+ * Gibt die Instanz vom Modul zurück. Wenn die Instanz nicht gefunden wird, wird NULL returned.
+ * @param {String} modulename
+ * @returns {Module}
+ */
+App.getModule = function(modulename) {
+    for(var i = 0; i < App.modules.registered.length; i++) {
+        var module = App.modules.registered[i];
+        if(module.toString() == modulename)
+            return module;
+    }
+    return null;
+};
+
+/**
  * Diese Funktion wird beim Start der App aufgerufen.
  */
 App.onAppStart = function() {
@@ -55,14 +69,14 @@ App.onAppStart = function() {
 };
 
 /**
- * Diese Funktion wird beim Start der App aufgerufen.
+ * Diese Funktion wird beim Beenden der App aufgerufen.
  */
-App.onAppShutdown = function() {
-    var modules = App.modules.onAppShutdown;
+App.onShutdown = function() {
+    var modules = App.modules.onShutdown;
     for(var i = 0; i < modules; i++) {
         var module = modules[i];
-        if(typeof module.onAppShutdown === 'function')
-            module.onAppShutdown();
+        if(typeof module.onShutdown === 'function')
+            module.onShutdown();
     }
 };
 
