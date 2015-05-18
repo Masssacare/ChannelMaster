@@ -31,6 +31,16 @@ Module.prototype.unregister = function() {
 };
 
 /**
+ * Diese Funktion wird aufgerufen, wenn das Modul gestartet wird.
+ */
+Module.prototype.onActivated = function() { };
+
+/**
+ * Diese Funktion wird aufgerufen, wenn das Modul deaktiviert wird.
+ */
+Module.prototype.onDeactivated = function() { };
+
+/**
  * Prüft ob das Module aktiviert ist
  * @returns {boolean}
  */
@@ -48,6 +58,7 @@ Module.prototype.activate = function() {
     var appPersis = KnuddelsServer.getPersistence();
     appPersis.setNumber(keyname,1);
     App.refreshHooks();
+    return true;
 };
 
 /**
@@ -58,4 +69,13 @@ Module.prototype.deactivate = function() {
     var appPersis = KnuddelsServer.getPersistence();
     appPersis.setNumber(keyname,0);
     App.refreshHooks();
+    return true;
+};
+
+/**
+ * Überschreibt die toString Methode
+ * @returns {String}
+ */
+Module.prototype.toString = function() {
+    return this.constructor.name;
 };
