@@ -21,7 +21,7 @@ Gerne kannst du selbst Quellcode beisteuern und die ChannelMaster App zu erweite
 * Ein Modul darf nicht auf einzelne Nutzer/Channel maß geschnitten sein
 * Ein Modul darf sich nicht selber aktivieren
 * Ein Modul darf andere Module **nicht verändern**
-* Ein Modul muss eine `REAMDE-modulename.md` im Grundordner haben
+* Ein Modul muss eine `README-modulename.md` im Grundordner haben
 
 
 ## Verantwortlicher Appentwickler
