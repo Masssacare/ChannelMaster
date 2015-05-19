@@ -103,8 +103,37 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     text = parts[0];
                                     action = parts[1];
                                 }
+
+                                if(action.startsWith("/pp ") && allowed.profileLinks) {
+                                    var nick = action.substr(4).trim();
+                                    if(nick == '"')
+                                        nick = text;
+
+
+                                    if(KnuddelsServer.userExists(nick.replace("\\","")))
+                                        tmpInsideKCode += ">" + text + "|" + action + "|/w " + nick + "<";
+                                    continue;
+                                }
+
+                                if(action.startsWith("/m ") && allowed.profileLinks) {
+                                    var nick = action.substr(3).trim();
+                                    if(nick == '"')
+                                        nick = text;
+
+
+                                    if(KnuddelsServer.userExists(nick.replace("\\","")))
+                                        tmpInsideKCode += ">" + text + "|" + action + "|/w " + nick + "<";
+                                    continue;
+                                }
+
                                 if(action.startsWith("/w ") && allowed.profileLinks) {
-                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    var nick = action.substr(3).trim();
+                                    if(nick == '"')
+                                        nick = text;
+
+
+                                    if(KnuddelsServer.userExists(nick.replace("\\","")))
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
                                 if(action.startsWith("/go ") && allowed.channelLinks) {
