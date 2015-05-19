@@ -123,6 +123,16 @@ ChannelTop.prototype.updateOnlinetime = function(user) {
  */
 ChannelTop.prototype.onUserJoined = function(user) {
     user.getPersistence().setNumber("mChannelTop_jointime", Date.now());
+
+    //Willkommensnachricht
+    if(user.getPersistence().getNumber("mChannelTop_joinmessage",1)==1) {
+        var onlinetime = user.getPersistence().getNumber("mChannelTop_onlinetime",0);
+        if(onlinetime>0) {
+            user.sendPrivateMessage("Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
+        } else {
+            user.sendPrivateMessage("Hallo, dies ist dein erster Besuch in diesem Channel.");
+        }
+    }
 };
 
 
@@ -239,6 +249,12 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
         return ChannelTop.self.cmdChanneltop(user, params, func); // /befehle haben als this das App Objekt, also rufen wir die Funktion intern nochmal auf.
 
     var action = params.trim().toLowerCase();
+    if(action == "welcomemessage") {
+        var status = 1 - user.getPersistence().getNumber("mChannelTop_joinmessage",1); //toggle der joinmessage
+        user.getPersistence().setNumber("mChannelTop_joinmessage", status);
+        user.sendPrivateMessage("Du hast die Willkommensnachricht " + (status==0?"deaktiviert":"aktiviert") + ".");
+        return;
+    }
     if(action == "online" || action == "online day" || action == "online week" || action == "online month" || action == "online year") {
         return this.bestlistOnline(user, action);
     }
