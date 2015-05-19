@@ -7,6 +7,7 @@ Botsay ermöglicht es freigeschalteten Nutzern im Namen des Bots öffentlich zu 
 * **/botsay TEXT** sendet im Namen des Bots den eingegeben Text. Dabei kann limitierter KCode genutzt werden.
 * **/botsayadmin allow:NICK** schaltet einen User für /botsay frei
 * **/botsayadmin disallow:NICK** sperrt einen User für /botsay
+* **/botsayadmin** gibt die Liste der freigeschalteten Nutzer wieder
 
 ## Weitere Infos
 * Standardmäßig darf jeder Appmanager /botsay nutzen. Der Channelbesitzer kann aber auch für andere Appmanager dieses deaktivieren
