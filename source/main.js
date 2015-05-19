@@ -14,6 +14,9 @@
  */
 var App = {};
 
+
+App.projectURL = "https://github.com/KnuddelsTools/ChannelMaster";
+
 /**
  * In diesem Objekt werden Chatbefehle registriert
  * @type {{}}
