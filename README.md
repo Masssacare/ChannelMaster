@@ -7,6 +7,11 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 * [ChannelTop](README-channeltop.md)
 * [Botsay](README-botsay.md)
 
+
+## Modulbefehle
+* `/activatemodule ModuleName` aktiviert ein Modul
+* `/deactivatemodule ModuleName` deaktiviert ein Modul
+
 ## Trage selbst Code dabei
 Gerne kannst du selbst Quellcode beisteuern und die ChannelMaster App zu erweitern. Hierzu müssen aber ein paar Richtlinien eingehalten werden.
 
