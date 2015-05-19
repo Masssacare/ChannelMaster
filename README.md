@@ -6,7 +6,8 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 ## Verfügbare Module
 * [ChannelTop](README-channeltop.md)
 * [Botsay](README-botsay.md)
-* 
+
+
 ## Modulbefehle
 * `/activatemodule ModuleName` aktiviert ein Modul
 * `/deactivatemodule ModuleName` deaktiviert ein Modul
