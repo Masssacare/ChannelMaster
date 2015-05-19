@@ -71,7 +71,7 @@ ModuleManager.prototype.onUserJoined = function(user) {
           "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
           "°#°_Registrierte Module:_ " + App.modules.registered.join(", ") +
           "°#°_Aktivierte Module:_ " +  activated.join(", ") +
-          "°#°_Hilfe & Anleitung: °BB>"+App.projectURL+"<°°r°_"
+          "°#°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_"
       );
   }
 };
