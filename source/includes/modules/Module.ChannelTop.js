@@ -122,7 +122,7 @@ ChannelTop.prototype.updateOnlinetime = function(user) {
  * @param {User} user
  */
 ChannelTop.prototype.onUserJoined = function(user) {
-    user.getPersistence().setNumber("mChannelTop_jointime", now);
+    user.getPersistence().setNumber("mChannelTop_jointime", Date.now());
 };
 
 
