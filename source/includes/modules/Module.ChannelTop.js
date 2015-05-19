@@ -164,6 +164,8 @@ ChannelTop.prototype.updateAllUsers = function() {
 ChannelTop.prototype.bestlistOnline = function(user, list) {
     var keyname = "mChannelTop_";
     var listheader = "";
+    var avgMulti = 1;
+    var date = new Date();
     switch(list) {
         case "online":
             keyname += "onlinetime";
@@ -172,18 +174,22 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         case "online day":
             keyname += "onlinetime_day";
             listheader += "Folgende User waren Heute am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfDay();
             break;
         case "online week":
             keyname += "onlinetime_week";
             listheader += "Folgende User waren diese Woche am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfWeek();
             break;
         case "online month":
             keyname += "onlinetime_month";
             listheader += "Folgende User waren diesen Monat am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfMonth();
             break;
         case "online year":
             keyname += "onlinetime_year";
             listheader += "Folgende User waren dieses Jahr am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfYear();
             break;
     }
     if(listheader == "")
@@ -199,6 +205,11 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
         " mit " + this.timeToString(tTime) + ".";
     }
+    if(avgMulti != 1) {
+        var avg = UserPersistenceNumbers.getSum(keyname) * avgMulti;
+        message += "°#°°#°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
+    }
+
     user.sendPrivateMessage(message);
 };
 
