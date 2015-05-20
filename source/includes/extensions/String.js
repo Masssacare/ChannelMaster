@@ -9,6 +9,40 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 
+
+if(!String.prototype.hasOwnProperty("fixsplit")) {
+    /**
+     * Fixed die Splitfunktion von Knuddels. Kein RegEx möglich.
+     * @param {string} sep
+     * @param {string} limit
+     * @returns {Array}
+     */
+    String.prototype.fixsplit = function(sep, limit) {
+        limit = limit | 0;
+        var arr = [];
+        var tmp = this.toString();
+        var i = -1;
+        while(true) {
+            i = tmp.indexOf(sep);
+            if(i==-1)
+                break;
+            var part = tmp.substring(0,i);
+            arr.push(part);
+            if(limit > 0 && arr.length == limit)
+                return arr;
+
+
+            tmp = tmp.substring(i+sep.length);
+        }
+        arr.push(tmp);
+
+
+        return arr;
+    };
+}
+
+
+
 if(!String.prototype.hasOwnProperty("limitKCode")) {
     /**
      * Diese Funktion entfernt verbotenen KCode.
