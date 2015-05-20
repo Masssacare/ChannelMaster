@@ -28,7 +28,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             infoLinks: true,
             allLinks: false,
             orientation:  true,
-            newLine: true
+            newLine: true,
+            appCommandLinks: true
         };
 
         if (typeof limits === 'object') {
@@ -143,6 +144,18 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                 if(action.startsWith("/info ") && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
+                                }
+
+                                if(allowed.appCommandLinks) {
+                                    //checke ob action eine appinterne funktion ist
+                                    var splittedaction = action.split(" ");
+                                    if (splittedaction > 0) {
+                                        var cmdname = splittedaction[0].toLowerCase().substr(1);
+                                        if (typeof App.chatCommands[cmdname] === 'function') {
+                                            tmpInsideKCode += ">" + text + "|" + action + "<";
+                                            continue;
+                                        }
+                                    }
                                 }
 
                                 continue;
