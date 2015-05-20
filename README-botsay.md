@@ -22,6 +22,7 @@ Botsay ermöglicht es freigeschalteten Nutzern im Namen des Bots öffentlich zu 
     * /info Links
     * CENTER, LEFT, RIGHT, JUSTIFY,
     * neue Zeile
+    * Appbefehle innerhalb der ChannelMaster App
     
 ## Entwickler
 /w Vampiric Desire
