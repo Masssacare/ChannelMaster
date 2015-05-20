@@ -18,3 +18,4 @@ require("includes/Class.Module.js");
 require("includes/modules/Module.Botsay.js");
 require("includes/modules/Module.ChannelTop.js");
 require("includes/modules/Module.ModuleManager.js");
+require("includes/modules/Module.TopicChanger.js");
