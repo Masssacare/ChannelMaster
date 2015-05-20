@@ -222,6 +222,11 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     case '[':
                                         inColor = "";
                                         continue;
+                                    case 'r':
+                                        if(allowed.color || allowed.size) {
+                                            tmpInsideKCode += iChar;
+                                        }
+                                        continue;
                                     case '0':
                                     case '1':
                                     case '2':
