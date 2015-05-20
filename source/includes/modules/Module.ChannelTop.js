@@ -72,11 +72,18 @@ ChannelTop.prototype.timerHandler = function(date) {
  * @type {Array}
  */
 ChannelTop.prototype.lists = [
+    //user liste
     '_°BB>_honline|/channeltop "<°_',
     '_°BB>_honline day|/channeltop "<°_',
     '_°BB>_honline week|/channeltop "<°_',
     '_°BB>_honline month|/channeltop "<°_',
-    '_°BB>_honline year|/channeltop "<°_'
+    '_°BB>_honline year|/channeltop "<°_',
+    //cm liste
+    '_°BB>_honline cm|/channeltop "<°_',
+    '_°BB>_honline day cm|/channeltop "<°_',
+    '_°BB>_honline week cm|/channeltop "<°_',
+    '_°BB>_honline month cm|/channeltop "<°_',
+    '_°BB>_honline year cm|/channeltop "<°_'
 ];
 
 /**
@@ -154,6 +161,76 @@ ChannelTop.prototype.updateAllUsers = function() {
     UserPersistenceNumbers.each("mChannelTop_jointime",function(user, value, index, totalCount, key) {
         ChannelTop.self.updateOnlinetime(user);
     });
+};
+
+
+
+/**
+ * Zeigt die bestenliste für die Liste an
+ * @param {User} user
+ * @param {string} list
+ */
+ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
+    var date = new Date();
+    var avgMulti = 1;
+    var keyname = "mChannelTop_";
+    var listheader = "";
+    switch(list) {
+        case "online cm":
+            keyname += "onlinetime";
+            listheader += "Folgende CMs waren am längsten in diesem Channel online:";
+            break;
+        case "online day cm":
+            keyname += "onlinetime_day";
+            listheader += "Folgende CMs waren Heute am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfDay();
+            break;
+        case "online week cm":
+            keyname += "onlinetime_week";
+            listheader += "Folgende CMs waren diese Woche am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfWeek();
+            break;
+        case "online month cm":
+            keyname += "onlinetime_month";
+            listheader += "Folgende CMs waren diesen Monat am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfMonth();
+            break;
+        case "online year cm":
+            keyname += "onlinetime_year";
+            listheader += "Folgende CMs waren dieses Jahr am längsten in diesem Channel online:";
+            avgMulti = 1.0/date.getMillisecondsOfYear();
+            break;
+    }
+    if(listheader!="") {
+        var cms = KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelModerators();
+        cms = cms.sort(
+            /**
+             *
+             * @param {User} a
+             * @param {User} b
+             * @returns {number}
+             */
+            function(a, b){
+            return b.getPersistence().getNumber(keyname, 0) - a.getPersistence().getNumber(keyname, 0);
+        });
+        var sum = 0;
+        var message = "°RR20°_" + listheader + "°r°_";
+        for(var i = 0; i < cms.length; i++) {
+            var tUser = cms[i];
+            var tTime = tUser.getPersistence().getNumber(keyname,0);
+            sum += tTime;
+            var tPlace = i+1;
+            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            " mit " + this.timeToString(tTime) + ".";
+        }
+        if(avgMulti != 1) {
+            var avg = sum * avgMulti;
+            message += "°#°°#°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
+        }
+
+        user.sendPrivateMessage(message);
+    }
 };
 
 /**
@@ -268,6 +345,9 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
     }
     if(action == "online" || action == "online day" || action == "online week" || action == "online month" || action == "online year") {
         return this.bestlistOnline(user, action);
+    }
+    if(action == "online cm" || action == "online day cm" || action == "online week cm" || action == "online month cm" || action == "online year cm") {
+        return this.bestlistOnlineCM(user, action);
     }
 
 
