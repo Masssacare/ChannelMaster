@@ -22,9 +22,17 @@ ChannelTop.prototype = new Module;
 ChannelTop.prototype.constructor = ChannelTop;
 
 
-
-
-
+/**
+ *
+ * @param {PublicMessage} publicMessage
+ */
+ChannelTop.prototype.onPublicMessage = function(publicMessage) {
+    var user = publicMessage.getAuthor();
+    var mcount = user.getPersistence().addNumber("mChannelTop_messagecount",1);
+    var ccount = user.getPersistence().addNumber("mChannelTop_charcount", publicMessage.getText().length);
+    var avg = parseFloat((1.0*ccount/mcount).toFixed(2));
+    user.getPersistence().setNumber("mChannelTop_avgchars",avg);
+};
 
 ChannelTop.prototype.onActivated = function() {
     App.chatCommands.channeltop = this.cmdChanneltop;
@@ -72,12 +80,19 @@ ChannelTop.prototype.timerHandler = function(date) {
  * @type {Array}
  */
 ChannelTop.prototype.lists = [
+
     //user liste
+    '_°BB>_hmessages|/channeltop "<°_',
+    '_°BB>_hmosttext|/channeltop "<°_',
+
     '_°BB>_honline|/channeltop "<°_',
     '_°BB>_honline day|/channeltop "<°_',
     '_°BB>_honline week|/channeltop "<°_',
     '_°BB>_honline month|/channeltop "<°_',
     '_°BB>_honline year|/channeltop "<°_',
+
+
+
     //cm liste
     '_°BB>_honline cm|/channeltop "<°_',
     '_°BB>_honline day cm|/channeltop "<°_',
@@ -233,6 +248,57 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
     }
 };
 
+
+
+/**
+ * Zeigt die bestenliste für die Liste an
+ * @param {User} user
+ * @param {string} list
+ */
+ChannelTop.prototype.bestlistText = function(user, list) {
+    var keyname = "mChannelTop_";
+    var listheader = "";
+    var date = new Date();
+    var message = "";
+    if(list == "messages") {
+        keyname += "messagecount";
+        listheader += "Folgende User haben die meisten Nachrichten verfasst:";
+        var entries = UserPersistenceNumbers.getSortedEntries(keyname, { ascending: false, count: 30 });
+        var message = "°RR20°_" + listheader + "°r°_";
+        for(var i = 0; i < entries.length; i++) {
+            var tUser = entries[i].getUser();
+            var tMessages = entries[i].getValue();
+            var tPlace = i+1;
+            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            " mit " + tMessages + " Nachrichten.";
+        }
+
+    } else if(list == "mosttext") {
+        keyname += "charcount";
+        listheader += "Folgende User haben den meisten Text geschrieben";
+        var entries = UserPersistenceNumbers.getSortedEntries(keyname, { ascending: false, count: 30 });
+        var message = "°RR20°_" + listheader + "°r°_";
+        for(var i = 0; i < entries.length; i++) {
+            var tUser = entries[i].getUser();
+            var tMessages = entries[i].getValue();
+            var tPlace = i+1;
+            var avg = tUser.getPersistence().getNumber("mChannelTop_avgchars");
+            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
+        }
+
+    }
+    if(listheader == "")
+        return;
+
+
+
+
+    user.sendPrivateMessage(message);
+};
+
 /**
  * Zeigt die bestenliste für die Liste an
  * @param {User} user
@@ -348,6 +414,9 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
     }
     if(action == "online cm" || action == "online day cm" || action == "online week cm" || action == "online month cm" || action == "online year cm") {
         return this.bestlistOnlineCM(user, action);
+    }
+    if(action == "messages" || action == "mosttext") {
+        return this.bestlistText(user, action);
     }
 
 
