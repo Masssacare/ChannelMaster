@@ -175,7 +175,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if(action.startsWith("/info ") && allowed.channelLinks) {
+                                if((action.startsWith("/info ") || action == "/info") && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
