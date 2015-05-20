@@ -6,6 +6,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 ## Verfügbare Module
 * [Botsay](README-botsay.md)
 * [ChannelTop](README-channeltop.md)
+* [KnuPayout](README-knupayout.md)
 * [TopicChanger](README-topicchanger.md)
 
 
