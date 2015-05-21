@@ -8,6 +8,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 * [ChannelTop](README-channeltop.md)
 * [JavaFXCheck](README-javafxcheck.md)
 * [KnuPayout](README-knupayout.md)
+* [MCMMessage](README-mcmmessage.md)
 * [TopicChanger](README-topicchanger.md)
 
 
