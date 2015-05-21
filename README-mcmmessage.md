@@ -1,7 +1,7 @@
-Modul: MCMMessage
+#Modul: MCMMessage
 
 ## Was macht MCMMessage?
-TopicChanger erlaubt den Channelbesitzer per Chatbefehl das Thema des Channels zu verändern. Dabei kann er auf mehr KCode zugreifen, als über /mychannel.
+MCMMessage erlaubt es dem CM Team sich gegenseitig Rundmails zu schicken.
 
 ## Befehle für MCMMessage
 * **/mcmmessage TEXT** Sendet eine Rundmail an alle CMs mit dem angegebenen Text
