@@ -1,4 +1,4 @@
-Modul: MCMMessage
+#Modul: MCMMessage
 
 ## Was macht MCMMessage?
 MCMMessage erlaubt es dem CM Team sich gegenseitig Rundmails zu schicken.
