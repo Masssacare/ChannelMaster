@@ -84,7 +84,7 @@ Unmute.prototype.timerHandler = function (date) {
  * @param {User} user
  */
 Unmute.prototype.onUserJoined = function (user) {
-    user.sendPrivateMessage("Sofern du hier im Channel gemutet wirst,werden die anwesenden Cms hier im Channel automatisch darüber informiert.");
+    user.sendPrivateMessage("Sofern du hier im Channel gemutet wirst, werden die anwesenden Cms hier im Channel automatisch darüber informiert.");
 };
 
 Unmute.self = new Unmute();
