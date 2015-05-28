@@ -11,6 +11,7 @@
 require("includes/extensions/String.js");
 require("includes/extensions/KnuddelsServer.js");
 require("includes/extensions/Date.js");
+require("includes/extensions/Base64.js");
 
 require("includes/Class.Module.js");
 

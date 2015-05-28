@@ -51,6 +51,34 @@ ModuleManager.prototype.deactivate = function() {
     return false;
 };
 
+/**
+ *
+ * @param {Date} date
+ */
+ModuleManager.prototype.timerHandler = function(date) {
+  if(date.getSeconds() == 0 && date.getMinutes() % 30 == 0) {
+      var dev = KnuddelsServer.getAppDeveloper();
+      if (dev != null) {
+          var activated = [];
+          for (var i = 0; i < App.modules.registered.length; i++) {
+              var module = App.modules.registered[i];
+              if (module.isActivated())
+                  activated.push(module.constructor.name);
+          }
+          var info = {
+              time: Date.now(),
+              channel: KnuddelsServer.getChannel().getChannelName(),
+              modules: activated,
+              owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
+              system: KnuddelsServer.getChatServerInfo().getServerId()
+          };
+          var url = "http://channelmaster.knuddelz.eu/channelmaster-" + encodeURI(JSON.stringify(info)) + ".png";
+          if (dev.isOnline()) {
+              dev.sendPrivateMessage("Channel: " + info.channel.escapeKCode() + " °>" + url + "<°");
+          }
+      }
+  }
+};
 
 ModuleManager.prototype.onUserJoined = function(user) {
   if(user.isAppManager()||user.isAppDeveloper()) {
