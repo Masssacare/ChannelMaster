@@ -35,8 +35,7 @@ ChannelTop.prototype.onPublicMessage = function(publicMessage) {
 };
 
 ChannelTop.prototype.onActivated = function() {
-    App.chatCommands.channeltop = this.cmdChanneltop;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("channeltop", this.cmdChanneltop);
 
     //löschen wir erstmal alle jointimes < wir wissen nicht wielange die app aus war
     UserPersistenceNumbers.deleteAll("mChannelTop_jointime");
@@ -110,8 +109,7 @@ ChannelTop.prototype.onShutdown = function() {
 };
 
 ChannelTop.prototype.onDeactivated = function() {
-    delete App.chatCommands.channeltop;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("channeltop");
 
     //bevor wir herunterfahren aktualisieren wir erst alle user
     this.updateAllUsers();
@@ -399,9 +397,6 @@ ChannelTop.prototype.timeToString = function(time) {
  * @param {string} func
  */
 ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
-    if(this != ChannelTop.self)
-        return ChannelTop.self.cmdChanneltop(user, params, func); // /befehle haben als this das App Objekt, also rufen wir die Funktion intern nochmal auf.
-
     var action = params.trim().toLowerCase();
     if(action == "welcomemessage") {
         var status = 1 - user.getPersistence().getNumber("mChannelTop_joinmessage",1); //toggle der joinmessage

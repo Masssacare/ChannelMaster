@@ -26,15 +26,13 @@ ModuleManager.prototype.constructor = ModuleManager;
 
 
 ModuleManager.prototype.onActivated = function() {
-    App.chatCommands.activatemodule = this.cmdActivateModule;
-    App.chatCommands.deactivatemodule = this.cmdDeactivateModule;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("activatemodule", this.cmdActivateModule);
+    this.registerCommand("deactivatemodule",this.cmdDeactivateModule);
 };
 
 ModuleManager.prototype.onDeactivated = function() {
-    delete App.chatCommands.activatemodule;
-    delete App.chatCommands.deactivatemodule;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("activatemodule");
+    this.unregisterCommand("deactivatemodule");
 };
 
 /**

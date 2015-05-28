@@ -23,13 +23,11 @@ KnuPayout.prototype.constructor = KnuPayout;
 
 
 KnuPayout.prototype.onActivated = function() {
-    App.chatCommands.knupayout = this.cmdKnuPayout;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("knupayout", this.cmdKnuPayout);
 };
 
 KnuPayout.prototype.onDeactivated = function() {
-    delete App.chatCommands.knupayout;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("knupayout");
 };
 
 /**
@@ -40,9 +38,6 @@ KnuPayout.prototype.onDeactivated = function() {
  * @returns {*}
  */
 KnuPayout.prototype.cmdKnuPayout = function (user, params, func) {
-    if(this != KnuPayout.self) {
-        return KnuPayout.self.cmdKnuPayout(user, params, func);
-    }
     if(!user.isChannelOwner())
         return;
     if(params == "") {

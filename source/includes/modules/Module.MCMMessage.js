@@ -22,13 +22,12 @@ MCMMessage.prototype.constructor = MCMMessage;
 
 
 MCMMessage.prototype.onActivated = function() {
-  App.chatCommands.mcmmessage = this.cmdMCMMessage;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("mcmmessage", this.cmdMCMMessage);
+
 };
 
 MCMMessage.prototype.onDeactivated = function() {
-  delete  App.chatCommands.mcmmessage;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("mcmmessage", this.cmdMCMMessage);
 };
 
 /**
@@ -38,9 +37,6 @@ MCMMessage.prototype.onDeactivated = function() {
  * @param {string} func
  */
 MCMMessage.prototype.cmdMCMMessage = function(user, params, func) {
-    if(this !=  MCMMessage.self) {
-        return MCMMessage.self.cmdMCMMessage(user, params, func);
-    }
     if(!user.isChannelOwner() && !user.isChannelModerator()) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht nutzen.");
         return;

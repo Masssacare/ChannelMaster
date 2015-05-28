@@ -21,15 +21,13 @@ Botsay.prototype = new Module;
 Botsay.prototype.constructor = Botsay;
 
 Botsay.prototype.onActivated = function() {
-    App.chatCommands.botsay = this.cmdBotsay;
-    App.chatCommands.botsayadmin = this.cmdBotsayAdmin;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("botsay", this.cmdBotsay);
+    this.registerCommand("botsayadmin", this.cmdBotsayAdmin);
 };
 
 Botsay.prototype.onDeactivated = function() {
-    delete App.chatCommands.botsay;
-    delete App.chatCommands.botsayadmin;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("botsay");
+    this.unregisterCommand("botsayadmin");
 };
 
 /**
@@ -39,9 +37,6 @@ Botsay.prototype.onDeactivated = function() {
  * @param {string} func
  */
 Botsay.prototype.cmdBotsay = function(user, params, func) {
-    if(this != Botsay.self)
-        return Botsay.self.cmdBotsay(user, params, func); // /befehle haben als this das App Objekt, also rufen wir die Funktion intern nochmal auf.
-
     var msg = params.limitKCode();
     if(msg.trim().length == 0)
         return;
@@ -98,9 +93,6 @@ Botsay.prototype.allowedUsers = function() {
  * @param {string} func
  */
 Botsay.prototype.cmdBotsayAdmin = function(user, params, func) {
-    if(this != Botsay.self)
-        return Botsay.self.cmdBotsayAdmin(user, params, func); // /befehle haben als this das App Objekt, also rufen wir die Funktion intern nochmal auf.
-
     if(!user.isAppManager())
         return;
 

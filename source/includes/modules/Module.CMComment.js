@@ -23,12 +23,10 @@ CMComment.prototype.constructor = CMComment;
 
 
 CMComment.prototype.onActivated = function () {
-    App.chatCommands.cmcomment = this.cmdCMComment;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("cmcomment",this.cmdCMComment);
 };
 CMComment.prototype.onDeactivated = function () {
-    delete  App.chatCommands.cmcomment;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("cmcomment");
 };
 
 CMComment.prototype.onUserJoined = function(user) {
@@ -52,9 +50,6 @@ CMComment.prototype.onUserJoined = function(user) {
  * @param {string} func
  */
 CMComment.prototype.cmdCMComment = function(user, params, func) {
-    if(this != CMComment.self)
-        return CMComment.self.cmdCMComment(user, params, func);
-
     if(!user.isChannelModerator() && !user.isAtLeast(UserStatus.HonoryMember))
         return;
     if(params == "") {
