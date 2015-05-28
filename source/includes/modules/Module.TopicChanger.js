@@ -30,9 +30,7 @@ TopicChanger.prototype.constructor = TopicChanger;
  * @param {string} func
  */
 TopicChanger.prototype.cmdPreviewTopic = function (user, params, func) {
-    if(this != TopicChanger.self) {
-        return TopicChanger.self.cmdPreviewTopic(user, params, func);
-    }
+
 
     if(!this.isAllowed(user)) {
         return;
@@ -52,9 +50,7 @@ TopicChanger.prototype.cmdPreviewTopic = function (user, params, func) {
  * @param {string} func
  */
 TopicChanger.prototype.cmdSetTopic = function (user, params, func) {
-    if(this != TopicChanger.self) {
-        return TopicChanger.self.cmdSetTopic(user, params, func);
-    }
+
 
     if(!this.isAllowed(user)) {
         return;
@@ -66,8 +62,6 @@ TopicChanger.prototype.cmdSetTopic = function (user, params, func) {
 };
 
 TopicChanger.prototype.cmdTopicChangerAdmin = function(user, params, func) {
-    if(this != TopicChanger.self)
-        return TopicChanger.self.cmdTopicChangerAdmin(user, params, func);
 
     if(!user.isChannelOwner()) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
@@ -128,17 +122,15 @@ TopicChanger.prototype.isAllowed = function(user) {
 
 
 TopicChanger.prototype.onActivated = function() {
-    App.chatCommands.settopic = this.cmdSetTopic;
-    App.chatCommands.previewtopic = this.cmdPreviewTopic;
-    App.chatCommands.topicchangeradmin = this.cmdTopicChangerAdmin;
-    KnuddelsServer.refreshHooks();
+    this.registerCommand("settopic", this.cmdSetTopic);
+    this.registerCommand("previewtopic", this.cmdPreviewTopic);
+    this.registerCommand("topicchangeradmin",this.cmdTopicChangerAdmin);
 };
 
 TopicChanger.prototype.onDeactivated = function() {
-    delete App.chatCommands.settopic;
-    delete App.chatCommands.previewtopic;
-    delete App.chatCommands.topicchangeradmin;
-    KnuddelsServer.refreshHooks();
+    this.unregisterCommand("settopic");
+    this.unregisterCommand("previewtopic");
+    this.unregisterCommand("topicchangeradmin");
 };
 
 

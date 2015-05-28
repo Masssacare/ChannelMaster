@@ -14,6 +14,11 @@
  */
 var App = {};
 
+/**
+ *
+ * @type {boolean}
+ */
+App.isStarting = false;
 
 App.projectURL = "https://github.com/KnuddelsTools/ChannelMaster";
 
@@ -54,10 +59,50 @@ App.getModule = function(modulename) {
     return null;
 };
 
+App.refreshTimeout = null;
+
+App.refreshCommands = function() {
+    KnuddelsServer.refreshHooks();
+    App.refreshTimeout = null;
+};
+
+App.registerCommand = function (command, func) {
+    if(typeof App.chatCommands[command] === 'function') {
+        return false;
+    }
+    App.chatCommands[command] = func;
+
+
+    if(!this.isStarting) {
+        if(App.refreshTimeout!=null) {
+            clearTimeout(App.refreshTimeout);
+        }
+        App.refreshTimeout = setTimeout(App.refreshCommands, 500);
+    }
+
+    return true;
+};
+
+App.unregisterCommand = function (command) {
+    if(typeof App.chatCommands[command] !== 'function') {
+        return false;
+    }
+    delete App.chatCommands[command];
+    if(!this.isStarting) {
+        if(App.refreshTimeout!=null) {
+            clearTimeout(App.refreshTimeout);
+        }
+        App.refreshTimeout = setTimeout(App.refreshCommands, 500);
+    }
+
+    return true;
+};
+
 /**
  * Diese Funktion wird beim Start der App aufgerufen.
  */
 App.onAppStart = function() {
+    App.isStarting = true;
     //start Interval for timerHandler
     setInterval(App.timerHandler, 1000);
 
@@ -69,6 +114,7 @@ App.onAppStart = function() {
         if(typeof module.onAppStart === 'function')
             module.onAppStart();
     }
+    App.isStarting = false;
 };
 
 /**

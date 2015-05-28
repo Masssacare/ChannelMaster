@@ -93,3 +93,27 @@ if(!Date.prototype.hasOwnProperty("getMillisecondsOfWeek")) {
         return ms;
     };
 }
+
+
+if(!Date.prototype.hasOwnProperty("toGermanString")) {
+    /**
+     * Wandelt die Zeit in einen Datestring um, der in Deutschland üblich ist
+     * @returns {string}
+     */
+    Date.prototype.toGermanString = function () {
+        var month = this.getMonth()+1;
+        if(month < 10)
+            month = "0" + month;
+
+        var seconds = this.getSeconds();
+        if(seconds < 10)
+            seconds = "0" + seconds;
+
+        var minutes = this.getMinutes();
+        if(minutes < 10)
+            minutes = "0" + minutes;
+
+
+        return this.getDate() + "." + month + "." + this.getFullYear() + " - " + this.getHours() + ":" + minutes + ":" + seconds;
+    };
+}

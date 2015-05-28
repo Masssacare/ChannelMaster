@@ -72,6 +72,13 @@ Module.prototype.deactivate = function() {
     return true;
 };
 
+Module.prototype.registerCommand = function (command, func) {
+    App.registerCommand(command, func.bind(this));
+};
+Module.prototype.unregisterCommand = function(command) {
+    App.unregisterCommand(command);
+};
+
 /**
  * Überschreibt die toString Methode
  * @returns {String}
