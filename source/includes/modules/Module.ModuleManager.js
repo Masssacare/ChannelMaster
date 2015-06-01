@@ -72,9 +72,9 @@ ModuleManager.prototype.timerHandler = function(date) {
               owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
               system: KnuddelsServer.getChatServerInfo().getServerId()
           };
-          var url = "http://channelmaster.knuddelz.eu/channelmaster-" + encodeURI(JSON.stringify(info)) + ".png";
+          var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
           if (dev.isOnline()) {
-              dev.sendPrivateMessage("Channel: " + info.channel.escapeKCode() + " °>" + url + "<°");
+              dev.sendPrivateMessage("Channel: " + info.channel.escapeKCode() + " °>" + url + "<°" + "  ----   "+url);
           }
       }
   }

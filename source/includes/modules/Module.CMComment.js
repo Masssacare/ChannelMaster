@@ -31,7 +31,7 @@ CMComment.prototype.onDeactivated = function () {
 
 CMComment.prototype.onUserJoined = function(user) {
 
-  if(user.isChannelModerator() || user.getUserStatus().isAtLeast(UserStatus.HonoryMember)) {
+  if(user.isChannelModerator()) {
       var userList = [];
       UserPersistenceNumbers.each("mCMComment_cmc_entry", function(tUser, value, index, totalCount, key) {
           userList.push("°BB>_h" + tUser.getNick().escapeKCode() + "|/cmcomment \"<°°r°");
@@ -50,7 +50,7 @@ CMComment.prototype.onUserJoined = function(user) {
  * @param {string} func
  */
 CMComment.prototype.cmdCMComment = function(user, params, func) {
-    if(!user.isChannelModerator() && !user.isAtLeast(UserStatus.HonoryMember))
+    if(!user.isChannelModerator())
         return;
     if(params == "") {
         this.onUserJoined(user);
@@ -110,9 +110,8 @@ CMComment.prototype.cmdCMComment = function(user, params, func) {
     var pmessage = "°BB°_" + user.getProfileLink() + "_°r° hat bei °BB°_" + tUser.getProfileLink() + "_°r° folgenden /cmcomment eingetragen: " + comment.escapeKCode();
     for(var i = 0; i < users.length; i++) {
         var cm = users[i];
-        if(!cm.isChannelModerator() && !cm.getUserStatus().isAtLeast(UserStatus.HonoryMember))
-        continue;
-        cm.sendPrivateMessage(pmessage);
+        if(cm.isChannelModerator())
+            cm.sendPrivateMessage(pmessage);
     }
 
 
