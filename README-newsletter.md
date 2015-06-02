@@ -7,7 +7,7 @@ Ebenfalls besteht die Möglichkeit
 
 
 ## Befehle für Newsletter
-* **/appnewsletter TEXT** Setzt TEXT als Nachricht für die Rundmail (K-Code ist Limitiert, kann aber genutzt werden)
+* **/appnewsletter TEXT** Speichert TEXT als Nachricht für die Rundmail (K-Code ist Limitiert, kann aber genutzt werden)
 * **/newslettersend ** Verschickt die Newsletter /m an alle für den Newsletter eingetragene User
 * **/newsletteradmin allow:NICK** schaltet einen User für /appnewsletter TEXT sowie /newslettersend frei
 * **/newsletteradmin disallow:NICK** sperrt einen User für /appnewsletter TEXT sowie /newslettersend

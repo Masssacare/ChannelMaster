@@ -61,15 +61,19 @@ Newsletter.prototype.onUserJoined = function(user) {
  */
 //Funktion um den Newsletter zu verschicken
 Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
+    if(!this.userAllowed(user)) {
+        user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
+        return;
+    }
     var count = UserPersistenceNumbers.getCount("mNewsletter_news");
     var channame = KnuddelsServer.getChannel().getChannelName();
     var AppPersistence = KnuddelsServer.getPersistence();
     var message = AppPersistence.getString("newstext", "Es gibt Neuigkeiten!");
     UserPersistenceNumbers.each("mNewsletter_news", function(user)
-    {
+        {
         user.sendPostMessage("Newsletter aus dem Channel: "+ channame, message);
 
-    }, { ascending: false, maximumCount: count });
+        }, { ascending: false, maximumCount: count });
 };
 
 /**
@@ -79,6 +83,10 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
  */
 // Funktion um den Text für die Rundmail zu definieren
 Newsletter.prototype.cmdNewsletter = function(user, params, func) {
+    if(!this.userAllowed(user)) {
+        user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
+        return;
+    }
     var AppPersistence = KnuddelsServer.getPersistence();
     var msg = params.limitKCode();
     if(msg == "") {
@@ -90,7 +98,7 @@ Newsletter.prototype.cmdNewsletter = function(user, params, func) {
         AppPersistence.setString("newstext", msg);
         var newmessage = AppPersistence.getString("newstext", "Es gibt Neuigkeiten!");
             user.sendPrivateMessage(newmessage);
-    }
+         }
 };
 
 /**
