@@ -30,9 +30,9 @@ CMComment.prototype.onDeactivated = function () {
 };
 
 CMComment.prototype.onUserJoined = function(user) {
+    var userList = [];
+    if(user.isChannelModerator()) {
 
-  if(user.isChannelModerator()) {
-      var userList = [];
       UserPersistenceNumbers.each("mCMComment_cmc_entry", function(tUser, value, index, totalCount, key) {
           userList.push("°BB>_h" + tUser.getNick().escapeKCode() + "|/cmcomment \"<°°r°");
       }, { onEnd: function() {
