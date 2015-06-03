@@ -68,7 +68,7 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     var count = UserPersistenceNumbers.getCount("mNewsletter_news");
     var channame = KnuddelsServer.getChannel().getChannelName();
     var AppPersistence = KnuddelsServer.getPersistence();
-    var message = AppPersistence.getString("newstext", "Es gibt Neuigkeiten!");
+    var message = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
     UserPersistenceNumbers.each("mNewsletter_news", function(user)
         {
         user.sendPostMessage("Newsletter aus dem Channel: "+ channame, message);
@@ -91,12 +91,12 @@ Newsletter.prototype.cmdNewsletter = function(user, params, func) {
     var msg = params.limitKCode();
     if(msg == "") {
 
-        var message = AppPersistence.getString("newstext", "Es gibt Neuigkeiten!");
+        var message = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
         user.sendPrivateMessage(message);
     }
     else {
-        AppPersistence.setString("newstext", msg);
-        var newmessage = AppPersistence.getString("newstext", "Es gibt Neuigkeiten!");
+        AppPersistence.setString("mNewsletter_newstext", msg);
+        var newmessage = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
             user.sendPrivateMessage(newmessage);
          }
 };
@@ -191,7 +191,25 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
     }
     if(params == "list") {
         var count = UserPersistenceNumbers.getCount("mNewsletter_news");
-        user.sendPrivateMessage("Derzeit haben sich _°BB°" + count + "§ User für den Newsletter angemeldet");
+        user.sendPrivateMessage("Derzeit haben sich _°BB>" + count + "|/newsletteradmin userlist<°§ User für den Newsletter angemeldet");
+        return;
+    }
+
+    if(params == "userlist") {
+        var message = "°#°°RR°_Folgende Nutzer haben sich für den Newsletter angemeldet:§°#°";
+        var users = [];
+        UserPersistenceNumbers.each("mNewsletter_news", function(tUser) {
+            users.push("°BB°_" + tUser.getProfileLink() + "§");
+        }, { onEnd: function() {
+
+            users.sort(
+                function(a, b) {
+                return a.localeCompare(b);
+            });
+
+            message += users.join(", ");
+            user.sendPrivateMessage(message);
+        } });
         return;
     }
 

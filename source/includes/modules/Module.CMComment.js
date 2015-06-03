@@ -34,7 +34,7 @@ CMComment.prototype.onUserJoined = function(user) {
     if(user.isChannelModerator()) {
 
       UserPersistenceNumbers.each("mCMComment_cmc_entry", function(tUser, value, index, totalCount, key) {
-          userList.push("°BB>_h" + tUser.getNick().escapeKCode() + "|/cmcomment \"<°°r°");
+          userList.push("°BB>_h" + tUser.getNick().escapeKCode() + "|/cmcomment \"|/w \"<°°r°");
       }, { onEnd: function() {
           if(userList.length > 0) {
               user.sendPrivateMessage("°RR°Für folgende Nutzer ist ein _/cmcomment_ eingetragen:_°r°°#°" + userList.join(", "));

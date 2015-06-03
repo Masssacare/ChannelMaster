@@ -101,6 +101,11 @@ if(!Date.prototype.hasOwnProperty("toGermanString")) {
      * @returns {string}
      */
     Date.prototype.toGermanString = function () {
+
+        var date = this.getDate();
+        if(date < 10)
+            date = "0" + date;
+
         var month = this.getMonth()+1;
         if(month < 10)
             month = "0" + month;
@@ -113,7 +118,11 @@ if(!Date.prototype.hasOwnProperty("toGermanString")) {
         if(minutes < 10)
             minutes = "0" + minutes;
 
+        var hours = this.getHours();
+        if(hours < 10)
+            hours = "0" + hours;
 
-        return this.getDate() + "." + month + "." + this.getFullYear() + " - " + this.getHours() + ":" + minutes + ":" + seconds;
+
+        return date + "." + month + "." + this.getFullYear() + " - " + hours + ":" + minutes + ":" + seconds;
     };
 }
