@@ -14,7 +14,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 * [Newsletter](README-newsletter.md)
 * [TopicChanger](README-topicchanger.md)
 * [Unmute](README-unmute.md)
-
+* [UserInfo](README-userinfo.md)
 
 
 ## Modulbefehle

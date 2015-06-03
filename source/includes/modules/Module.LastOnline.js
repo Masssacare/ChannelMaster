@@ -35,6 +35,15 @@ LastOnline.prototype.onDeactivated = function() {
 
 LastOnline.prototype.onUserJoined = function(user) {
     var persis = user.getPersistence();
+    persis.setNumber("mLastOnline_join", -1);
+};
+
+/**
+ *
+ * @param {User} user
+ */
+LastOnline.prototype.onUserLeft = function (user) {
+  var persis = user.getPersistence();
     persis.setNumber("mLastOnline_join", Date.now());
 };
 /**
@@ -48,6 +57,8 @@ LastOnline.prototype.cmdLastOnline = function(user, params, func) {
     var entries = UserPersistenceNumbers.getSortedEntries("mLastOnline_join", { ascending: false, count: 30 });
     for(var key in entries){
         var entry = entries[key];
+        if (entry.getValue() <= 0)
+        continue;
         message += "°#°"+ entry.getRank() +" - "+ entry.getUser().getProfileLink() + " ("+ new Date (entry.getValue()).toGermanString() + ")";
     }
     user.sendPrivateMessage(message);
