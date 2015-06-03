@@ -12,6 +12,8 @@ require("includes/extensions/String.js");
 require("includes/extensions/KnuddelsServer.js");
 require("includes/extensions/Date.js");
 require("includes/extensions/Base64.js");
+require("includes/extensions/User.js");
+require("includes/extensions/Number.js");
 
 require("includes/Class.Module.js");
 
@@ -27,3 +29,4 @@ require("includes/modules/Module.ModuleManager.js");
 require("includes/modules/Module.Newsletter.js");
 require("includes/modules/Module.TopicChanger.js");
 require("includes/modules/Module.Unmute.js");
+require("includes/modules/Module.UserInfo.js");

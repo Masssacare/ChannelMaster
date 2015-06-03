@@ -105,9 +105,6 @@ App.onAppStart = function() {
     App.isStarting = true;
     //start Interval for timerHandler
     setInterval(App.timerHandler, 1000);
-
-    App.refreshHooks();
-
     var modules = App.modules.onAppStart;
     for(var i = 0; i < modules; i++) {
         var module = modules[i];
@@ -115,6 +112,10 @@ App.onAppStart = function() {
             module.onAppStart();
     }
     App.isStarting = false;
+    if(App.refreshTimeout!=null) {
+        clearTimeout(App.refreshTimeout);
+    }
+    App.refreshTimeout = setTimeout(App.refreshCommands, 500);
 };
 
 /**
