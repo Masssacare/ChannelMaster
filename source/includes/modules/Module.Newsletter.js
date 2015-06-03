@@ -136,8 +136,9 @@ Newsletter.prototype.cmdDeactivateNewsletter = function(user, params, func) {
 };
 
 /**
- * Gibt eine Liste aller erlaubten Nutzer zurück
- * @returns {User[]}
+ * Prüft ob der Nutzer freigegeben ist um /newslettersend & /appnewsletter zu nutzen
+ * @param {User} user
+ * @returns {boolean}
  */
 Newsletter.prototype.userAllowed = function(user) {
 
