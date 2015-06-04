@@ -63,7 +63,9 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             allLinks: false,
             orientation:  true,
             newLine: true,
-            appCommandLinks: true
+            appCommandLinks: true,
+            knuddelsLinks: true,
+            youtubeLinks: true
         };
 
         if (typeof limits === 'object') {
@@ -117,6 +119,9 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                         break;
 
                                 }
+
+
+
                                 if(allowed.allLinks) {
                                     tmpInsideKCode += ">" + inLink + "<";
                                     inLink = false;
@@ -138,6 +143,29 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     text = parts[0];
                                     action = parts[1];
                                 }
+
+                                if(action.startsWith("http://") || action.startsWith("https://")) {
+                                    var url = (function(href) {
+                                        var pattern = RegExp("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+                                        var matches =  href.match(pattern);
+                                        return {
+                                            scheme: matches[2],
+                                            authority: matches[4],
+                                            path: matches[5],
+                                            query: matches[7],
+                                            fragment: matches[9]
+                                        };
+                                    })(action);
+                                    if(url.authority.endsWith("knuddels.de") && allowed.knuddelsLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+                                    if((url.authority.endsWith("youtube.com") || url.authority.endsWith("youtu.be")) && allowed.youtubeLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+                                }
+
 
                                 if(action.startsWith("/pp ") && allowed.profileLinks) {
                                     var nick = action.substr(4).trim();
