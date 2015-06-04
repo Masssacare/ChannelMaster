@@ -159,15 +159,15 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
         }
 
         if(action.toLowerCase() == "allow") {
-            tUser.getPersistence().setNumber("mAdvertise_allow",1);
+            tUser.getPersistence().setNumber("mAdvertise_allowed",1);
             user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun freigeschaltet.");
 
 
         } else if(action.toLowerCase() == "disallow") {
             if (tUser.isAppManager())
-                tUser.getPersistence().setNumber("mAdvertise_allow", 0); //bei Appmanagers müssen wir speichern
+                tUser.getPersistence().setNumber("mAdvertise_allowed", 0); //bei Appmanagers müssen wir speichern
             else
-                tUser.getPersistence().deleteNumber("mAdvertise_allow"); //bei anderen nicht, da sie Standardmäßig nicht dürfen
+                tUser.getPersistence().deleteNumber("mAdvertise_allowed"); //bei anderen nicht, da sie Standardmäßig nicht dürfen
 
             user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun gesperrt.");
         }
