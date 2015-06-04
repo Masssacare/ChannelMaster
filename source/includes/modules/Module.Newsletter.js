@@ -69,9 +69,14 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     var channame = KnuddelsServer.getChannel().getChannelName();
     var AppPersistence = KnuddelsServer.getPersistence();
     var message = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
+    var messageadd = "Diese Nachricht ist der Newsletter aus dem Channel " + channame +".";
+    var deactivate = "Du willst keine weiteren Benachrichtigungen?°#°Einfach °BB°_°>/deactivatenewsletter|/sfc "+channame+":/deactivatenewsletter<°_°[102,102,102]° im Channel "+ channame +" eingeben";
+
+    message += "°r°°#°°#°°#°°RR°_" + messageadd;
+    message += "°#°°[102,102,102]°_" + deactivate;
     UserPersistenceNumbers.each("mNewsletter_news", function(user)
-        {
-        user.sendPostMessage("Newsletter aus dem Channel: "+ channame, message);
+    {
+        user.sendPostMessage("°R°Newsletter aus dem Channel: "+ channame + "°r°", message);
 
         }, { ascending: false, maximumCount: count });
 };
