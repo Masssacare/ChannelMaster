@@ -56,7 +56,7 @@ function UserInfo() {
 
         if(LastOnline.self.isActivated()) {
             var lastOnline = tUser.getPersistence().getNumber("mLastOnline_join",0);
-            message += "°#°_Zuletzt im Channel:_ " + (lastOnline==0?"Noch nie": new Date(lastOnline).toGermanString());
+            message += "°#°_Zuletzt im Channel:_ " + (lastOnline==0?"Noch nie":lastOnline==-1?"Jetzt":new Date(lastOnline).toGermanString());
         }
         if(Newsletter.self.isActivated()) {
             message += "°#°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"Angemeldet":"Abgemeldet");
