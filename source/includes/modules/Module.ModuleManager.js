@@ -123,7 +123,7 @@ ModuleManager.prototype.onAppStart = function() {
  */
 ModuleManager.prototype.cmdActivateModule = function (user, params, funcname) {
     var modulename = params.trim().stripKCode();
-    if(!user.isAppManager()&&!user.isAppDeveloper()) {
+    if(!user.isAppManager()&&!user.isAppDeveloper()&&!user.isCoDeveloper()) {
         return;
     }
     if(modulename == "") {
@@ -149,7 +149,7 @@ ModuleManager.prototype.cmdActivateModule = function (user, params, funcname) {
 
 ModuleManager.prototype.cmdDeactivateModule = function (user, params, funcname) {
     var modulename = params.trim().stripKCode();
-    if(!user.isAppManager()&&!user.isAppDeveloper()) {
+    if(!user.isAppManager()&&!user.isAppDeveloper()&&!user.isCoDeveloper()) {
         return;
     }
     if(modulename == "") {
