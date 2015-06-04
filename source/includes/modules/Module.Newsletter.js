@@ -76,7 +76,7 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     message += "°#°°[102,102,102]°_" + deactivate;
     UserPersistenceNumbers.each("mNewsletter_news", function(user)
     {
-        user.sendPostMessage("°R°Newsletter aus dem Channel: "+ channame + "°r°", message);
+        user.sendPostMessage("°RR°Newsletter aus dem Channel: "+ channame + "°r°", message);
 
         }, { ascending: false, maximumCount: count });
 };
