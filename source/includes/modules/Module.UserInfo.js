@@ -101,7 +101,8 @@ function UserInfo() {
             return true;
         if(user.isAppDeveloper())
             return true;
-
+        if(user.isCoDeveloper())
+            return true;
 
 
 
