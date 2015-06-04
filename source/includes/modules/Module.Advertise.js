@@ -142,6 +142,19 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
                 "_/" + func + " list_ -> Funktionsübersicht anzeigen.");
             return;
         }
+        var action = params.substring(0, ind).trim();
+        var nick = params.substr(ind+1).trim();
+
+        var tUser = KnuddelsServer.getUserByNickname(nick);
+        if(tUser == null) {
+            user.sendPrivateMessage("Der User _" + nick.escapeKCode() + "_ existiert nicht.");
+            return;
+        }
+        if(tUser.isAppManager() && !user.isChannelOwner()) {
+            user.sendPrivateMessage("Nur der Channelbesitzer darf die Rechte eines Appmanagers ändern.");
+            return;
+        }
+
         if(action.toLowerCase() == "allow") {
             tUser.getPersistence().setNumber("mAdvertise_allow",1);
             user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun freigeschaltet.");
