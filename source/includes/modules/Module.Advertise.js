@@ -221,7 +221,7 @@ Advertise.prototype.cmdDeadvertise = function(user, params, func) {
                     user.sendPrivateMessage("Der von dir eingegebene Paramater existiert nicht.");
                     return;
                 }
-                texte = texte.remove(params);
+                texte = Array.remove(texte,params);
                 this.setText(texte);
                 this.cmdAdvertise(user, "list");
 

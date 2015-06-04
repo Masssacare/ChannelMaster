@@ -1,11 +1,11 @@
-if(!Array.prototype.hasOwnProperty("remove")) {
-    Array.prototype.remove = function(keyword) {
+if(typeof Array.remove == 'undefined') {
+    Array.remove = function(array, keyword) {
         var arr = [];
         var i = 0;
-        for(var key in this) {
-            if(key == keyword || typeof this[key] == 'function')
+        for(var key in array) {
+            if(key == keyword || typeof array[key] == 'function')
                 continue;
-            arr[i++] = this[key];
+            arr[i++] = array[key];
         }
         return arr;
     };
