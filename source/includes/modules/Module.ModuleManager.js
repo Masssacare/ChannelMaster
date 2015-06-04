@@ -70,13 +70,16 @@ ModuleManager.prototype.timerHandler = function(date) {
               channel: KnuddelsServer.getChannel().getChannelName(),
               modules: activated,
               owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
-              system: KnuddelsServer.getChatServerInfo().getServerId()
+              system: KnuddelsServer.getChatServerInfo().getServerId(),
+              version: KnuddelsServer.getAppVersion(),
+              bot: KnuddelsServer.getDefaultBotUser().getNick(),
+              onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length
           };
           var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
           if (dev.isOnline()) {
               setTimeout(function() {
                   dev.sendPrivateMessage("°1°°>" + url + "<°" + "  ----   " + url);
-              }, RandomOperations.nextInt(30)*1000 + 1000);
+              }, RandomOperations.nextInt(180)*1000 + 1000);
           }
       }
   }
