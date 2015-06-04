@@ -84,6 +84,9 @@ Advertise.prototype.cmdAdvertise = function(user, params, func) {
             user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
             return;
         }
+    if (params == ""){
+        return;
+    }
     if(params == "list") {
         var message = "°BB18°_Die Folgenden Texte sind derzeit gespeichert§";
         for(var key in texte) {
@@ -99,7 +102,6 @@ Advertise.prototype.cmdAdvertise = function(user, params, func) {
     }
 
     texte.push(params.limitKCode());
-    user.sendPrivateMessage(texte.toSource().escapeKCode());
     this.setText(texte);
     user.sendPrivateMessage("Der nachfolgende Text wurde gespeichert:°#°"+ params);
 };
