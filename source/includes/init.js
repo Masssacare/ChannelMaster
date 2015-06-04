@@ -14,6 +14,7 @@ require("includes/extensions/Date.js");
 require("includes/extensions/Base64.js");
 require("includes/extensions/User.js");
 require("includes/extensions/Number.js");
+require("includes/extensions/Array.js");
 
 require("includes/Class.Module.js");
 

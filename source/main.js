@@ -56,7 +56,7 @@ App.bot = KnuddelsServer.getDefaultBotUser();
  *
  * @type {Function}
  */
-App.sendPublicMessage = App.bot.sendPublicMessage;
+App.sendPublicMessage = function(text) { App.bot.sendPublicMessage(text); };
 
 
 /**
