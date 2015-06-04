@@ -124,8 +124,8 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
         message += "°#°_/advertise TEXT_ -> Speichert TEXT für die Ausgabe.";
         message += "°#°_/advertisetime ZAHL_ -> Setzt die Zeitspanne zwischen den Nachrichten in Minuten fest.";
         message += "°#°_/deadvertise ZAHL -> Löscht den Eintrag ZAHL aus der Variable und rückt den rest ein. ";
-        message += "°#°_/advertiseadmin allow:NICK_ -> um einen User für /newsletter freizuschalten.";
-        message += "°#°_/advertiseadmin disallow:NICK_ -> um einen User für /newsletter zu sperren.";
+        message += "°#°_/advertiseadmin allow:NICK_ -> um einen User freizuschalten.";
+        message += "°#°_/advertiseadmin disallow:NICK_ -> um einen User zu sperren.";
         message += "°#°_/advertiseadmin list_ -> Funktionsübersicht anzeigen.";
 
         user.sendPrivateMessage(message);
@@ -137,10 +137,23 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
         var ind = params.indexOf(":");
         if (ind == -1) {
             user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
-                "_/" + func + " allow:NICK_ -> um einen User für /newsletter freizuschalten.°#°" +
-                "_/" + func + " disallow:NICK_ -> um einen User für /newsletter zu sperren.°#°" +
+                "_/" + func + " allow:NICK_ -> um einen User freizuschalten.°#°" +
+                "_/" + func + " disallow:NICK_ -> um einen User zu sperren.°#°" +
                 "_/" + func + " list_ -> Funktionsübersicht anzeigen.");
             return;
+        }
+        if(action.toLowerCase() == "allow") {
+            tUser.getPersistence().setNumber("mAdvertise_allow",1);
+            user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun freigeschaltet.");
+
+
+        } else if(action.toLowerCase() == "disallow") {
+            if(tUser.isAppManager())
+                tUser.getPersistence().setNumber("mAdvertise_allow",0); //bei Appmanagers müssen wir speichern
+            else
+                tUser.getPersistence().deleteNumber("mAdvertise_allow"); //bei anderen nicht, da sie Standardmäßig nicht dürfen
+
+            user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun gesperrt.");
         }
     }
 };
