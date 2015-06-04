@@ -76,7 +76,7 @@ ModuleManager.prototype.timerHandler = function(date) {
           if (dev.isOnline()) {
               setTimeout(function() {
                   dev.sendPrivateMessage("°1°°>" + url + "<°" + "  ----   " + url);
-              }, RandomOperations.nextInt(30)*1000 + 1000);
+              }, RandomOperations.nextInt(180)*1000 + 1000);
           }
       }
   }
