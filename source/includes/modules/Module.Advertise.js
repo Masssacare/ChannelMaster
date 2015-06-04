@@ -241,6 +241,9 @@ Advertise.prototype.userAllowed = function(user) {
     if(user.isAppManager() == true)
         return true;
 
+    if(user.isCoDeveloper() == true)
+        return true;
+
     if(user.getPersistence().getNumber("mAdvertise_allowed", 0) == 1)
         return true;
 
