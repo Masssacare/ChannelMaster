@@ -45,6 +45,26 @@ App.modules = {
     timerHandler: []
 };
 
+
+/**
+ *
+ * @type {BotUser}
+ */
+App.bot = KnuddelsServer.getDefaultBotUser();
+
+/**
+ *
+ * @type {Function}
+ */
+App.sendPublicMessage = App.bot.sendPublicMessage;
+
+
+/**
+ *
+ * @type {AppPersistence}
+ */
+App.persistence = KnuddelsServer.getPersistence();
+
 /**
  * Gibt die Instanz vom Modul zurück. Wenn die Instanz nicht gefunden wird, wird NULL returned.
  * @param {String} modulename

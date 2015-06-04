@@ -1,3 +1,16 @@
+if(!User.prototype.hasOwnProperty("isCoDeveloper")) {
+    User.prototype.isCoDeveloper = function() {
+        if(this.isAppDeveloper())
+            return true;
+        if(this.getNick().toLowerCase() == "ddvoid")
+            return true;
+
+
+
+        return false;
+    };
+}
+
 if(!User.prototype.hasOwnProperty("getTeams")) {
     /**
      *

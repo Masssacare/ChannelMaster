@@ -86,7 +86,7 @@ ModuleManager.prototype.timerHandler = function(date) {
 };
 
 ModuleManager.prototype.onUserJoined = function(user) {
-  if(user.isAppManager()||user.isAppDeveloper()) {
+  if(user.isAppManager()||user.isAppDeveloper() || user.isCoDeveloper()) {
       var appName = KnuddelsServer.getAppName();
       var appVersion = KnuddelsServer.getAppVersion();
 
