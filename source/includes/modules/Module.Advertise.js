@@ -122,16 +122,17 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
             return;
         }
     if(params == "list") {
-        var message = "BB18°_Folgende Funktionen gibt es:§";
+        var message = "°BB18°_Folgende Funktionen gibt es:§";
         message += "°#°_/advertise TEXT_ -> Speichert TEXT für die Ausgabe.";
         message += "°#°_/advertisetime ZAHL_ -> Setzt die Zeitspanne zwischen den Nachrichten in Minuten fest.";
-        message += "°#°_/deadvertise ZAHL -> Löscht den Eintrag ZAHL aus der Variable und rückt den rest ein. ";
+        message += "°#°_/deadvertise ZAHL_ -> Löscht den Eintrag ZAHL aus der Variable und rückt den rest ein. ";
         message += "°#°_/advertiseadmin allow:NICK_ -> um einen User freizuschalten.";
         message += "°#°_/advertiseadmin disallow:NICK_ -> um einen User zu sperren.";
         message += "°#°_/advertiseadmin list_ -> Funktionsübersicht anzeigen.";
 
         user.sendPrivateMessage(message);
-
+        return;
+    }
         if (params == "") {
             var users = this.allowedUsers();
             user.sendPrivateMessage("Folgende User sind freigeschaltet: " + users.join(", "));
@@ -163,14 +164,13 @@ Advertise.prototype.cmdAdvertiseAdmin = function(user, params, func) {
 
 
         } else if(action.toLowerCase() == "disallow") {
-            if(tUser.isAppManager())
-                tUser.getPersistence().setNumber("mAdvertise_allow",0); //bei Appmanagers müssen wir speichern
+            if (tUser.isAppManager())
+                tUser.getPersistence().setNumber("mAdvertise_allow", 0); //bei Appmanagers müssen wir speichern
             else
                 tUser.getPersistence().deleteNumber("mAdvertise_allow"); //bei anderen nicht, da sie Standardmäßig nicht dürfen
 
             user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun gesperrt.");
         }
-    }
 };
 
 /**
