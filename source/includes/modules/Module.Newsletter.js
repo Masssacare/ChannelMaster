@@ -198,13 +198,13 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
     }
-    if(params == "list") {
+    if(params.toLowerCase() == "list") {
         var count = UserPersistenceNumbers.getCount("mNewsletter_news");
         user.sendPrivateMessage("Derzeit haben sich _°BB>" + count + "|/newsletteradmin userlist<°§ User für den Newsletter angemeldet");
         return;
     }
 
-    if(params == "userlist") {
+    if(params.toLowerCase() == "userlist") {
         var message = "°#°°RR°_Folgende Nutzer haben sich für den Newsletter angemeldet:§°#°";
         var users = [];
         UserPersistenceNumbers.each("mNewsletter_news", function(tUser) {
