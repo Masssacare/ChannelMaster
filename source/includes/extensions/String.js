@@ -212,7 +212,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if(action.startsWith("/go ") && allowed.channelLinks) {
+                                if((action.startsWith("/go ") || action.startsWith("/cc ")) && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
@@ -221,21 +221,21 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     continue;
                                 }
 
-                                if(action.startsWith("/tf-overridesb") && allowed.overrideLinks) {
+                                if(action.startsWith("/tf-overridesb ") && allowed.overrideLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
 
-                                if(action.startsWith("/h") && allowed.helpLinks) {
+                                if((action.startsWith("/h ") || action.startsWith("/help ")) && allowed.helpLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
 
-                                if(action.startsWith("/top") && allowed.helpLinks) {
+                                if((action.startsWith("/top ") || action.startsWith("/showtoplist "))&& allowed.helpLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if(action.startsWith("/dice") && allowed.diceLinks) {
+                                if((action.startsWith("/dice ") || action.startsWith("/d ")) && allowed.diceLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
