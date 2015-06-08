@@ -41,10 +41,10 @@ function UserInfo() {
         var message = "°RR°_Info von °BB°" + tUser.getProfileLink() + "°r°_";
 
         //Default Infos
-        message += "°#°_ClientType:_ " + tUser.getClientType().toString();
-        message += "°#°_Status:_ " + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
+        message += "°#°_ClientType:_ "      + tUser.getClientType().toString();
+        message += "°#°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember))
-            message += "°#°_UID:_ " +  tUser.getUserId().number_format(0,",",".");
+            message += "°#°_UID:_ "         +  tUser.getUserId().number_format(0,",",".");
 
         message += "°#°_Teams:_ " + tUser.getTeams().join(", ");
 
@@ -62,17 +62,17 @@ function UserInfo() {
             message += "°#°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"Angemeldet":"Abgemeldet");
         }
         if(ChannelTop.self.isActivated()) {
-            var timeDay = tUser.getPersistence().getNumber("mChannelTop_onlinetime_day",0);
-            var timeWeek = tUser.getPersistence().getNumber("mChannelTop_onlinetime_week",0);
-            var timeMonth = tUser.getPersistence().getNumber("mChannelTop_onlinetime_month",0);
-            var timeYear = tUser.getPersistence().getNumber("mChannelTop_onlinetime_year",0);
-            var timeAlltime = tUser.getPersistence().getNumber("mChannelTop_onlinetime",0);
+            var timeDay         = tUser.getPersistence().getNumber("mChannelTop_onlinetime_day",    0);
+            var timeWeek        = tUser.getPersistence().getNumber("mChannelTop_onlinetime_week",   0);
+            var timeMonth       = tUser.getPersistence().getNumber("mChannelTop_onlinetime_month",  0);
+            var timeYear        = tUser.getPersistence().getNumber("mChannelTop_onlinetime_year",   0);
+            var timeAlltime     = tUser.getPersistence().getNumber("mChannelTop_onlinetime",        0);
 
-            message += "°#°_Onlinezeit:_ " + ChannelTop.self.timeToString(timeAlltime);
-            message += "°#°_Onlinezeit (Tag):_ " + ChannelTop.self.timeToString(timeDay);
-            message += "°#°_Onlinezeit (Woche):_ " + ChannelTop.self.timeToString(timeWeek);
-            message += "°#°_Onlinezeit (Monat):_ " + ChannelTop.self.timeToString(timeMonth);
-            message += "°#°_Onlinezeit (Jahr):_ " + ChannelTop.self.timeToString(timeYear);
+            message += "°#°_Onlinezeit:_ "          + ChannelTop.self.timeToString(timeAlltime);
+            message += "°#°_Onlinezeit (Tag):_ "    + ChannelTop.self.timeToString(timeDay);
+            message += "°#°_Onlinezeit (Woche):_ "  + ChannelTop.self.timeToString(timeWeek);
+            message += "°#°_Onlinezeit (Monat):_ "  + ChannelTop.self.timeToString(timeMonth);
+            message += "°#°_Onlinezeit (Jahr):_ "   + ChannelTop.self.timeToString(timeYear);
         }
 
 

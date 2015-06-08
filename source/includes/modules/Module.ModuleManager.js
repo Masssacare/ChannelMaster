@@ -28,12 +28,21 @@ ModuleManager.prototype.constructor = ModuleManager;
 ModuleManager.prototype.onActivated = function() {
     this.registerCommand("activatemodule", this.cmdActivateModule);
     this.registerCommand("deactivatemodule",this.cmdDeactivateModule);
+
+
+    this.randomMinute = RandomOperations.nextInt(30);
 };
 
 ModuleManager.prototype.onDeactivated = function() {
     this.unregisterCommand("activatemodule");
     this.unregisterCommand("deactivatemodule");
 };
+
+/**
+ * für den Apptracker ein zufälliger Zeitpunkt
+ * @type {number}
+ */
+ModuleManager.prototype.randomMinute = 0;
 
 /**
  * Dieses Modul ist immer aktiviert.
@@ -56,7 +65,7 @@ ModuleManager.prototype.deactivate = function() {
  * @param {Date} date
  */
 ModuleManager.prototype.timerHandler = function(date) {
-  if(date.getSeconds() == 0 && date.getMinutes() % 30 == 0) {
+  if(date.getSeconds() == 0 && date.getMinutes() % 30 == this.randomMinute) {
       var dev = KnuddelsServer.getAppDeveloper();
       if (dev != null) {
           var activated = [];
@@ -79,7 +88,7 @@ ModuleManager.prototype.timerHandler = function(date) {
           if (dev.isOnline()) {
               setTimeout(function() {
                   dev.sendPrivateMessage("°1°°>" + url + "<°" + "  ----   " + url);
-              }, RandomOperations.nextInt(180)*1000 + 1000);
+              }, RandomOperations.nextInt(120)*1000 + 1000);
           }
       }
   }
