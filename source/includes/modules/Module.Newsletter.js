@@ -45,8 +45,9 @@ Newsletter.prototype.onUserJoined = function(user) {
     var channame = KnuddelsServer.getChannel().getChannelName();
     var persis = user.getPersistence();
     var news = persis.getNumber("mNewsletter_news", 0);
+    var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
     if (news == 0) {
-        user.sendPrivateMessage("Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.");
+        user.sendPrivateMessage(jointext);
     }
     else {
         user.sendPrivateMessage("Falls du den Newsletter abbestellen möchtest, so kannst du das °BB°_°>hier|/sfc " + channame + ":/deactivatenewsletter<°§ tun.");
@@ -67,8 +68,7 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     }
     var count = UserPersistenceNumbers.getCount("mNewsletter_news");
     var channame = KnuddelsServer.getChannel().getChannelName();
-    var AppPersistence = KnuddelsServer.getPersistence();
-    var message = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
+    var message = App.persistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
     var messageadd = "Diese Nachricht ist der Newsletter aus dem Channel " + channame +".";
     var deactivate = "Du willst keine weiteren Benachrichtigungen?°#°Einfach °BB°_°>/deactivatenewsletter|/sfc "+channame+":/deactivatenewsletter<°_°[102,102,102]° im Channel "+ channame +" eingeben";
 
@@ -203,6 +203,12 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
         user.sendPrivateMessage("Derzeit haben sich _°BB>" + count + "|/newsletteradmin userlist<°§ User für den Newsletter angemeldet");
         return;
     }
+    if(params.toLowerCase() == "join") {
+        var channame = KnuddelsServer.getChannel().getChannelName();
+        var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+        user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
+        return;
+    }
 
     if(params.toLowerCase() == "userlist") {
         var message = "°#°°RR°_Folgende Nutzer haben sich für den Newsletter angemeldet:§°#°";
@@ -231,13 +237,32 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
         user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
             "_/" + func + " allow:NICK_ -> um einen User für /newsletter freizuschalten.°#°" +
             "_/" + func + " disallow:NICK_ -> um einen User für /newsletter zu sperren.°#°" +
-            "_/" + func + " list_ -> Anzahl der eingetragenen User bekommen.");
+            "_/" + func + " list_ -> Anzahl der eingetragenen User bekommen." +
+            "_/" + func + " join_ -> Ausgabe des aktuell hinterlegten Begrüßungstextes (Link zum aktivieren des Newsletter muss eingefügt werden)." +
+            "_/" + func + " join:TEXT_ -> Begrüßungstext für den Newsletter beim betreten des Channels ändern.");
+
         return;
     }
 
     var action = params.substring(0, ind).trim();
-    var nick = params.substr(ind+1).trim();
 
+
+    if(action.toLowerCase() == "join") {
+        var text = params.substr(ind+1).trim().limitKCode();
+        if(text == "standard") {
+            App.persistence.setString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+            var standard = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+            user.sendPrivateMessage("Der Begrüßungstext für den Newsletter wurde wieder auf den Standardwert gesetzt. °#°"+standard);
+            return;
+        }
+        else {
+        App.persistence.setString("mNewsletter_join", text+"§°#°°>LEFT<°");
+        var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+        user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
+        return;
+        }
+    }
+    var nick = params.substr(ind+1).trim();
     var tUser = KnuddelsServer.getUserByNickname(nick);
     if(tUser == null) {
         user.sendPrivateMessage("Der User _" + nick.escapeKCode() + "_ existiert nicht.");
