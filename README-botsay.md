@@ -18,11 +18,15 @@ Botsay ermöglicht es freigeschalteten Nutzern im Namen des Bots öffentlich zu 
     * Farbig
     * Größe
     * /w, /m, /pp Links
-    * /go Links
+    * /go | /cc Links
     * /info Links
+    * /dice | /d Links
+    * /top | /showtoplist Links
+    * /h | /help Links
     * CENTER, LEFT, RIGHT, JUSTIFY,
     * neue Zeile
     * Appbefehle innerhalb der ChannelMaster App
+    * Webseiten Links auf den Domains: Knuddels.de, Youtube.com, wikipedia.org, knuddelsseiten.de, youtu.be, knuddels-wiki.de
     
 ## Entwickler
 /w Vampiric Desire

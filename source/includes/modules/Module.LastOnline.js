@@ -59,7 +59,7 @@ LastOnline.prototype.cmdLastOnline = function(user, params, func) {
         var entry = entries[key];
         if (entry.getValue() <= 0)
         continue;
-        message += "°#°"+ entry.getRank() +" - "+ entry.getUser().getProfileLink() + " ("+ new Date (entry.getValue()).toGermanString() + ")";
+        message += "°#r°"+ entry.getRank() +" - "+ entry.getUser().getProfileLink() + " ("+ new Date (entry.getValue()).toGermanString() + ")";
     }
     user.sendPrivateMessage(message);
 };

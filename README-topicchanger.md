@@ -14,15 +14,19 @@ TopicChanger erlaubt den Channelbesitzer per Chatbefehl das Thema des Channels z
 ## Weitere Infos
 * Der KCode ist limiert auf:
     * Fett
-    * Kursiv
-    * Farbig
-    * Größe
-    * /w, /m, /pp Links
-    * /go Links
-    * /info Links
-    * CENTER, LEFT, RIGHT, JUSTIFY,
-    * neue Zeile
-    * Appbefehle innerhalb der ChannelMaster App
+        * Kursiv
+        * Farbig
+        * Größe
+        * /w, /m, /pp Links
+        * /go | /cc Links
+        * /info Links
+        * /dice | /d Links
+        * /top | /showtoplist Links
+        * /h | /help Links
+        * CENTER, LEFT, RIGHT, JUSTIFY,
+        * neue Zeile
+        * Appbefehle innerhalb der ChannelMaster App
+        * Webseiten Links auf den Domains: Knuddels.de, Youtube.com, wikipedia.org, knuddelsseiten.de, youtu.be, knuddels-wiki.de
     
 ## Entwickler
 /w Vampiric Desire

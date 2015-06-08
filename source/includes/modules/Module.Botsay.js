@@ -1,5 +1,5 @@
 /**
- * @file Diese Datei definiert das ChannelTop Module
+ * @file Diese Datei definiert das Botsay Module
  * @author KnuddelsTools
  * @author Vampiric Desire
  * @copyright KnuddelsTools
