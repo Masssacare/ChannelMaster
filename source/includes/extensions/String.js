@@ -65,7 +65,12 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             newLine: true,
             appCommandLinks: true,
             knuddelsLinks: true,
-            youtubeLinks: true
+            youtubeLinks: true,
+            wikiLinks: true,
+            KwikiLinks: true,
+            overrideLinks: true,
+            helpLinks:true,
+            diceLinks:true
         };
 
         if (typeof limits === 'object') {
@@ -156,11 +161,19 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                             fragment: matches[9]
                                         };
                                     })(action);
-                                    if(url.authority.endsWith("knuddels.de") && allowed.knuddelsLinks) {
+                                    if((url.authority.endsWith("knuddels.de") || url.authority.endsWith("knuddelsseiten.de")) && allowed.knuddelsLinks) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                         continue;
                                     }
                                     if((url.authority.endsWith("youtube.com") || url.authority.endsWith("youtu.be")) && allowed.youtubeLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+                                    if((url.authority.endsWith("knuddels-wiki.de") && allowed.KwikiLinks)) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+                                    if((url.authority.endsWith("wikipedia.org") && allowed.wikiLinks)) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                         continue;
                                     }
@@ -199,7 +212,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if(action.startsWith("/go ") && allowed.channelLinks) {
+                                if((action.startsWith("/go ") || action.startsWith("/cc ")) && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
@@ -207,6 +220,27 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
+
+                                if(action.startsWith("/tf-overridesb ") && allowed.overrideLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+
+                                if((action.startsWith("/h ") || action.startsWith("/help ")) && allowed.helpLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+
+                                if((action.startsWith("/top ") || action.startsWith("/showtoplist "))&& allowed.helpLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+                                if((action.startsWith("/dice ") || action.startsWith("/d ")) && allowed.diceLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+
+
 
                                 if(allowed.appCommandLinks) {
                                     //checke ob action eine appinterne funktion ist

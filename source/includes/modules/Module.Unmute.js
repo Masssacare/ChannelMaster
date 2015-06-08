@@ -96,7 +96,7 @@ Unmute.prototype.onUserJoined = function (user) {
 Unmute.prototype.cmdMuted = function(user, params, func) {
     if(!user.isChannelModerator())
         return;
-    if (params == "list") {
+    if (params.toLowerCase() == "list") {
         var list = [];
         for(var key in this.keepMute) {
             var mUser = KnuddelsServer.getUser(key);
