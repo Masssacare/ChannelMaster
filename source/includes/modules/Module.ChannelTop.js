@@ -233,13 +233,13 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
             var tTime = tUser.getPersistence().getNumber(keyname,0);
             sum += tTime;
             var tPlace = i+1;
-            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             " mit " + this.timeToString(tTime) + ".";
         }
         if(avgMulti != 1) {
             var avg = sum * avgMulti;
-            message += "°#°°#°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
+            message += "°#°°#r°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
         }
 
         user.sendPrivateMessage(message);
@@ -267,7 +267,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tUser = entries[i].getUser();
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
-            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             " mit " + tMessages + " Nachrichten.";
         }
@@ -282,7 +282,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
             var avg = tUser.getPersistence().getNumber("mChannelTop_avgchars");
-            message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
         }
@@ -342,13 +342,13 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         var tUser = entries[i].getUser();
         var tTime = entries[i].getValue();
         var tPlace = i+1;
-        message += "°#°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+        message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
         + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
         " mit " + this.timeToString(tTime) + ".";
     }
     if(avgMulti != 1) {
         var avg = UserPersistenceNumbers.getSum(keyname) * avgMulti;
-        message += "°#°°#°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
+        message += "°#°°#r°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
     }
 
     user.sendPrivateMessage(message);
