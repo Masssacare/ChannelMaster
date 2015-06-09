@@ -14,12 +14,28 @@
  * @extends Module
  * @constructor
  */
-
 function ChannelTop() {
     App.registerModule(this);
 };
 ChannelTop.prototype = new Module;
 ChannelTop.prototype.constructor = ChannelTop;
+
+
+ChannelTop.PKEYS = Object.freeze({
+    MESSAGE_COUNT:      "mChannelTop_messagecount",
+    MESSAGE_CHARS:      "mChannelTop_charcount",
+    MESSAGE_CHARAVG:    "mChannelTop_avgchars",
+    JOIN_TIME:          "mChannelTop_jointime",
+    JOIN_MESSAGE:       "mChannelTop_joinmessage",
+    ONLINE_TIME:        "mChannelTop_onlinetime",
+    ONLINE_TIME_DAY:    "mChannelTop_onlinetime_day",
+    ONLINE_TIME_WEEK:   "mChannelTop_onlinetime_week",
+    ONLINE_TIME_MONTH:  "mChannelTop_onlinetime_month",
+    ONLINE_TIME_YEAR:   "mChannelTop_onlinetime_year"
+
+
+});
+
 
 
 /**
@@ -28,22 +44,22 @@ ChannelTop.prototype.constructor = ChannelTop;
  */
 ChannelTop.prototype.onPublicMessage = function(publicMessage) {
     var user = publicMessage.getAuthor();
-    var mcount = user.getPersistence().addNumber("mChannelTop_messagecount",1);
-    var ccount = user.getPersistence().addNumber("mChannelTop_charcount", publicMessage.getText().length);
+    var mcount = user.getPersistence().addNumber(ChannelTop.PKEYS.MESSAGE_COUNT,1);
+    var ccount = user.getPersistence().addNumber(ChannelTop.PKEYS.MESSAGE_CHARS, publicMessage.getText().length);
     var avg = parseFloat((1.0*ccount/mcount).toFixed(2));
-    user.getPersistence().setNumber("mChannelTop_avgchars",avg);
+    user.getPersistence().setNumber(ChannelTop.PKEYS.MESSAGE_CHARAVG,avg);
 };
 
 ChannelTop.prototype.onActivated = function() {
     this.registerCommand("channeltop", this.cmdChanneltop);
 
     //löschen wir erstmal alle jointimes < wir wissen nicht wielange die app aus war
-    UserPersistenceNumbers.deleteAll("mChannelTop_jointime");
+    UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.JOIN_TIME);
 
     //gebe allen Usern einen jointime
     var users = KnuddelsServer.getChannel().getOnlineUsers(UserType.Human);
     for(var i = 0; i < users.length; i++) {
-        users[i].getPersistence().setNumber("mChannelTop_jointime", Date.now());
+        users[i].getPersistence().setNumber(ChannelTop.PKEYS.JOIN_TIME, Date.now());
     }
 };
 
@@ -61,15 +77,15 @@ ChannelTop.prototype.timerHandler = function(date) {
 
     if(date.getSeconds() == 0 && date.getMinutes() == 0 && date.getHours() == 0) { //jede nacht um 0
         if(date.getDay() == 1) { //jeden Montag
-            UserPersistenceNumbers.deleteAll("mChannelTop_onlinetime_week");
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_WEEK);
         }
         if(date.getDate() == 1) { //jeden Monatsersten
-            UserPersistenceNumbers.deleteAll("mChannelTop_onlinetime_month");
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_MONTH);
         }
         if(date.getDate() == 1 && date.getMonth() == 0) { //jeden ersten Tag im Jahr
-            UserPersistenceNumbers.deleteAll("mChannelTop_onlinetime_year");
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_YEAR);
         }
-        UserPersistenceNumbers.deleteAll("mChannelTop_onlinetime_day");
+        UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_DAY);
     }
     this.updateAllUsers();
 };
@@ -97,7 +113,10 @@ ChannelTop.prototype.lists = [
     '_°BB>_honline day cm|/channeltop "<°_',
     '_°BB>_honline week cm|/channeltop "<°_',
     '_°BB>_honline month cm|/channeltop "<°_',
-    '_°BB>_honline year cm|/channeltop "<°_'
+    '_°BB>_honline year cm|/channeltop "<°_',
+
+    //info
+    '_°BB>_hstats|/channeltop "<°_'
 ];
 
 /**
@@ -120,20 +139,20 @@ ChannelTop.prototype.onDeactivated = function() {
  * @param {User} user
  */
 ChannelTop.prototype.updateOnlinetime = function(user) {
-    if(!user.getPersistence().hasNumber("mChannelTop_jointime"))
+    if(!user.getPersistence().hasNumber(ChannelTop.PKEYS.JOIN_TIME))
         return;
 
-    var jtime = user.getPersistence().getNumber("mChannelTop_jointime");
+    var jtime = user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_TIME);
     var now = Date.now();
     var elapsed = now - jtime;
     if(elapsed > 0) {
-        user.getPersistence().addNumber("mChannelTop_onlinetime", elapsed);
-        user.getPersistence().addNumber("mChannelTop_onlinetime_day", elapsed);
-        user.getPersistence().addNumber("mChannelTop_onlinetime_week", elapsed);
-        user.getPersistence().addNumber("mChannelTop_onlinetime_month", elapsed);
-        user.getPersistence().addNumber("mChannelTop_onlinetime_year", elapsed);
+        user.getPersistence().addNumber(ChannelTop.PKEYS.ONLINE_TIME, elapsed);
+        user.getPersistence().addNumber(ChannelTop.PKEYS.ONLINE_TIME_DAY, elapsed);
+        user.getPersistence().addNumber(ChannelTop.PKEYS.ONLINE_TIME_WEEK, elapsed);
+        user.getPersistence().addNumber(ChannelTop.PKEYS.ONLINE_TIME_MONTH, elapsed);
+        user.getPersistence().addNumber(ChannelTop.PKEYS.ONLINE_TIME_YEAR, elapsed);
     }
-    user.getPersistence().setNumber("mChannelTop_jointime", now)
+    user.getPersistence().setNumber(ChannelTop.PKEYS.JOIN_TIME, now)
 };
 
 
@@ -142,11 +161,11 @@ ChannelTop.prototype.updateOnlinetime = function(user) {
  * @param {User} user
  */
 ChannelTop.prototype.onUserJoined = function(user) {
-    user.getPersistence().setNumber("mChannelTop_jointime", Date.now());
+    user.getPersistence().setNumber(ChannelTop.PKEYS.JOIN_TIME, Date.now());
 
     //Willkommensnachricht
-    if(user.getPersistence().getNumber("mChannelTop_joinmessage",1)==1) {
-        var onlinetime = user.getPersistence().getNumber("mChannelTop_onlinetime",0);
+    if(user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1)==1) {
+        var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.ONLINE_TIME,0);
         if(onlinetime>0) {
             user.sendPrivateMessage("Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
         } else {
@@ -162,7 +181,7 @@ ChannelTop.prototype.onUserJoined = function(user) {
  */
 ChannelTop.prototype.onUserLeft = function(user) {
     this.updateOnlinetime(user);
-    user.getPersistence().deleteNumber("mChannelTop_jointime");
+    user.getPersistence().deleteNumber(ChannelTop.PKEYS.JOIN_TIME);
 };
 
 
@@ -171,7 +190,7 @@ ChannelTop.prototype.onUserLeft = function(user) {
  * Aktualisiert alle User
  */
 ChannelTop.prototype.updateAllUsers = function() {
-    UserPersistenceNumbers.each("mChannelTop_jointime",function(user, value, index, totalCount, key) {
+    UserPersistenceNumbers.each(ChannelTop.PKEYS.JOIN_TIME,function(user, value, index, totalCount, key) {
         ChannelTop.self.updateOnlinetime(user);
     });
 };
@@ -186,30 +205,30 @@ ChannelTop.prototype.updateAllUsers = function() {
 ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
     var date = new Date();
     var avgMulti = 1;
-    var keyname = "mChannelTop_";
+    var keyname = "";
     var listheader = "";
     switch(list) {
         case "online cm":
-            keyname += "onlinetime";
+            keyname = ChannelTop.PKEYS.ONLINE_TIME;
             listheader += "Folgende CMs waren am längsten in diesem Channel online:";
             break;
         case "online day cm":
-            keyname += "onlinetime_day";
+            keyname = ChannelTop.PKEYS.ONLINE_TIME_DAY;
             listheader += "Folgende CMs waren Heute am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfDay();
             break;
         case "online week cm":
-            keyname += "onlinetime_week";
+            keyname = ChannelTop.PKEYS.ONLINE_TIME_WEEK;
             listheader += "Folgende CMs waren diese Woche am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfWeek();
             break;
         case "online month cm":
-            keyname += "onlinetime_month";
+            keyname = ChannelTop.PKEYS.ONLINE_TIME_MONTH;
             listheader += "Folgende CMs waren diesen Monat am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfMonth();
             break;
         case "online year cm":
-            keyname += "onlinetime_year";
+            keyname = ChannelTop.PKEYS.ONLINE_TIME_YEAR;
             listheader += "Folgende CMs waren dieses Jahr am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfYear();
             break;
@@ -254,12 +273,11 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
  * @param {string} list
  */
 ChannelTop.prototype.bestlistText = function(user, list) {
-    var keyname = "mChannelTop_";
+    var keyname = "";
     var listheader = "";
-    var date = new Date();
     var message = "";
     if(list == "messages") {
-        keyname += "messagecount";
+        keyname += ChannelTop.PKEYS.MESSAGE_COUNT;
         listheader += "Folgende User haben die meisten Nachrichten verfasst:";
         var entries = UserPersistenceNumbers.getSortedEntries(keyname, { ascending: false, count: 30 });
         var message = "°RR20°_" + listheader + "°r°_";
@@ -273,7 +291,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
         }
 
     } else if(list == "mosttext") {
-        keyname += "charcount";
+        keyname += ChannelTop.PKEYS.MESSAGE_CHARS;
         listheader += "Folgende User haben den meisten Text geschrieben";
         var entries = UserPersistenceNumbers.getSortedEntries(keyname, { ascending: false, count: 30 });
         var message = "°RR20°_" + listheader + "°r°_";
@@ -281,7 +299,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tUser = entries[i].getUser();
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
-            var avg = tUser.getPersistence().getNumber("mChannelTop_avgchars");
+            var avg = tUser.getPersistence().getNumber(ChannelTop.PKEYS.MESSAGE_CHARAVG);
             message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
@@ -303,32 +321,32 @@ ChannelTop.prototype.bestlistText = function(user, list) {
  * @param {string} list
  */
 ChannelTop.prototype.bestlistOnline = function(user, list) {
-    var keyname = "mChannelTop_";
+    var keyname = "";
     var listheader = "";
     var avgMulti = 1;
     var date = new Date();
     switch(list) {
         case "online":
-            keyname += "onlinetime";
+            keyname += ChannelTop.PKEYS.ONLINE_TIME;
             listheader += "Folgende User waren am längsten in diesem Channel online:";
             break;
         case "online day":
-            keyname += "onlinetime_day";
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_DAY;
             listheader += "Folgende User waren Heute am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfDay();
             break;
         case "online week":
-            keyname += "onlinetime_week";
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_WEEK;
             listheader += "Folgende User waren diese Woche am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfWeek();
             break;
         case "online month":
-            keyname += "onlinetime_month";
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_MONTH;
             listheader += "Folgende User waren diesen Monat am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfMonth();
             break;
         case "online year":
-            keyname += "onlinetime_year";
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_YEAR;
             listheader += "Folgende User waren dieses Jahr am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfYear();
             break;
@@ -391,6 +409,23 @@ ChannelTop.prototype.timeToString = function(time) {
 
 
 /**
+ *
+ * @param {User} user
+ */
+ChannelTop.prototype.showStats = function (user) {
+    var date = new Date();
+    var message = "°RR°_ChannelTop Statistik zu " + KnuddelsServer.getChannel().getChannelName().escapeKCode() + "_";
+    message += "°#r°_Anzahl Besucher:_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME);
+    message += "°#r°_Anzahl Besucher (TAG):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_DAY).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_DAY)*(1/date.getMillisecondsOfDay())).toFixed(2)+")";
+    message += "°#r°_Anzahl Besucher (WOCHE):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_WEEK).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_WEEK)*(1/date.getMillisecondsOfWeek())).toFixed(2)+")";
+    message += "°#r°_Anzahl Besucher (MONAT):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_MONTH).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_MONTH)*(1/date.getMillisecondsOfMonth())).toFixed(2)+")";
+    message += "°#r°_Anzahl Besucher (JAHR):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_YEAR).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_YEAR)*(1/date.getMillisecondsOfYear())).toFixed(2)+")";
+
+
+
+    user.sendPrivateMessage(message);
+};
+/**
  * Unsere /channeltop Funktion
  * @param {User} user
  * @param {string} params
@@ -398,9 +433,14 @@ ChannelTop.prototype.timeToString = function(time) {
  */
 ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
     var action = params.trim().toLowerCase();
+
+    if(action == "stats") {
+        this.showStats(user);
+        return;
+    }
     if(action == "welcomemessage") {
-        var status = 1 - user.getPersistence().getNumber("mChannelTop_joinmessage",1); //toggle der joinmessage
-        user.getPersistence().setNumber("mChannelTop_joinmessage", status);
+        var status = 1 - user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1); //toggle der joinmessage
+        user.getPersistence().setNumber(ChannelTop.PKEYS.JOIN_MESSAGE, status);
         user.sendPrivateMessage("Du hast die Willkommensnachricht " + (status==0?"deaktiviert":"aktiviert") + ".");
         return;
     }
