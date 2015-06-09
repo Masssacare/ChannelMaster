@@ -113,7 +113,7 @@ ChannelTop.prototype.lists = [
     '_°BB>_honline day cm|/channeltop "<°_',
     '_°BB>_honline week cm|/channeltop "<°_',
     '_°BB>_honline month cm|/channeltop "<°_',
-    '_°BB>_honline year cm|/channeltop "<°_'
+    '_°BB>_honline year cm|/channeltop "<°_',
 
     //info
     '_°BB>_hstats|/channeltop "<°_'
@@ -165,7 +165,7 @@ ChannelTop.prototype.onUserJoined = function(user) {
 
     //Willkommensnachricht
     if(user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1)==1) {
-        var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_TIME,0);
+        var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.ONLINE_TIME,0);
         if(onlinetime>0) {
             user.sendPrivateMessage("Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
         } else {
