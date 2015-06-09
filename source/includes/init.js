@@ -28,6 +28,7 @@ require("includes/modules/Module.LastOnline.js");
 require("includes/modules/Module.MCMMessage.js");
 require("includes/modules/Module.ModuleManager.js");
 require("includes/modules/Module.Newsletter.js");
+require("includes/modules/Module.PrivateForwarding.js");
 require("includes/modules/Module.TopicChanger.js");
 require("includes/modules/Module.Unmute.js");
 require("includes/modules/Module.UserInfo.js");
