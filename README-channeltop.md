@@ -24,6 +24,7 @@ ChannelTop erzeugt verschiedene Bestenlisten für deinen Channel.
 ### Diverse listen
 * mosttext
 * messages
+* stats
  
 ## Entwickler
 /w Vampiric Desire
