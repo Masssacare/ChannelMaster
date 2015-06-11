@@ -180,7 +180,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                 }
 
                                 if((action.toLowerCase() == "/e setlmc" || action.toLowerCase() == "/edit setlmc") && allowed.channelLinks) {
-                                    tmpInsideKCode += ">" + text + "|" + action + "|/w " + nick + "<";
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
 
