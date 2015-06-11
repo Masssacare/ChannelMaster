@@ -179,6 +179,10 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     }
                                 }
 
+                                if((action == "/e setlmc" || action == "/edit setlmc") && allowed.channelLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "|/w " + nick + "<";
+                                    continue;
+                                }
 
                                 if(action.startsWith("/pp ") && allowed.profileLinks) {
                                     var nick = action.substr(4).trim();

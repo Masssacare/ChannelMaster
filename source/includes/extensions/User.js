@@ -52,8 +52,10 @@ if(!User.prototype.hasOwnProperty("getTeams")) {
                     ["Verify", "Teamleitung", "Teamleiter"],
                     ["Verknuddelichung", "Teamleitung", "Teamleiter"],
                     ["Vertrauensadmin", "Teamleitung", "Teamleiter"],
-                    ["24 Voices-of-Knuddels", "Teamleitung", "Teamleiter"]
-
+                    ["24 Voices-of-Knuddels", "Teamleitung", "Teamleiter"],
+                    // AT TEAMS
+                    ["News", "Teamleitung", "Teamleiter"],
+                    ["Sports", "Teamleitung", "Teamleiter"]
 
         ];
         var teams = [];
