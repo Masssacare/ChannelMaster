@@ -179,12 +179,12 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     }
                                 }
 
-                                if((action == "/e setlmc" || action == "/edit setlmc") && allowed.channelLinks) {
+                                if((action.toLowerCase() == "/e setlmc" || action.toLowerCase() == "/edit setlmc") && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "|/w " + nick + "<";
                                     continue;
                                 }
 
-                                if(action.startsWith("/pp ") && allowed.profileLinks) {
+                                if(action.toLowerCase().startsWith("/pp ") && allowed.profileLinks) {
                                     var nick = action.substr(4).trim();
                                     if(nick == '"')
                                         nick = text;
@@ -195,7 +195,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     continue;
                                 }
 
-                                if(action.startsWith("/m ") && allowed.profileLinks) {
+                                if(action.toLowerCase().startsWith("/m ") && allowed.profileLinks) {
                                     var nick = action.substr(3).trim();
                                     if(nick == '"')
                                         nick = text;
@@ -206,7 +206,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     continue;
                                 }
 
-                                if(action.startsWith("/w ") && allowed.profileLinks) {
+                                if(action.toLowerCase().startsWith("/w ") && allowed.profileLinks) {
                                     var nick = action.substr(3).trim();
                                     if(nick == '"')
                                         nick = text;
@@ -216,30 +216,30 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if((action.startsWith("/go ") || action.startsWith("/cc ")) && allowed.channelLinks) {
+                                if((action.toLowerCase().startsWith("/go ") || action.toLowerCase().startsWith("/cc ")) && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if((action.startsWith("/info ") || action == "/info") && allowed.channelLinks) {
-                                    tmpInsideKCode += ">" + text + "|" + action + "<";
-                                    continue;
-                                }
-
-                                if(action.startsWith("/tf-overridesb ") && allowed.overrideLinks) {
+                                if((action.toLowerCase().startsWith("/info ") || action.toLowerCase() == "/info") && allowed.channelLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
 
-                                if((action.startsWith("/h ") || action.startsWith("/help ")) && allowed.helpLinks) {
+                                if(action.toLowerCase().startsWith("/tf-overridesb ") && allowed.overrideLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
 
-                                if((action.startsWith("/top ") || action.startsWith("/showtoplist "))&& allowed.helpLinks) {
+                                if((action.toLowerCase().startsWith("/h ") || action.toLowerCase().startsWith("/help ")) && allowed.helpLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
-                                if((action.startsWith("/dice ") || action.startsWith("/d ")) && allowed.diceLinks) {
+
+                                if((action.toLowerCase().startsWith("/top ") || action.toLowerCase().startsWith("/showtoplist "))&& allowed.helpLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+                                if((action.toLowerCase().startsWith("/dice ") || action.toLowerCase().startsWith("/d ")) && allowed.diceLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
