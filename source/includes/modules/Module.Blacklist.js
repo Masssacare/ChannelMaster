@@ -108,6 +108,8 @@ Blacklist.prototype.cmdBlacklist = function(user, params, func) {
     }
 
     var ind = params.indexOf(":");
+    if(ind==-1)
+    return;
     var action = params.substring(0, ind).trim();
     var nick = params.substr(ind+1).trim();
 
