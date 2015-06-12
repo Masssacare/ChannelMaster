@@ -5,6 +5,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 
 ## Verfügbare Module
 * [Advertise](README-advertise.md)
+* [Blacklist](README-blacklist.md)
 * [Botsay](README-botsay.md)
 * [ChannelTop](README-channeltop.md)
 * [CMComment](README-cmcomment.md)
@@ -13,7 +14,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 * [LastOnline](README-lastonline.md)
 * [MCMMessage](README-mcmmessage.md)
 * [Newsletter](README-newsletter.md)
-* [Newsletter](README-privateforwarding.md)
+* [PrivateForwarding](README-privateforwarding.md)
 * [TopicChanger](README-topicchanger.md)
 * [Unmute](README-unmute.md)
 * [UserInfo](README-userinfo.md)
