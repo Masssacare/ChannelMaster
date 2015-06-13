@@ -1,5 +1,5 @@
 /**
- * @file Diese Datei definiert das PaidModule für den Channel Spot It
+ * @file Diese Datei definiert das Blacklist Modul
  * @author KnuddelsTools
  * @author DdvOiD
  * @copyright KnuddelsTools
