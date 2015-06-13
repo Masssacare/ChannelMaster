@@ -5,12 +5,12 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 
 ## Verfügbare Module
 * [Advertise](README-advertise.md)
+* [BankKonto](README-bankkonto.md)
 * [Blacklist](README-blacklist.md)
 * [Botsay](README-botsay.md)
 * [ChannelTop](README-channeltop.md)
 * [CMComment](README-cmcomment.md)
 * [JavaFXCheck](README-javafxcheck.md)
-* [KnuPayout](README-knupayout.md)
 * [LastOnline](README-lastonline.md)
 * [MCMMessage](README-mcmmessage.md)
 * [Newsletter](README-newsletter.md)
