@@ -234,11 +234,11 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
     }
     var ind = params.indexOf(":");
     if(ind == -1) {
-        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
-            "_/" + func + " allow:NICK_ -> um einen User für /newsletter freizuschalten.°#°" +
-            "_/" + func + " disallow:NICK_ -> um einen User für /newsletter zu sperren.°#°" +
-            "_/" + func + " list_ -> Anzahl der eingetragenen User bekommen." +
-            "_/" + func + " join_ -> Ausgabe des aktuell hinterlegten Begrüßungstextes (Link zum aktivieren des Newsletter muss eingefügt werden)." +
+        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#r°" +
+            "_/" + func + " allow:NICK_ -> um einen User für /newsletter freizuschalten.°#r°" +
+            "_/" + func + " disallow:NICK_ -> um einen User für /newsletter zu sperren.°#r°" +
+            "_/" + func + " list_ -> Anzahl der eingetragenen User bekommen.°#r°" +
+            "_/" + func + " join_ -> Ausgabe des aktuell hinterlegten Begrüßungstextes (Link zum aktivieren des Newsletter muss eingefügt werden).°#r°" +
             "_/" + func + " join:TEXT_ -> Begrüßungstext für den Newsletter beim betreten des Channels ändern.");
 
         return;
@@ -256,7 +256,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
             return;
         }
         else {
-        App.persistence.setString("mNewsletter_join", text+"§°#°°>LEFT<°");
+        App.persistence.setString("mNewsletter_join", text+"§°#r°°>LEFT<°");
         var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
         user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
         return;

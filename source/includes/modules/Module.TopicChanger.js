@@ -79,8 +79,8 @@ TopicChanger.prototype.cmdTopicChangerAdmin = function(user, params, func) {
 
     var ind = params.indexOf(":");
     if(ind == -1) {
-        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
-        "_/" + func + " allow:NICK_ um einen User für /changetopic freizuschalten.°#°" +
+        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#r°" +
+        "_/" + func + " allow:NICK_ um einen User für /changetopic freizuschalten.°#r°" +
         "_/" + func + " disallow:NICK_ um einen User für /changetopic zu sperren.");
         return;
     }

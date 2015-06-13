@@ -41,25 +41,25 @@ function UserInfo() {
         var message = "°RR°_Info von °BB°" + tUser.getProfileLink() + "°r°_";
 
         //Default Infos
-        message += "°#°_ClientType:_ "      + tUser.getClientType().toString();
-        message += "°#°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
+        message += "°#r°_ClientType:_ "      + tUser.getClientType().toString();
+        message += "°#r°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember) || user.isCoDeveloper())
             message += "°#°_UID:_ "         +  tUser.getUserId().number_format(0,",",".");
 
-        message += "°#°_Teams:_ " + tUser.getTeams().join(", ");
+        message += "°#r°_Teams:_ " + tUser.getTeams().join(", ");
 
         var htmlFile = new HTMLFile('JavaFXCheck/test.html');
         var overlayContent = AppContent.overlayContent(htmlFile, 50, 50);
-        message += "°#°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"Unterstützt":"Nicht unterstützt");
+        message += "°#r°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"Unterstützt":"Nicht unterstützt");
 
 
 
         if(LastOnline.self.isActivated()) {
             var lastOnline = tUser.getPersistence().getNumber("mLastOnline_join",0);
-            message += "°#°_Zuletzt im Channel:_ " + (lastOnline==0?"Noch nie":lastOnline==-1?"Jetzt":new Date(lastOnline).toGermanString());
+            message += "°#r°_Zuletzt im Channel:_ " + (lastOnline==0?"Noch nie":lastOnline==-1?"Jetzt":new Date(lastOnline).toGermanString());
         }
         if(Newsletter.self.isActivated()) {
-            message += "°#°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"Angemeldet":"Abgemeldet");
+            message += "°#r°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"Angemeldet":"Abgemeldet");
         }
         if(ChannelTop.self.isActivated()) {
             var timeDay         = tUser.getPersistence().getNumber("mChannelTop_onlinetime_day",    0);
@@ -68,11 +68,11 @@ function UserInfo() {
             var timeYear        = tUser.getPersistence().getNumber("mChannelTop_onlinetime_year",   0);
             var timeAlltime     = tUser.getPersistence().getNumber("mChannelTop_onlinetime",        0);
 
-            message += "°#°_Onlinezeit:_ "          + ChannelTop.self.timeToString(timeAlltime);
-            message += "°#°_Onlinezeit (Tag):_ "    + ChannelTop.self.timeToString(timeDay);
-            message += "°#°_Onlinezeit (Woche):_ "  + ChannelTop.self.timeToString(timeWeek);
-            message += "°#°_Onlinezeit (Monat):_ "  + ChannelTop.self.timeToString(timeMonth);
-            message += "°#°_Onlinezeit (Jahr):_ "   + ChannelTop.self.timeToString(timeYear);
+            message += "°#r°_Onlinezeit:_ "          + ChannelTop.self.timeToString(timeAlltime);
+            message += "°#r°_Onlinezeit (Tag):_ "    + ChannelTop.self.timeToString(timeDay);
+            message += "°#r°_Onlinezeit (Woche):_ "  + ChannelTop.self.timeToString(timeWeek);
+            message += "°#r°_Onlinezeit (Monat):_ "  + ChannelTop.self.timeToString(timeMonth);
+            message += "°#r°_Onlinezeit (Jahr):_ "   + ChannelTop.self.timeToString(timeYear);
         }
 
 

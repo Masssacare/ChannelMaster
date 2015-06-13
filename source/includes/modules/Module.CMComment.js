@@ -73,7 +73,7 @@ CMComment.prototype.cmdCMComment = function(user, params, func) {
                 var cmc = cmcs[key];
                 var time = new Date(cmc.time);
                 var eintrager = KnuddelsServer.getUser(cmc.cm);
-                message += "°#°°BB°_ " + eintrager.getProfileLink() + "_°r°: " + cmc.text + " (" + time.toGermanString() + ")";
+                message += "°#r°°BB°_ " + eintrager.getProfileLink() + "_°r°: " + cmc.text + " (" + time.toGermanString() + ")";
             }
             user.sendPrivateMessage(message);
         }

@@ -343,7 +343,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                         break;
                     case '#':
                         if(allowed.newLine)
-                            tmpstr += "°#°";
+                            tmpstr += "°#r°";
                         break;
                     case '_':
                         if(allowed.bold)
