@@ -92,6 +92,10 @@ Functions.prototype.cmdFunctions = function(user, params, func) {
         user.sendPrivateMessage("Den Befehl bitte per °RR°_/Befehl°r°_ eingeben.");
         return;
     }
+    if(befehl.contains("§")) {
+        user.sendPrivateMessage("Knuddels verhindert das Einbinden des Paragraphenzeichens(\\§) in verlinkungen. Diese Funktion kannst du also leider _nicht_ Verlinken. (Füge den Zusatz am besten in die Beschreibung ein)");
+        return;
+    }
     var newfunctions = "°BB°_°>"+ befehl.replace("\\:",":").escapeKCode() +"|/tf-overridesb "+befehl.escapeKCode()+"<°°r°_ - "+ text;
 
 
