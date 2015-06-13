@@ -59,7 +59,7 @@ Functions.prototype.onAppStart = function() {
  */
 Functions.prototype.cmdFunctions = function(user, params, func) {
     var texte = this.getText();
-    if(!user.isChannelModerator() || !this.userAllowed(user)) {
+    if(!user.isChannelModerator() && !this.userAllowed(user)) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
 
