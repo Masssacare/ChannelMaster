@@ -75,7 +75,7 @@ PrivateForwarding.prototype.allowedUsers = function() {
     }
     var managedUsers = UserPersistenceNumbers.getSortedEntries("mPrivateForwarding_allowed");
     for(var i = 0; i < managedUsers.length; i++) {
-        if(managedUsers[i].getValue() == 1 && !managedUsers[i].getUser().isAppManager())
+        if(managedUsers[i].getValue() == 1 && !managedUsers[i].getUser().isChannelOwner())
             users.push(managedUsers[i].getUser());
 
     }
