@@ -150,6 +150,13 @@ ModuleManager.prototype.cmdActivateModule = function (user, params, funcname) {
     }
     if(module.activate()) {
         user.sendPrivateMessage("Modul " + modulename + " wurde gestartet.");
+
+        for(var i = 0; i < App.owners; i++) {
+            var owner = App.owners[i];
+            if(!owner.equals(user)) {
+                owner.sendPostMessage("Modul " + modulename + " aktiviert.", user.getProfileLink() + " hat soeben das Modul " + modulename + " aktiviert.");
+            }
+        }
         module.onActivated();
         return;
     }
@@ -176,6 +183,12 @@ ModuleManager.prototype.cmdDeactivateModule = function (user, params, funcname) 
     }
     if(module.deactivate()) {
         user.sendPrivateMessage("Modul " + modulename + " wurde beendet.");
+        for(var i = 0; i < App.owners; i++) {
+            var owner = App.owners[i];
+            if(!owner.equals(user)) {
+                owner.sendPostMessage("Modul " + modulename + " deaktiviert.", user.getProfileLink() + " hat soeben das Modul " + modulename + " deaktiviert.");
+            }
+        }
         module.onDeactivated();
         return;
     }
