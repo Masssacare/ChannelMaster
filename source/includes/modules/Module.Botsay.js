@@ -112,8 +112,8 @@ Botsay.prototype.cmdBotsayAdmin = function(user, params, func) {
 
     var ind = params.indexOf(":");
     if(ind == -1) {
-        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
-        "_/" + func + " allow:NICK_ um einen User für /botsay freizuschalten.°#°" +
+        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#r°" +
+        "_/" + func + " allow:NICK_ um einen User für /botsay freizuschalten.°#r°" +
         "_/" + func + " disallow:NICK_ um einen User für /botsay zu sperren.");
         return;
     }

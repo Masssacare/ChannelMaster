@@ -154,7 +154,7 @@ PrivateForwarding.prototype.cmdForwardAdmin = function(user, params, func) {
     var ind = params.indexOf(":");
     if(ind == -1) {
         user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#°" +
-            "_/" + func + " allow:NICK_ um einen User für das Aktivieren/Deaktivieren der OfflineMessage freizuschalten.°#°" +
+            "_/" + func + " allow:NICK_ um einen User für das Aktivieren/Deaktivieren der OfflineMessage freizuschalten.°#r°" +
             "_/" + func + " disallow:NICK_ um einen User für Aktivieren/Deaktivieren der OfflineMessage zu sperren.");
         return;
     }

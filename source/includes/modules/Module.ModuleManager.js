@@ -107,11 +107,11 @@ ModuleManager.prototype.onUserJoined = function(user) {
       }
 
       user.sendPrivateMessage(
-          "°#°" +
+          "°#r°" +
           "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
-          "°#°_Registrierte Module:_ " + App.modules.registered.join(", ") +
-          "°#°_Aktivierte Module:_ " +  activated.join(", ") +
-          "°#°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_"
+          "°#r°_Registrierte Module:_ " + App.modules.registered.join(", ") +
+          "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
+          "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_"
       );
   }
 };

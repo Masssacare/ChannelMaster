@@ -53,7 +53,7 @@ LastOnline.prototype.onUserLeft = function (user) {
  * @param {string} func
  */
 LastOnline.prototype.cmdLastOnline = function(user, params, func) {
-    var message = "°#°°BB18°_Folgende User waren zuletzt hier im Channel:§";
+    var message = "°#r°°BB18°_Folgende User waren zuletzt hier im Channel:§";
     var entries = UserPersistenceNumbers.getSortedEntries("mLastOnline_join", { ascending: false, count: 30 });
     for(var key in entries){
         var entry = entries[key];

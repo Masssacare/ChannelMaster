@@ -258,7 +258,7 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
         }
         if(avgMulti != 1) {
             var avg = sum * avgMulti;
-            message += "°#°°#r°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
+            message += "°#r°°#r°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
         }
 
         user.sendPrivateMessage(message);
@@ -366,7 +366,7 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
     }
     if(avgMulti != 1) {
         var avg = UserPersistenceNumbers.getSum(keyname) * avgMulti;
-        message += "°#°°#r°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
+        message += "°#r°°#r°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
     }
 
     user.sendPrivateMessage(message);
@@ -455,7 +455,7 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
     }
 
 
-    user.sendPrivateMessage("°RR°_Folgende Listen existieren:°r°_°#°" + this.lists.join("°r°, "));
+    user.sendPrivateMessage("°RR°_Folgende Listen existieren:°r°_°#r°" + this.lists.join("°r°, "));
 };
 
 

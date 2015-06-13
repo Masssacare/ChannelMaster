@@ -25,10 +25,10 @@ JavaFXCheck.prototype.constructor = JavaFXCheck;
  * @param {User} user
  */
 JavaFXCheck.prototype.helpJavaFXPC = function(user) {
-    var message =   "°#°°RR°_ACHTUNG:_°r° Dein PC hat _JavaFX_ nicht installiert, welches benötigt wird um einige Funktionen von Apps zu nutzen." +
-                    "°#°Um dieses Problem zu beheben bestehen 2 Möglichkeiten:" +
-                    "°#°_1._ Java auf eine aktuelle Version updaten: _°BB>Java updaten|https://www.java.com/de/download/<°_°r° (empfohlen)" +
-                    "°#°_2._ Den Mini-Chat nutzen: _°BB>Zum Mini-Chat|http://www.knuddels.de/htmlchat<°_°r°";
+    var message =   "°#r°°RR°_ACHTUNG:_°r° Dein PC hat _JavaFX_ nicht installiert, welches benötigt wird um einige Funktionen von Apps zu nutzen." +
+                    "°#r°Um dieses Problem zu beheben bestehen 2 Möglichkeiten:" +
+                    "°#r°_1._ Java auf eine aktuelle Version updaten: _°BB>Java updaten|https://www.java.com/de/download/<°_°r° (empfohlen)" +
+                    "°#r°_2._ Den Mini-Chat nutzen: _°BB>Zum Mini-Chat|http://www.knuddels.de/htmlchat<°_°r°";
     user.sendPrivateMessage(message);
 };
 

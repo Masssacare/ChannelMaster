@@ -40,6 +40,17 @@ BankKonto.prototype.onDeactivated = function() {
 
 };
 
+/**
+ *
+ * @param {User} user
+ */
+BankKonto.prototype.onUserJoined = function(user) {
+    var amnt = this.getKnuddelAmount(user);
+    if(amnt > 0) {
+        user.sendPrivateMessage("Du hast noch °RR°_" + amnt + " Knuddel°r°_ auf deinem Konto. Jetzt _°BB>auszahlen|/tf-overridesb /bankkonto payout [ZAHL]<°_°r°.");
+    }
+};
+
 BankKonto.prototype.onKnuddelReceived = function(sender, recv, knuddelAmount, transferReason) {
 
         var newKonto = this.addKnuddelAmount(sender, knuddelAmount);
