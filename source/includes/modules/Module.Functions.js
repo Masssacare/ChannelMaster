@@ -49,6 +49,7 @@ Functions.prototype.onAppStart = function() {
     if(this.getText().length == 0) {
         this.setText(["°>/functions /help::Beschreibung|/tf-overridesb /functions [/help::Beschreibung]<° - Fügt die /help Funktion mit Beschreibung der Funktionsübersicht hinzu."]);
     }
+
 };
 
 /**
@@ -216,7 +217,7 @@ Functions.prototype.allowedUsers = function() {
     }
     var managedUsers = UserPersistenceNumbers.getSortedEntries("mFunctions_allowed");
     for(var i = 0; i < managedUsers.length; i++) {
-        if(managedUsers[i].getValue() == 1)
+        if(managedUsers[i].getValue() == 1 && !managedUsers[i].getUser().isAppManager())
             users.push(managedUsers[i].getUser());
 
     }
