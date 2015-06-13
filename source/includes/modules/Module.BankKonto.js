@@ -71,3 +71,5 @@ BankKonto.prototype.cmdBankkonto = function(user, params, func) {
         user.sendPrivateMessage("Du hast nun °RR°_"+guthaben+" Knuddel_°r° auf deinem Konto.");
     }
 };
+
+BankKonto.self = new BankKonto();

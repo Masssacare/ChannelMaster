@@ -120,6 +120,10 @@ App.unregisterCommand = function (command) {
     return true;
 };
 
+App.channel = KnuddelsServer.getChannel();
+App.owners = App.channel.getChannelConfiguration().getChannelRights().getChannelOwners();
+App.owner = App.owners[0];
+
 /**
  * Diese Funktion wird beim Start der App aufgerufen.
  */

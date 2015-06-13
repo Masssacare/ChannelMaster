@@ -18,8 +18,12 @@ require("includes/extensions/Array.js");
 
 require("includes/Class.Module.js");
 
-require("includes/modules/Module.Advertise.js");
+require("includes/modules/Module.ModuleManager.js");
 require("includes/modules/Module.BankKonto.js");
+
+
+
+require("includes/modules/Module.Advertise.js");
 require("includes/modules/Module.Blacklist.js");
 require("includes/modules/Module.Botsay.js");
 require("includes/modules/Module.ChannelTop.js");
@@ -27,7 +31,6 @@ require("includes/modules/Module.CMComment.js");
 require("includes/modules/Module.JavaFXCheck.js");
 require("includes/modules/Module.LastOnline.js");
 require("includes/modules/Module.MCMMessage.js");
-require("includes/modules/Module.ModuleManager.js");
 require("includes/modules/Module.Newsletter.js");
 require("includes/modules/Module.PrivateForwarding.js");
 require("includes/modules/Module.TopicChanger.js");
