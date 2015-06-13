@@ -35,12 +35,14 @@ App.chatCommands = {};
 App.modules = {
     registered: [],
     onAppStart: [],
+    onUserDiced: [],
     onUserJoined: [],
     onUserLeft: [],
     onShutdown: [],
     onPublicMessage: [],
     onPrivateMessage: [],
     onEventReceived: [],
+    onPrepareShutdown: [],
     onKnuddelReceived: [],
     timerHandler: []
 };
@@ -139,6 +141,19 @@ App.onAppStart = function() {
 };
 
 /**
+ * Diese Funktion wird vor dem Beenden der App aufgerufen.
+ */
+App.onPrepareShutdown = function(time, reason) {
+    var modules = App.modules.onPrepareShutdown;
+    for(var i = 0; i < modules; i++) {
+        var module = modules[i];
+        if(typeof module.onPrepareShutdown === 'function')
+            module.onPrepareShutdown(time, reason);
+    }
+};
+
+
+/**
  * Diese Funktion wird beim Beenden der App aufgerufen.
  */
 App.onShutdown = function() {
@@ -228,9 +243,22 @@ App.onEventReceived = function(user, key, data) {
 App.onKnuddelReceived = function(sender, receiver, knuddelAmount, transferReason) {
     var modules = App.modules.onKnuddelReceived;
     for(var i = 0; i < modules; i++) {
-        var module = App.modules[i];
+        var module = modules[i];
         if(typeof module.onKnuddelReceived === 'function')
             module.onKnuddelReceived(sender, receiver, knuddelAmount, transferReason);
+    }
+};
+
+/**
+ * Diese Funnktion wird aufgerufen, sobald ein User ein Diceevent ausführt.
+ * @param {DiceEvent} diceEvent
+ */
+App.onUserDiced = function(diceEvent) {
+    var modules = App.modules.onUserDiced;
+    for(var i = 0; i < modules; i++) {
+        var module = modules[i];
+        if(typeof module.onUserDiced === 'function')
+            module.onUserDiced(diceEvent);
     }
 };
 

@@ -93,7 +93,7 @@ Blacklist.prototype.cmdBlacklist = function(user, params, func) {
         for (var key in disallowed) {
 
             var bUser = disallowed[key];
-          message += "°#r°°>_h" + bUser.escapeKCode() +"|/w " + bUser.escapeKCode() + "|/serverpp  "+ bUser.escapeKCode() + "<° °>Entfernen|/blacklistdelete " + key + "<°";
+          message += "°#r°°>_h" + bUser.escapeKCode() +"|/serverpp " + bUser.escapeKCode() + "|/w  "+ bUser.escapeKCode() + "<° °>Entfernen|/blacklistdelete " + key + "<°";
         }
         user.sendPrivateMessage(message);
         return;
