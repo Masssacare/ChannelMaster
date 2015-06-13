@@ -1,5 +1,5 @@
 /**
- * @file Diese Datei definiert das PaidModule für den Channel Spot It
+ * @file Diese Datei definiert das Blacklist Modul
  * @author KnuddelsTools
  * @author DdvOiD
  * @copyright KnuddelsTools
@@ -247,7 +247,7 @@ Blacklist.prototype.allowedUsers = function() {
     }
     var managedUsers = UserPersistenceNumbers.getSortedEntries("mBlacklist_allowed");
     for(var i = 0; i < managedUsers.length; i++) {
-        if(managedUsers[i].getValue() == 1)
+        if(managedUsers[i].getValue() == 1 && !managedUsers[i].getUser().isAppManager())
             users.push(managedUsers[i].getUser());
 
     }

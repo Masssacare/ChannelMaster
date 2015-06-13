@@ -175,7 +175,7 @@ Newsletter.prototype.allowedUsers = function() {
     }
     var managedUsers = UserPersistenceNumbers.getSortedEntries("mNewsletter_allowed");
     for(var i = 0; i < managedUsers.length; i++) {
-        if(managedUsers[i].getValue() == 1)
+        if(managedUsers[i].getValue() == 1 && !managedUsers[i].getUser().isAppManager())
             users.push(managedUsers[i].getUser());
 
     }
