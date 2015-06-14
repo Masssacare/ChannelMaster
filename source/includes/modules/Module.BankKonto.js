@@ -6,7 +6,7 @@ function BankKonto() {
 }
 BankKonto.prototype = new Module;
 BankKonto.prototype.constructor = BankKonto;
-
+BankKonto.prototype.publicTransfer = false;
 BankKonto.prototype.deactivate = function() {
     return false;
 };
@@ -41,8 +41,9 @@ BankKonto.prototype.getPayoutKnuddel = function() {
 };
 
 BankKonto.prototype.onActivated = function() {
-    this.registerCommand("bankkonto", this.cmdBankkonto);
-    this.registerCommand("bankkontoadmin", this.cmdBankkontoAdmin);
+    this.registerCommand("bankkonto", this.cmdBankKonto);
+    this.registerCommand("bankkontoadmin", this.cmdBankKontoAdmin);
+    this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
 };
 
 BankKonto.prototype.onDeactivated = function() {
@@ -70,7 +71,7 @@ BankKonto.prototype.onKnuddelReceived = function(sender, recv, knuddelAmount, tr
     sender.sendPrivateMessage("Du hast dem AppBot soeben "+ knuddelAmount + " überwiesen.");
         }
 };
-BankKonto.prototype.cmdBankkonto = function(user, params, func) {
+BankKonto.prototype.cmdBankKonto = function(user, params, func) {
     params = params.toLowerCase();
     if(params == "") {
         user.sendPrivateMessage("Du hast °RR°_" + this.getKnuddelAmount(user)+ " Knuddel_°r° Guthaben.");
@@ -86,24 +87,38 @@ BankKonto.prototype.cmdBankkonto = function(user, params, func) {
             return;
         }
         //steuern beachtung
-        if((anzahl*1.6666666666666)>App.bot.getKnuddelAmount().asNumber()) {
+        var needed = anzahl;
+        //needed = needed*1.666666;
+        if(needed>App.bot.getKnuddelAmount().asNumber()) {
             user.sendPrivateMessage("Soviele Knuddel können dir derzeit nicht ausgezahlt werden. Bitte wende dich an den Channelbesitzer.");
             return;
         }
         var ka = new KnuddelAmount(anzahl);
-        App.bot.transferKnuddel(user, ka, {hidePublicMessage: true});
+        App.bot.transferKnuddel(user, ka, {hidePublicMessage: !this.publicTransfer});
         var guthaben = this.removeKnuddelAmount(user, ka);
         user.sendPrivateMessage("Du hast nun °RR°_"+guthaben+" Knuddel_°r° auf deinem Konto.");
     }
 };
 
 
-BankKonto.prototype.cmdBankkontoAdmin = function(user, params, func) {
+BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
     params = params.toLowerCase();
   if(!user.isChannelOwner()) {
       user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
       return;
   }
+    if(params == "public") {
+        App.persistence.setNumber("mBankKonto_publicTransfer",1);
+        user.sendPrivateMessage("Das Auszahlen von Knuddel ist nun öffentlich.");
+        this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
+        return;
+    }
+    if(params == "hide") {
+        App.persistence.deleteNumber("mBankKonto_publicTransfer");
+        user.sendPrivateMessage("Das Auszahlen von Knuddel ist nun privat.");
+        this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
+        return;
+    }
     if(params == "") {
         user.sendPrivateMessage("Auf dem BotNick befinden sich derzeit °RR°_" + this.getBotKnuddel() + " Knuddel°r°_. " +
                                 " Auszahlbar sind derzeit: °RR°_°>"+ this.getPayoutKnuddel() + " Knuddel|/tf-overridesb /bankkontoadmin payout [Zahl]<°°r°_");
@@ -126,7 +141,12 @@ BankKonto.prototype.cmdBankkontoAdmin = function(user, params, func) {
             return;
         }
         var ka = new KnuddelAmount(anzahl);
+
+
+        user.sendPrivateMessage("priv");
         App.bot.transferKnuddel(user, ka, {hidePublicMessage: true});
+
+
         user.sendPrivateMessage("Du hast dir gerade °RR°_"+ anzahl +" Knuddel°r°_ ausgezahlt. Dem AppBot stehen jetzt noch "+ this.getBotKnuddel() +" zur Verfügung.");
     }
 };
