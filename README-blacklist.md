@@ -6,7 +6,7 @@ Sollte ein User der auf dieser Liste steht den Channel betreten, werden die Cms 
 Sofern das CMComment Modul aktiviert ist, wird ebenfalls direkt ein entsprechender Kommentar hinterlegt.
 
 ## Befehle für Blacklist
-* **/blacklist ** gibt eine Übersicht der aktuell auf der Blacklist vorhandenen Nicks. (Nur Cms & erlaubte User) inkl. Link zum entfernen.
+* **/blacklist** gibt eine Übersicht der aktuell auf der Blacklist vorhandenen Nicks. (Nur Cms & erlaubte User) inkl. Link zum entfernen.
 * **/blacklist add:NICK** setzt NICK auf die Blacklist (nur erlaubte User)
 * **/blacklistadmin allow:NICK** Erlaubt NICK änderung an der Blacklist vorzunehmen
 * **/blacklistadmin disallow:NICK** Entzieht NICK die Rechte für die Nutzung der Blacklist
