@@ -1,5 +1,5 @@
 /**
- * @file Mit diesem Modul kann man als MCM Rundmails an das eigene MCM Team schicken
+ * @file Mit diesem Modul kann man als MCM Rundmails an das eigene MCM Team schicken.
  * @author KnuddelsTools
  * @author Vampiric Desire
  * @copyright KnuddelsTools
