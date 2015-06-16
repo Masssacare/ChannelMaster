@@ -4,7 +4,7 @@
 Das Functions Modul bietet dem ChannelBesitzer die Möglichkeit eine Funktionsübersicht für eine ausgewählte Usergruppe zur Verfügung zu stellen.
 
 ## Befehle für Functions
-* **/functions** gibt eine Übersicht der aktuell auf der Blacklist vorhandenen Nicks. (Nur Cms & erlaubte User) inkl. Link zum entfernen.
+* **/functions** gibt eine Übersicht der aktuell auf der Funktionsübersicht eingetragenen Funktionen
 * **/functions Funktion::Beschreibung** setzt eine Funktion auf die Funktionsübersicht. (nur erlaubte User)
 * **/deletefunctions KEY** löscht den Eintrag KEY aus der Funktionsübersicht (von oben nach unten gezählt, mit 0 beginnend)
 * **/functionsadmin allow:NICK** Erlaubt NICK änderung an der Funktionsübersicht vorzunehmen
