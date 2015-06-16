@@ -143,7 +143,6 @@ BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
         var ka = new KnuddelAmount(anzahl);
 
 
-        user.sendPrivateMessage("priv");
         App.bot.transferKnuddel(user, ka, {hidePublicMessage: true});
 
 
