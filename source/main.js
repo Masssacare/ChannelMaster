@@ -132,7 +132,7 @@ App.onAppStart = function() {
     //start Interval for timerHandler
     setInterval(App.timerHandler, 1000);
     var modules = App.modules.onAppStart;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onAppStart === 'function')
             module.onAppStart();
@@ -149,7 +149,7 @@ App.onAppStart = function() {
  */
 App.onPrepareShutdown = function(time, reason) {
     var modules = App.modules.onPrepareShutdown;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onPrepareShutdown === 'function')
             module.onPrepareShutdown(time, reason);
@@ -162,7 +162,7 @@ App.onPrepareShutdown = function(time, reason) {
  */
 App.onShutdown = function() {
     var modules = App.modules.onShutdown;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onShutdown === 'function')
             module.onShutdown();
@@ -175,7 +175,7 @@ App.onShutdown = function() {
  */
 App.onUserJoined = function(user) {
     var modules = App.modules.onUserJoined;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onUserJoined === 'function')
             module.onUserJoined(user);
@@ -189,7 +189,7 @@ App.onUserJoined = function(user) {
  */
 App.onUserLeft = function(user) {
     var modules = App.modules.onUserJoined;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onUserLeft === 'function')
             module.onUserLeft(user);
@@ -202,7 +202,7 @@ App.onUserLeft = function(user) {
  */
 App.onPublicMessage = function(publicMessage) {
     var modules = App.modules.onPublicMessage;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onPublicMessage === 'function')
             module.onPublicMessage(publicMessage);
@@ -215,7 +215,7 @@ App.onPublicMessage = function(publicMessage) {
  */
 App.onPrivateMessage = function(privateMessage) {
     var modules = App.modules.onPrivateMessage;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onPrivateMessage === 'function')
             module.onPrivateMessage(privateMessage);
@@ -230,7 +230,7 @@ App.onPrivateMessage = function(privateMessage) {
  */
 App.onEventReceived = function(user, key, data) {
     var modules = App.modules.onEventReceived;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onEventReceived === 'function')
             module.onEventReceived(user, key, data);
@@ -246,7 +246,7 @@ App.onEventReceived = function(user, key, data) {
  */
 App.onKnuddelReceived = function(sender, receiver, knuddelAmount, transferReason) {
     var modules = App.modules.onKnuddelReceived;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onKnuddelReceived === 'function')
             module.onKnuddelReceived(sender, receiver, knuddelAmount, transferReason);
@@ -259,7 +259,7 @@ App.onKnuddelReceived = function(sender, receiver, knuddelAmount, transferReason
  */
 App.onUserDiced = function(diceEvent) {
     var modules = App.modules.onUserDiced;
-    for(var i = 0; i < modules; i++) {
+    for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.onUserDiced === 'function')
             module.onUserDiced(diceEvent);
@@ -331,10 +331,11 @@ App.refreshHooks = function() {
     for(var j = 0; j < hookKeys.length; j++) {
         var key = hookKeys[j];
         var tmp_modules = [];
-
         //gehe alle Module durch
-        for(var i = 0; i < App.modules.registered; i++) {
+        for(var i = 0; i < App.modules.registered.length; i++) {
+
                 var module = App.modules.registered[i];
+
                 if(typeof module[key] === 'function' && module.isActivated()) { //wenn das Module den Hook besitzt hinzufügen
                     tmp_modules.push(module);
                 }
