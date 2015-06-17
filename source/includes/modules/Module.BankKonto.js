@@ -36,7 +36,7 @@ BankKonto.prototype.getBotKnuddel = function() {
 };
 
 BankKonto.prototype.getPayoutKnuddel = function() {
-   return this.getBotKnuddel() - UserPersistenceNumbers.getSum("mBankKontoKonto_amount");
+   return parseFloat((this.getBotKnuddel() - parseFloat(UserPersistenceNumbers.getSum("mBankKontoKonto_amount").toFixed(2))).toFixed(2));
 
 };
 
