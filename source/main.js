@@ -99,7 +99,7 @@ App.registerCommand = function (command, func) {
         if(App.refreshTimeout!=null) {
             clearTimeout(App.refreshTimeout);
         }
-        App.refreshTimeout = setTimeout(App.refreshCommands, 500);
+        App.refreshTimeout = setTimeout(App.refreshCommands, 1000);
     }
 
     return true;
@@ -114,7 +114,7 @@ App.unregisterCommand = function (command) {
         if(App.refreshTimeout!=null) {
             clearTimeout(App.refreshTimeout);
         }
-        App.refreshTimeout = setTimeout(App.refreshCommands, 500);
+        App.refreshTimeout = setTimeout(App.refreshCommands, 1000);
     }
 
     return true;
