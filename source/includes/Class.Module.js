@@ -45,7 +45,7 @@ Module.prototype.onDeactivated = function() { };
  * @returns {boolean}
  */
 Module.prototype.isActivated = function() {
-    var keyname = "module_" + this.constructor.name;
+    var keyname = "module_" + this.toString();
     var appPersis = KnuddelsServer.getPersistence();
     return (appPersis.getNumber(keyname,0)>0);
 };
@@ -54,7 +54,7 @@ Module.prototype.isActivated = function() {
  * Aktiviert das Module
  */
 Module.prototype.activate = function() {
-    var keyname = "module_" + this.constructor.name;
+    var keyname = "module_" + this.toString();
     var appPersis = KnuddelsServer.getPersistence();
     appPersis.setNumber(keyname,1);
     App.refreshHooks();
@@ -65,7 +65,7 @@ Module.prototype.activate = function() {
  * Deaktiviert das Module
  */
 Module.prototype.deactivate = function() {
-    var keyname = "module_" + this.constructor.name;
+    var keyname = "module_" + this.toString();
     var appPersis = KnuddelsServer.getPersistence();
     appPersis.setNumber(keyname,0);
     App.refreshHooks();
