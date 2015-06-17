@@ -1,9 +1,9 @@
 /**
- * @file Mit diesem Modul kann man als MCM Rundmails an das eigene MCM Team schicken.
+ * @file Mit diesem Modul kann man als MCM Rundmails an das eigene MCM Team schicken
  * @author KnuddelsTools
  * @author Vampiric Desire
  * @copyright KnuddelsTools
- * @link https://github.com/KnuddelsTools KnuddelsTools on Github
+ * @link https://github.com/KnuddelsTools KnuddelsTools on Github.
  *
  * @license LGPL
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
@@ -16,7 +16,7 @@
  */
 function MCMMessage() {
     App.registerModule(this);
-};
+}
 MCMMessage.prototype = new Module;
 MCMMessage.prototype.constructor = MCMMessage;
 
@@ -57,15 +57,15 @@ MCMMessage.prototype.cmdMCMMessage = function(user, params, func) {
         return;
     }
     if(topic.length > 500) {
-        user.sendPrivateMessage("Der Betreff ist zu lang.");
+        user.sendPrivateMessage("Der Betreff ist zu lang!");
         return;
     }
     if(text.length == 0) {
-        user.sendPrivateMessage("Du hast keine Nachricht angegeben.");
+        user.sendPrivateMessage("Du hast keine Nachricht angegeben!");
         return;
     }
     if(text.length >= 9000) {
-        user.sendPrivateMessage("Deine Nachricht ist zu lang.");
+        user.sendPrivateMessage("Deine Nachricht ist zu lang!");
         return;
     }
 
