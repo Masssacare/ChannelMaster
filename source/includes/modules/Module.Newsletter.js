@@ -117,7 +117,7 @@ Newsletter.prototype.cmdActivateNewsletter = function(user, params, func) {
     var news = persis.getNumber("mNewsletter_news", 0);
     if (news == 0) {
     persis.setNumber("mNewsletter_news", 1);
-    user.sendPrivateMessage("Du hast sich soeben für den Newsletter eingetragen und wirst künftig bei Änderungen im Channel informiert.");
+    user.sendPrivateMessage("Du hast dich soeben für den Newsletter eingetragen und wirst künftig bei Änderungen im Channel informiert.");
     } else {
         user.sendPrivateMessage("Du bist bereits für den Newsletter angemeldet.")
     }
