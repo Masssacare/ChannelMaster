@@ -70,7 +70,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             KwikiLinks: true,
             overrideLinks: true,
             helpLinks:true,
-            diceLinks:true
+            diceLinks:true,
+            readmeLinks:true
         };
 
         if (typeof limits === 'object') {
@@ -226,6 +227,11 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                 }
 
                                 if(action.toLowerCase().startsWith("/tf-overridesb ") && allowed.overrideLinks) {
+                                    tmpInsideKCode += ">" + text + "|" + action + "<";
+                                    continue;
+                                }
+
+                                if(action.toLowerCase().startsWith("/readme  ") && allowed.readmeLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
