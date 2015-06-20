@@ -231,7 +231,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     continue;
                                 }
 
-                                if(action.toLowerCase().startsWith("/readme  ") && allowed.readmeLinks) {
+                                if(action.toLowerCase().startsWith("/readme ") && allowed.readmeLinks) {
                                     tmpInsideKCode += ">" + text + "|" + action + "<";
                                     continue;
                                 }
