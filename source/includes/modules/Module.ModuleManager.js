@@ -103,9 +103,13 @@ ModuleManager.prototype.onUserJoined = function(user) {
       var regged = [];
       for(var i = 0; i < App.modules.registered.length; i++) {
           var module = App.modules.registered[i];
-          regged.push("°BB°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /activatemodule \"<°°r°");
-          if(module.isActivated())
-              activated.push("°BB°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /deactivatemodule \"<°°r°");
+
+          if(module.isActivated()) {
+              activated.push("_°BB°°>_h" + module.toString().escapeKCode() + "|/tf-overridesb /deactivatemodule \"<°°r°_");
+              regged.push("_°BB°°>_h" + module.toString().escapeKCode() + "|/tf-overridesb /deactivatemodule \"<°°r°_");
+          } else {
+              regged.push("°RR°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /activatemodule \"<°°r°");
+          }
       }
 
       var msg = "°#r°" +
