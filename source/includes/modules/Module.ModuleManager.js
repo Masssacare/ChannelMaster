@@ -72,7 +72,7 @@ ModuleManager.prototype.timerHandler = function(date) {
           for (var i = 0; i < App.modules.registered.length; i++) {
               var module = App.modules.registered[i];
               if (module.isActivated())
-                  activated.push(module.constructor.name);
+                  activated.push(module.toString());
           }
           var info = {
               time: Date.now(),
@@ -100,18 +100,22 @@ ModuleManager.prototype.onUserJoined = function(user) {
       var appVersion = KnuddelsServer.getAppVersion();
 
       var activated = [];
+      var regged = [];
       for(var i = 0; i < App.modules.registered.length; i++) {
           var module = App.modules.registered[i];
+          regged.push("°BB°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /activatemodule \"<°°r°");
           if(module.isActivated())
-            activated.push(module);
+              activated.push("°BB°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /deactivatemodule \"<°°r°");
       }
 
+      var msg = "°#r°" +
+      "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
+      "°#r°_Registrierte Module:_ " +  regged.join(", ") +
+      "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
+      "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_";
+
       user.sendPrivateMessage(
-          "°#r°" +
-          "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
-          "°#r°_Registrierte Module:_ " + App.modules.registered.join(", ") +
-          "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
-          "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_"
+          msg
       );
   }
 };
