@@ -11,6 +11,12 @@ if(!User.prototype.hasOwnProperty("isCoDeveloper")) {
     };
 }
 
+if(!User.prototype.hasOwnProperty("sendEvent")) {
+    User.prototype.sendEvent = function(key, obj) {
+        return this.sendAppEvent(key, obj);
+    }
+}
+
 if(!User.prototype.hasOwnProperty("getTeams")) {
     /**
      *
