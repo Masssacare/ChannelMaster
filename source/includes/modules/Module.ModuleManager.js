@@ -114,6 +114,7 @@ ModuleManager.prototype.onUserJoined = function(user) {
 
       var msg = "°#r°" +
       "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
+      "°#r°_Chatserver Version:_ " +  KnuddelsServer.getChatServerInfo().getRevision() + "     _Appserver Version:_ " +  KnuddelsServer.getAppServerInfo().getRevision() +
       "°#r°_Registrierte Module:_ " +  regged.join(", ") +
       "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
       "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_";
