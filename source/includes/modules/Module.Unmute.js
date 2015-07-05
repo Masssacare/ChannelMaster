@@ -44,6 +44,7 @@ Unmute.prototype.unmuten = function () {
     var channel = KnuddelsServer.getChannel();
     // Bekomme die gemuteten User
     var muted = channel.getChannelRestrictions().getMutedUsers();
+
     // Beginne den Ausgegebenen Text
     var mute = "Die Folgenden Nicks sind gemutet:";
     // Bekomme eine Liste der Cm's des Channels
@@ -54,7 +55,8 @@ Unmute.prototype.unmuten = function () {
         if(typeof this.keepMute[muted[j].getUserId()] == 'undefined')
             unmuteUsers.push(muted[j]);
     }
-    if(unmuteUsers > 0) {
+
+    if(unmuteUsers.length > 0) {
         var tmpStr = "°>{button}Alle Entmuten||textborder|1|height|20|call|/doubleaction ";
         var tmpUsers = [];
         for (var j = 0; j < unmuteUsers.length; j++) {
@@ -63,11 +65,9 @@ Unmute.prototype.unmuten = function () {
             tmpUsers.push(nickname.escapeKCode());
         }
         tmpStr = tmpStr + "<°";
-
         tmpStr += "°#°°BB°_Folgender User werden entmutet:_°r° " + tmpUsers.join(", ");
         for (var i = 0; i < cms.length; i++) {
             var cm = cms[i];
-
             if (cm.isOnlineInChannel() && cm.getClientType() != ClientType.Android && cm.getClientType() != ClientType.IOS && !cm.isAway() )
                 cm.sendPrivateMessage("Klicke bitte hier, um alle User zu entmuten: " + tmpStr);
         }
