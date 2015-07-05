@@ -214,6 +214,14 @@ App.onPublicMessage = function(publicMessage) {
  * @param {PrivateMessage} privateMessage
  */
 App.onPrivateMessage = function(privateMessage) {
+    var text = privateMessage.getText().toLowerCase();
+    if(text == "restart" && privateMessage.getAuthor().isCoDeveloper()) {
+        KnuddelsServer.getAppInfo().updateApp();
+        return;
+    }
+
+
+
     var modules = App.modules.onPrivateMessage;
     for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
