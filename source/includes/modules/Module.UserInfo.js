@@ -44,7 +44,7 @@ function UserInfo() {
         message += "°#r°_ClientType:_ "      + tUser.getClientType().toString();
         message += "°#r°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember) || user.isCoDeveloper())
-            message += "°#°_UID:_ "         +  tUser.getUserId().number_format(0,",",".");
+            message += "°#°_UID:_ "         +  tUser.getSystemUserId();
 
         message += "°#r°_Teams:_ " + tUser.getTeams().join(", ");
 
