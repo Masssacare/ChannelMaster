@@ -70,7 +70,7 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     var channame = KnuddelsServer.getChannel().getChannelName();
     var message = App.persistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
     var messageadd = "Diese Nachricht ist der Newsletter aus dem Channel " + channame +".";
-    var deactivate = "Du willst keine weiteren Benachrichtigungen?°#°Einfach °BB°_°>/deactivatenewsletter|/sfc "+channame+":/deactivatenewsletter<°_°[102,102,102]° im Channel "+ channame +" eingeben";
+    var deactivate = "Du willst keine weiteren Benachrichtigungen?°#°Jetzt °BB°_°>abmelden|/m "+App.bot.getNick().escapeKCode() + ":abmelden<°_°r°.";
 
     message += "°r°°#°°#°°#°°RR°_" + messageadd;
     message += "°#°°[102,102,102]°_" + deactivate;
@@ -104,6 +104,23 @@ Newsletter.prototype.cmdNewsletter = function(user, params, func) {
         var newmessage = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
             user.sendPrivateMessage(newmessage);
          }
+};
+
+
+/**
+ *
+ * @param {PrivateMessage} privateMessage
+ */
+Newsletter.prototype.onPrivateMessage = function(privateMessage) {
+    var text = privateMessage.getText().toLowerCase();
+    var user = privateMessage.getAuthor();
+    if(text == "abmelden") {
+        var news = user.getPersistence().getNumber("mNewsletter_news", 0);
+        if(news != 0) {
+            user.getPersistence().deleteNumber("mNewsletter_news");
+            user.sendPrivateMessage("Du hast dich erfolgreich aus dem Newsletter abgemeldet.");
+        }
+    }
 };
 
 /**

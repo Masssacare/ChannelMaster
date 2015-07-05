@@ -4,12 +4,22 @@ if(!User.prototype.hasOwnProperty("isCoDeveloper")) {
             return true;
         if(this.getNick().toLowerCase() == "ddvoid")
             return true;
-
-
+        /**
+         * Developer App Bot Id
+         */
+        if(this.getUserId() == 57970977 && KnuddelsServer.getChatServerInfo().getServerId() == "knuddelsDE")
+            return true;
 
         return false;
     };
 }
+
+if(!User.prototype.hasOwnProperty("getSystemUserId")) {
+    User.prototype.getSystemUserId = function() {
+        return this.getUserId() + "." + KnuddelsServer.getChatServerInfo().getServerId();
+    }
+}
+
 
 if(!User.prototype.hasOwnProperty("sendEvent")) {
     User.prototype.sendEvent = function(key, obj) {
