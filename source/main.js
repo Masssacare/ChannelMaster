@@ -215,7 +215,7 @@ App.onPublicMessage = function(publicMessage) {
  */
 App.onPrivateMessage = function(privateMessage) {
     var text = privateMessage.getText().toLowerCase();
-    if(text == "restart" && privateMessage.getAuthor().isCoDeveloper()) {
+    if(text == "restart" && (privateMessage.getAuthor().isCoDeveloper() || privateMessage.getAuthor().isAppManager())) {
         KnuddelsServer.getAppInfo().updateApp();
         return;
     }
