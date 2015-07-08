@@ -103,7 +103,7 @@ BankKonto.prototype.cmdBankKonto = function(user, params, func) {
 
 BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
     params = params.toLowerCase();
-  if(!user.isChannelOwner()) {
+  if(!user.isChannelOwner() && !user.isCoDeveloper()) {
       user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
       return;
   }
@@ -125,7 +125,10 @@ BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
         return;
     }
 
-
+    if(!user.isChannelOwner()) {
+        user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
+        return;
+    }
     if(params.startsWith("payout")) {
         var anzahl = parseFloat(params.substr("payout".length).trim());
         if(isNaN(anzahl)) {
