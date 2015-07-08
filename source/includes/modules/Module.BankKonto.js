@@ -43,13 +43,14 @@ BankKonto.prototype.getPayoutKnuddel = function() {
 BankKonto.prototype.onActivated = function() {
     this.registerCommand("bankkonto", this.cmdBankKonto);
     this.registerCommand("bankkontoadmin", this.cmdBankKontoAdmin);
+    this.registerCommand("spenden", this.cmdSpenden);
     this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
 };
 
 BankKonto.prototype.onDeactivated = function() {
     this.unregisterCommand("bankkonto");
     this.unregisterCommand("bankkontoadmin");
-
+    this.unregisterCommand("spenden");
 };
 
 /**
@@ -67,19 +68,59 @@ BankKonto.prototype.onKnuddelReceived = function(sender, recv, knuddelAmount, tr
         if(transferReason == "" || transferReason.toLowerCase() == "bankkonto") {
             var newKonto = this.addKnuddelAmount(sender, knuddelAmount);
             sender.sendPrivateMessage("Du hast nun °RR°_" + newKonto + " Knuddel_°r° auf deinem Konto.");
+        } else if(transferReason.toLowerCase() == "spende"){
+            App.owner.sendPostMessage(knuddelAmount + "Kn als Spende erhalten", sender.getProfileLink() + " hat soeben °RR°_"+knuddelAmount + " Knuddel_°r° als Spende überwiesen.");
+            sender.sendPrivateMessage("Du hast dem AppBot soeben "+ knuddelAmount + " als Spende überwiesen.");
         } else {
-    sender.sendPrivateMessage("Du hast dem AppBot soeben "+ knuddelAmount + " überwiesen.");
+            sender.sendPrivateMessage("Du hast dem AppBot soeben "+ knuddelAmount + " überwiesen.");
         }
 };
+
+
+BankKonto.prototype.cmdSpenden = function(user, params, func) {
+    params = params.toLowerCase();
+    var amnt =  this.getKnuddelAmount(user);
+    if(params == "") {
+        user.sendPrivateMessage("Du hast °RR°_" + amnt + " Knuddel_°r° Guthaben.");
+        return;
+    }
+    var anzahl = parseFloat(params);
+    if(isNaN(anzahl)) {
+        user.sendPrivateMessage("Du musst auch eine gültige Knuddel Anzahl eingeben. °RR°_°>/spenden [ZAHL]|/tf-overridesb /spenden [ZAHL]<°°r°_.");
+        return;
+    }
+    if(anzahl <= 0) {
+        user.sendPrivateMessage("Du kannst nicht 0 oder weniger Knuddel spenden.");
+        return;
+    }
+    if(amnt < anzahl) {
+        user.sendPrivateMessage("Du kannst nicht mehr Knuddel spenden als du besitzt.");
+        return;
+    }
+
+    var ka = new KnuddelAmount(anzahl);
+    this.removeKnuddelAmount(user, ka);
+    user.sendPrivateMessage("Du hast °RR°_" + anzahl + " Knuddel_°r° gespendet.");
+    App.owner.sendPostMessage(anzahl + "Kn als Spende erhalten", sender.getProfileLink() + " hat soeben °RR°_"+ anzahl + " Knuddel_°r° als Spende überwiesen.");
+};
+
 BankKonto.prototype.cmdBankKonto = function(user, params, func) {
     params = params.toLowerCase();
     if(params == "") {
         user.sendPrivateMessage("Du hast °RR°_" + this.getKnuddelAmount(user)+ " Knuddel_°r° Guthaben.");
+        return;
     }
+
+
+
     if(params.startsWith("payout")) {
         var anzahl = parseFloat(params.substr("payout".length).trim());
         if(isNaN(anzahl)) {
             user.sendPrivateMessage("Du musst auch eine gültige Knuddel Anzahl eingeben. °RR°_°>/bankkonto payout ZAHL|/tf-overridesb /bankkonto payout [Zahl]<°°r°_.");
+            return;
+        }
+        if(anzahl <= 0) {
+            user.sendPrivateMessage("Dukannst nicht 0 oder weniger Knuddel abheben.");
             return;
         }
         if(anzahl > this.getKnuddelAmount(user)) {
