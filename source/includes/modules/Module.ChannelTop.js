@@ -31,7 +31,11 @@ ChannelTop.PKEYS = Object.freeze({
     ONLINE_TIME_DAY:    "mChannelTop_onlinetime_day",
     ONLINE_TIME_WEEK:   "mChannelTop_onlinetime_week",
     ONLINE_TIME_MONTH:  "mChannelTop_onlinetime_month",
-    ONLINE_TIME_YEAR:   "mChannelTop_onlinetime_year"
+    ONLINE_TIME_YEAR:   "mChannelTop_onlinetime_year",
+    ONLINE_TIME_LASTDAY:    "mChannelTop_onlinetime_lastday",
+    ONLINE_TIME_LASTWEEK:   "mChannelTop_onlinetime_lastweek",
+    ONLINE_TIME_LASTMONTH:  "mChannelTop_onlinetime_lastmonth",
+    ONLINE_TIME_LASTYEAR:   "mChannelTop_onlinetime_lastyear"
 
 
 });
@@ -77,15 +81,19 @@ ChannelTop.prototype.timerHandler = function(date) {
 
     if(date.getSeconds() == 0 && date.getMinutes() == 0 && date.getHours() == 0) { //jede nacht um 0
         if(date.getDay() == 1) { //jeden Montag
-            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_WEEK);
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTWEEK);
+            UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_WEEK, ChannelTop.PKEYS.ONLINE_TIME_LASTWEEK);
         }
         if(date.getDate() == 1) { //jeden Monatsersten
-            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_MONTH);
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH);
+            UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH, ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH);
         }
         if(date.getDate() == 1 && date.getMonth() == 0) { //jeden ersten Tag im Jahr
-            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_YEAR);
+            UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTYEAR);
+            UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_YEAR, ChannelTop.PKEYS.ONLINE_TIME_LASTYEAR);
         }
-        UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_DAY);
+        UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTDAY);
+        UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_LASTDAY, ChannelTop.PKEYS.ONLINE_TIME_LASTDAY);
     }
     this.updateAllUsers();
 };
@@ -105,6 +113,10 @@ ChannelTop.prototype.lists = [
     '_°BB>_honline week|/channeltop "<°_',
     '_°BB>_honline month|/channeltop "<°_',
     '_°BB>_honline year|/channeltop "<°_',
+    '_°BB>_honline lastday|/channeltop "<°_',
+    '_°BB>_honline lastweek|/channeltop "<°_',
+    '_°BB>_honline lastmonth|/channeltop "<°_',
+    '_°BB>_honline lastyear|/channeltop "<°_',
 
 
 
@@ -350,6 +362,28 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
             listheader += "Folgende User waren dieses Jahr am längsten in diesem Channel online:";
             avgMulti = 1.0/date.getMillisecondsOfYear();
             break;
+        case "online lastday":
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_LASTDAY;
+            listheader += "Folgende User waren Gestern am längsten in diesem Channel online:";
+            avgMulti = 1.0/(86400*1000);
+            break;
+        case "online lastweek":
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_LASTWEEK;
+            listheader += "Folgende User waren letzte Woche am längsten in diesem Channel online:";
+            avgMulti = 1.0/(86400*1000*7);
+            break;
+        case "online lastmonth":
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH;
+            listheader += "Folgende User waren letzten Monat am längsten in diesem Channel online:";
+            avgMulti = 1.0/(86400*1000*30);
+            break;
+        case "online lastyear":
+            keyname += ChannelTop.PKEYS.ONLINE_TIME_LASTYEAR;
+            listheader += "Folgende User waren letztes Jahr am längsten in diesem Channel online:";
+            avgMulti = 1.0/(86400*1000*365)
+            break;
+
+
     }
     if(listheader == "")
         return;
@@ -444,7 +478,8 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
         user.sendPrivateMessage("Du hast die Willkommensnachricht " + (status==0?"deaktiviert":"aktiviert") + ".");
         return;
     }
-    if(action == "online" || action == "online day" || action == "online week" || action == "online month" || action == "online year") {
+    if(action == "online"   || action == "online day" || action == "online week" || action == "online month" || action == "online year"
+                            ||  action == "online lastday" || action == "online lastweek" || action == "online lastmonth" || action == "online lastyear") {
         return this.bestlistOnline(user, action);
     }
     if(action == "online cm" || action == "online day cm" || action == "online week cm" || action == "online month cm" || action == "online year cm") {
