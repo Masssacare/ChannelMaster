@@ -79,21 +79,21 @@ ChannelTop.prototype.timerHandler = function(date) {
 
 
 
-    if(date.getSeconds() == 0 && date.getMinutes() == 0 && date.getHours() == 0) { //jede nacht um 0
+    if((date.getSeconds() == 0 && date.getMinutes() == 0 && date.getHours() == 0)) { //jede nacht um 0
         if(date.getDay() == 1) { //jeden Montag
             UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTWEEK);
             UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_WEEK, ChannelTop.PKEYS.ONLINE_TIME_LASTWEEK);
         }
         if(date.getDate() == 1) { //jeden Monatsersten
             UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH);
-            UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH, ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH);
+            UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_MONTH, ChannelTop.PKEYS.ONLINE_TIME_LASTMONTH);
         }
         if(date.getDate() == 1 && date.getMonth() == 0) { //jeden ersten Tag im Jahr
             UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTYEAR);
             UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_YEAR, ChannelTop.PKEYS.ONLINE_TIME_LASTYEAR);
         }
         UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.ONLINE_TIME_LASTDAY);
-        UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_LASTDAY, ChannelTop.PKEYS.ONLINE_TIME_LASTDAY);
+        UserPersistenceNumbers.updateKey(ChannelTop.PKEYS.ONLINE_TIME_DAY, ChannelTop.PKEYS.ONLINE_TIME_LASTDAY);
     }
     this.updateAllUsers();
 };

@@ -101,7 +101,7 @@ BankKonto.prototype.cmdSpenden = function(user, params, func) {
     var ka = new KnuddelAmount(anzahl);
     this.removeKnuddelAmount(user, ka);
     user.sendPrivateMessage("Du hast °RR°_" + anzahl + " Knuddel_°r° gespendet.");
-    App.owner.sendPostMessage(anzahl + "Kn als Spende erhalten", sender.getProfileLink() + " hat soeben °RR°_"+ anzahl + " Knuddel_°r° als Spende überwiesen.");
+    App.owner.sendPostMessage(anzahl + "Kn als Spende erhalten", user.getProfileLink() + " hat soeben °RR°_"+ anzahl + " Knuddel_°r° als Spende überwiesen.");
 };
 
 BankKonto.prototype.cmdBankKonto = function(user, params, func) {
