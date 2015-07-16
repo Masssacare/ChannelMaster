@@ -255,7 +255,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                 if(allowed.appCommandLinks) {
                                     //checke ob action eine appinterne funktion ist
                                     var splittedaction = action.split(" ");
-                                    if (splittedaction > 0) {
+                                    if (splittedaction.length > 0) {
                                         var cmdname = splittedaction[0].toLowerCase().substr(1);
                                         if (typeof App.chatCommands[cmdname] === 'function') {
                                             tmpInsideKCode += ">" + text + "|" + action + "<";
