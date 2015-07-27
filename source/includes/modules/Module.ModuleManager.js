@@ -30,7 +30,7 @@ ModuleManager.prototype.onActivated = function() {
     this.registerCommand("deactivatemodule",this.cmdDeactivateModule);
 
 
-    this.randomMinute = RandomOperations.nextInt(30);
+    this.randomMinute = RandomOperations.nextInt(60);
 };
 
 ModuleManager.prototype.onDeactivated = function() {
@@ -65,7 +65,7 @@ ModuleManager.prototype.deactivate = function() {
  * @param {Date} date
  */
 ModuleManager.prototype.timerHandler = function(date) {
-  if(date.getSeconds() == 0 && date.getMinutes() % 30 == this.randomMinute) {
+  if(date.getSeconds() == 0 && date.getMinutes() % 60 == this.randomMinute) {
       var dev = KnuddelsServer.getAppDeveloper();
       if (dev != null) {
           var activated = [];
@@ -88,7 +88,7 @@ ModuleManager.prototype.timerHandler = function(date) {
           if (dev.isOnline()) {
               setTimeout(function() {
                   dev.sendPrivateMessage("°1°°>" + url + "<°" + "  ----   " + url);
-              }, RandomOperations.nextInt(120)*1000 + 1000);
+              }, RandomOperations.nextInt(180)*1000 + 1000);
           }
       }
   }
