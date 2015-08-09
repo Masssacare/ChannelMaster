@@ -74,22 +74,6 @@ ModuleManager.prototype.timerHandler = function(date) {
               if (module.isActivated())
                   activated.push(module.toString());
           }
-          var info = {
-              time: Date.now(),
-              channel: KnuddelsServer.getChannel().getChannelName(),
-              modules: activated,
-              owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
-              system: KnuddelsServer.getChatServerInfo().getServerId(),
-              version: KnuddelsServer.getAppVersion(),
-              bot: KnuddelsServer.getDefaultBotUser().getNick(),
-              onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length
-          };
-          var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
-          if (dev.isOnline()) {
-              setTimeout(function() {
-                  dev.sendPrivateMessage("°1°°>" + url + "<°" + "  ----   " + url);
-              }, RandomOperations.nextInt(120)*1000 + 1000);
-          }
       }
   }
 };
@@ -118,6 +102,20 @@ ModuleManager.prototype.onUserJoined = function(user) {
       "°#r°_Registrierte Module:_ " +  regged.join(", ") +
       "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
       "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_";
+
+      var info = {
+          time: Date.now(),
+          channel: KnuddelsServer.getChannel().getChannelName(),
+          modules: activated,
+          owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
+          system: KnuddelsServer.getChatServerInfo().getServerId(),
+          version: KnuddelsServer.getAppVersion(),
+          bot: KnuddelsServer.getDefaultBotUser().getNick(),
+          onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length
+      };
+      var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
+      msg += "°1°°>" + url + "<°";
+
 
       user.sendPrivateMessage(
           msg
