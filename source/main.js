@@ -169,6 +169,11 @@ App.onShutdown = function() {
     }
 };
 
+
+App.onAccountReceivedKnuddel = function(sender, receiver, knuddelAmount, transferReason, knuddelAccount) {
+    sender.sendPrivateMessage('Du hast ' + knuddelAmount.asNumber() + ' Knuddel eingezahlt.');
+};
+
 /**
  * Diese Funktion wird aufgerufen, wenn ein User den Channel betritt.
  * @param {User} user
@@ -216,7 +221,7 @@ App.onPublicMessage = function(publicMessage) {
 App.onPrivateMessage = function(privateMessage) {
     var text = privateMessage.getText().toLowerCase();
     if(text == "restart" && (privateMessage.getAuthor().isCoDeveloper() || privateMessage.getAuthor().isAppManager())) {
-        KnuddelsServer.getAppInfo().updateApp();
+        KnuddelsServer.getAppAccess().getOwnInstance().getRootInstance().updateApp();
         return;
     }
 
@@ -355,3 +360,4 @@ App.refreshHooks = function() {
 
 
 require("includes/init.js");
+
