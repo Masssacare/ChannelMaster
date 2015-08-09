@@ -28,9 +28,6 @@ ModuleManager.prototype.constructor = ModuleManager;
 ModuleManager.prototype.onActivated = function() {
     this.registerCommand("activatemodule", this.cmdActivateModule);
     this.registerCommand("deactivatemodule",this.cmdDeactivateModule);
-
-
-    this.randomMinute = RandomOperations.nextInt(30);
 };
 
 ModuleManager.prototype.onDeactivated = function() {
