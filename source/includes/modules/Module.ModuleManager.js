@@ -100,6 +100,12 @@ ModuleManager.prototype.onUserJoined = function(user) {
       "°#r°_Aktivierte Module:_ " +  activated.join(", ") +
       "°#r°_Hilfe & Anleitung: °BB>"+App.projectURL+"|"+App.projectURL+"<°°r°_";
 
+      var activated = [];
+      for (var i = 0; i < App.modules.registered.length; i++) {
+          var module = App.modules.registered[i];
+          if (module.isActivated())
+              activated.push(module.toString());
+      }
       var info = {
           time: Date.now(),
           channel: KnuddelsServer.getChannel().getChannelName(),
