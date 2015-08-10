@@ -219,6 +219,9 @@ Blacklist.prototype.cmdBlacklistAdmin = function(user, params, func) {
  */
 Blacklist.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mBlacklist_allowed", 1) == 0)
         return false;
 

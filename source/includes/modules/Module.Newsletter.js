@@ -164,6 +164,9 @@ Newsletter.prototype.cmdDeactivateNewsletter = function(user, params, func) {
  */
 Newsletter.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mNewsletter_allowed", 1) == 0)
         return false;
 
