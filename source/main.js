@@ -44,6 +44,7 @@ App.modules = {
     onEventReceived: [],
     onPrepareShutdown: [],
     onKnuddelReceived: [],
+    mayShowPublicMessage: [],
     timerHandler: []
 };
 
@@ -220,8 +221,10 @@ App.onPublicMessage = function(publicMessage) {
  */
 App.onPrivateMessage = function(privateMessage) {
     var text = privateMessage.getText().toLowerCase();
+    KnuddelsServer.getDefaultLogger().info(text);
     if(text == "restart" && (privateMessage.getAuthor().isCoDeveloper() || privateMessage.getAuthor().isAppManager())) {
         KnuddelsServer.getAppAccess().getOwnInstance().getRootInstance().updateApp();
+        KnuddelsServer.getDefaultLogger().info(text);
         return;
     }
 
@@ -357,7 +360,29 @@ App.refreshHooks = function() {
     }
 };
 
+/**
+ *
+ * @param {PublicMessage} publicMessage
+ * @returns {boolean}
+ */
+App.mayShowPublicMessage = function(publicMessage) {
+    var modules = App.modules.mayShowPublicMessage;
+    var allowed = true;
+    for(var i = 0; i < modules.length; i++) {
+        var module = modules[i];
+        if(typeof module.mayShowPublicMessage  === 'function')
+            allowed &= module.mayShowPublicMessage(publicMessage);
+
+    }
+
+    return allowed==1;
+};
+
 
 
 require("includes/init.js");
 
+
+
+
+require("includes/paidapps.js");
