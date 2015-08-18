@@ -192,6 +192,9 @@ Functions.prototype.cmdDeleteFunction = function(user, params, func) {
  */
 Functions.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mFunctions_allowed", 1) == 0)
         return false;
 

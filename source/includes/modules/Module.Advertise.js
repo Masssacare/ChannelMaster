@@ -235,6 +235,9 @@ Advertise.prototype.cmdDeadvertise = function(user, params, func) {
  */
 Advertise.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mAdvertise_allowed", 1) == 0)
         return false;
 
