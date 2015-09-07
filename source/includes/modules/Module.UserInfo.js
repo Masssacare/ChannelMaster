@@ -43,7 +43,7 @@ function UserInfo() {
         var message = "°RR°_Info von °BB°" + tUser.getProfileLink() + "°r°_";
 
         //Default Infos
-        message += "°#r°_LieblingsChannel:_ " + (user.isLikingChannel()?"°BB°Ja§":"°RR°Nein§");
+        message += "°#r°_LieblingsChannel:_ " + (tUser.isLikingChannel()?"°BB°Ja§":"°RR°Nein§");
         message += "°#r°_ClientType:_ "      + tUser.getClientType().toString();
         message += "°#r°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember) || user.isCoDeveloper())

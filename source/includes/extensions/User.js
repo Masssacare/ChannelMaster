@@ -46,7 +46,7 @@ if(!User.prototype.hasOwnProperty("getTeams")) {
                     ["Ehrenkommission", "Teamleitung", "Teamleiter"],
                     ["Forum", "Forumsadmin", "Teamleitung", "Teamleiter"],
                     ["Foto", "CMV", "Teamleitung", "Teamleiter"],
-                    ["Fußball", "Teamleitung", "Teamleiter"],
+                    ["Fußball", "LigaTipps", "Teamleitung", "Teamleiter"],
                     ["Handy-Chat", "Teamleitung", "Teamleiter"],
                     ["Help 4 You", "Teamleitung", "Teamleiter"],
                     ["Homepage", "Teamleitung", "Teamleiter"],
