@@ -20,6 +20,24 @@ function UserInfo() {
     this.__proto__.constructor = UserInfo;
 
 
+
+    this.cmdShowLMCs = function(user, params, func) {
+        var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
+        var userAccess = KnuddelsServer.getUserAccess();
+        var arr = [];
+        userAccess.eachAccessibleUser(function(user, index, accessibleUserCount) {
+            try {
+                if (user.isLikingChannel())
+                    arr.push("°B°_" + user.getProfileLink() + "_°r°");
+            }
+            catch(e) {
+
+            }
+        }, { onEnd: function() {
+           user.sendPrivateMessage(message + arr.join(","));
+        }});
+    };
+
     /**
      *
      * @param {User} user
@@ -88,10 +106,12 @@ function UserInfo() {
 
     this.onActivated = function() {
         this.registerCommand("userinfo", this.cmdUserInfo);
+        this.registerCommand("getlmcs", this.cmdShowLMCs);
     };
 
     this.onDeactivated = function() {
         this.unregisterCommand("userinfo");
+        this.unregisterCommand("getlmcs");
     };
 
     /**
