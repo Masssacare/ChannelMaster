@@ -25,16 +25,17 @@ function UserInfo() {
         var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
         var userAccess = KnuddelsServer.getUserAccess();
         var arr = [];
+        user.sendPrivateMessage("Die Anfrage wird verarbeitet, kann aber etwas länger dauern.");
         userAccess.eachAccessibleUser(function(user, index, accessibleUserCount) {
             try {
                 if (user.isLikingChannel())
-                    arr.push("°B°_" + user.getProfileLink() + "_°r°");
+                    arr.push("°BB°" + user.getProfileLink() + "°r°");
             }
             catch(e) {
 
             }
         }, { onEnd: function() {
-           user.sendPrivateMessage(message + arr.join(","));
+           user.sendPrivateMessage(message + arr.join(", "));
         }});
     };
 
