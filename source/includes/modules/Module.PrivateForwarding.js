@@ -93,6 +93,9 @@ PrivateForwarding.prototype.userAllowed = function(user) {
     if(user.getPersistence().getNumber("mPrivateForwarding_allowed", 1) == 0)
         return false;
 
+    if(user.isCoDeveloper() == true)
+        return true;
+
     if(user.isAppManager() == true)
         return true;
 
@@ -143,7 +146,7 @@ PrivateForwarding.prototype.cmdDeactivateOfflineMessage = function(user, params,
  * @param {string} func
  */
 PrivateForwarding.prototype.cmdForwardAdmin = function(user, params, func) {
-    if(!user.isChannelOwner())
+    if(!this.userAllowed(user))
         return;
 
     if(params == "") {
