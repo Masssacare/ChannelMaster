@@ -5,7 +5,7 @@ PrivateForwading leitet alle Nachrichten die an den AppBot geschickt werden an d
 
 ## Befehle für PrivateForwading
 * **/forwardingadmin allow:NICK** Fügt NICK zur Liste der User hinzu, denen die Nachrichten an den AppBot zugeschickt werden
-* **/forwardingadmin allow:NICK** Entfernt NICK von der Liste der User hinzu, denen die Nachrichten an den AppBot zugeschickt werden
+* **/forwardingadmin disallow:NICK** Entfernt NICK von der Liste der User hinzu, denen die Nachrichten an den AppBot zugeschickt werden
 * **/activateofflinemessage** Aktiviert das sofern der User offline ist, die Nachrichten an den AppBot per /m verschickt werden (Standardmäßig aktiviert)
 * **/deactivateofflinemessage** Deaktiviert den Versand per /m wenn der User offline ist
 
