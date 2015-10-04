@@ -20,6 +20,25 @@ function UserInfo() {
     this.__proto__.constructor = UserInfo;
 
 
+
+    this.cmdShowLMCs = function(user, params, func) {
+        var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
+        var userAccess = KnuddelsServer.getUserAccess();
+        var arr = [];
+        user.sendPrivateMessage("Die Anfrage wird verarbeitet, kann aber etwas länger dauern.");
+        userAccess.eachAccessibleUser(function(user, index, accessibleUserCount) {
+            try {
+                if (user.isLikingChannel())
+                    arr.push("°BB°" + user.getProfileLink() + "°r°");
+            }
+            catch(e) {
+
+            }
+        }, { onEnd: function() {
+           user.sendPrivateMessage(message + arr.join(", "));
+        }});
+    };
+
     /**
      *
      * @param {User} user
@@ -38,9 +57,12 @@ function UserInfo() {
             return;
         }
 
+
+
         var message = "°RR°_Info von °BB°" + tUser.getProfileLink() + "°r°_";
 
         //Default Infos
+        message += "°#r°_LieblingsChannel:_ " + (tUser.isLikingChannel()?"°BB°Ja§":"°RR°Nein§");
         message += "°#r°_ClientType:_ "      + tUser.getClientType().toString();
         message += "°#r°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember) || user.isCoDeveloper())
@@ -50,7 +72,7 @@ function UserInfo() {
 
         var htmlFile = new HTMLFile('JavaFXCheck/test.html');
         var overlayContent = AppContent.overlayContent(htmlFile, 50, 50);
-        message += "°#r°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"Unterstützt":"Nicht unterstützt");
+        message += "°#r°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"°BB°Unterstützt§":"°RR°Nicht unterstützt§");
 
         message += "°#r°_Knuddelkonto:_ " + BankKonto.self.getKnuddelAmount(tUser) + " Knuddel";
 
@@ -60,7 +82,7 @@ function UserInfo() {
             message += "°#r°_Zuletzt im Channel:_ " + (lastOnline==0?"Noch nie":lastOnline==-1?"Jetzt":new Date(lastOnline).toGermanString());
         }
         if(Newsletter.self.isActivated()) {
-            message += "°#r°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"Angemeldet":"Abgemeldet");
+            message += "°#r°_Newsletter:_ " + (tUser.getPersistence().hasNumber("mNewsletter_news")?"°BB°Angemeldet§":"°RR°Abgemeldet§");
         }
         if(ChannelTop.self.isActivated()) {
             var timeDay         = tUser.getPersistence().getNumber("mChannelTop_onlinetime_day",    0);
@@ -85,10 +107,12 @@ function UserInfo() {
 
     this.onActivated = function() {
         this.registerCommand("userinfo", this.cmdUserInfo);
+        this.registerCommand("getlmcs", this.cmdShowLMCs);
     };
 
     this.onDeactivated = function() {
         this.unregisterCommand("userinfo");
+        this.unregisterCommand("getlmcs");
     };
 
     /**

@@ -53,6 +53,9 @@ Botsay.prototype.cmdBotsay = function(user, params, func) {
  */
 Botsay.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mBotsay_allowed", 1) == 0)
         return false;
 

@@ -206,8 +206,19 @@ Blacklist.prototype.cmdBlacklistAdmin = function(user, params, func) {
     }
 };
 
-
-
+/**
+ *
+ * @param {PublicMessage} publicMessage
+ */
+Blacklist.prototype.mayShowPublicMessage = function(publicMessage) {
+    var user = publicMessage.getAuthor();
+    var key = "u-"+user.getUserId();
+    var disallowed = this.getUsers();
+    if(typeof disallowed[key] != "undefined") {
+        return false;
+    }
+    return true;
+};
 
 
 
@@ -218,6 +229,9 @@ Blacklist.prototype.cmdBlacklistAdmin = function(user, params, func) {
  * @returns {boolean}
  */
 Blacklist.prototype.userAllowed = function(user) {
+
+    if(user.isChannelOwner())
+        return true;
 
     if(user.getPersistence().getNumber("mBlacklist_allowed", 1) == 0)
         return false;
