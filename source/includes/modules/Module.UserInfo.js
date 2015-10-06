@@ -20,23 +20,60 @@ function UserInfo() {
     this.__proto__.constructor = UserInfo;
 
 
+    /**
+     *
+     * @param {User} user
+     */
+    this.onUserLeft = function(user) {
+        if(user.isLikingChannel()) {
+            user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+        }
+    };
 
-    this.cmdShowLMCs = function(user, params, func) {
-        var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
+    this.onAppStart = function() {
         var userAccess = KnuddelsServer.getUserAccess();
-        var arr = [];
-        user.sendPrivateMessage("Die Anfrage wird verarbeitet, kann aber etwas länger dauern.");
         userAccess.eachAccessibleUser(function(user, index, accessibleUserCount) {
             try {
-                if (user.isLikingChannel())
-                    arr.push("°BB°" + user.getProfileLink() + "°r°");
+                if (user.isLikingChannel()) {
+                    user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+                }
             }
             catch(e) {
 
             }
-        }, { onEnd: function() {
-           user.sendPrivateMessage(message + arr.join(", "));
-        }});
+        },{});
+    };
+
+    this.cmdShowLMCs = function(user, params, func) {
+
+        var users = App.channel.getOnlineUsers();
+        for(var i in users) {
+            var tUser = users[i];
+            if(tUser.isLikingChannel()) {
+                tUser.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+            }
+        }
+
+
+        var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
+        var arr = [];
+        UserPersistenceNumbers.each("mUserInfo_likingChannel", function(user) {
+            try {
+                if (user.isLikingChannel()) {
+                    arr.push("°BB°" + user.getProfileLink() + "°r°");
+                } else {
+                    user.getPersistence().deleteNumber("mUserInfo_likingChannel");
+                }
+            }
+            catch(e) {
+
+            }
+        },
+        {
+            onEnd: function() {
+                user.sendPrivateMessage(message + arr.join(", "));
+            }
+        });
     };
 
     /**
