@@ -20,6 +20,17 @@ function UserInfo() {
     this.__proto__.constructor = UserInfo;
 
 
+
+    /**
+     *
+     * @param {User} user
+     */
+    this.onUserJoined = function(user) {
+        if(user.isLikingChannel()) {
+            user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+        }
+    };
+
     /**
      *
      * @param {User} user
@@ -71,6 +82,7 @@ function UserInfo() {
         },
         {
             onEnd: function() {
+                arr = arr.sort();
                 user.sendPrivateMessage(message + arr.join(", "));
             }
         });
