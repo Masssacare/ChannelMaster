@@ -66,7 +66,7 @@ function UserInfo() {
         }
 
 
-        var message = '°RR°_Folgende Nutzer haben diesen Channel als LMC gesetzt:°#°°r°';
+
         var arr = [];
         UserPersistenceNumbers.each("mUserInfo_likingChannel", function(user) {
             try {
@@ -83,6 +83,7 @@ function UserInfo() {
         {
             onEnd: function() {
                 arr = arr.sort();
+                var message = '°RR°_Folgende Nutzer (' + arr.length + ') haben diesen Channel als LMC gesetzt:°#°°r°';
                 user.sendPrivateMessage(message + arr.join(", "));
             }
         });
