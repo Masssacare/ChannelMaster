@@ -41,7 +41,21 @@ TopicChanger.prototype.cmdPreviewTopic = function (user, params, func) {
     user.sendPrivateMessage("_°BB°Dieser Channel hat folgendes Thema:°r°°#°" + topic);
 };
 
+/**
+ * mit diesen Befehl kann man sich das aktuelle Topic inkl. genutztem KCode anschauen
+ * @param {User} user
+ * @param {string} params
+ * @param {string} func
+ */
+TopicChanger.prototype.cmdGetTopic = function (user, params, func) {
+    if(!this.isAllowed(user)) {
+        return;
+    }
 
+    var topic = App.channel.getChannelConfiguration().getChannelInformation().getTopic();
+
+    user.sendPrivateMessage("_°BB°Dieser Channel hat folgendes Thema:°r°°#°" + topic.escapeKCode());
+};
 
 /**
  * mit diesen Befehl kann ein Topic gesetzt werden für den Channel
@@ -56,9 +70,9 @@ TopicChanger.prototype.cmdSetTopic = function (user, params, func) {
         return;
     }
 
-    var topic = params.limitKCode();
+    var topic = params;
 
-    KnuddelsServer.getChannel().getChannelConfiguration().getChannelInformation().setTopic(topic);
+    App.channel.getChannelConfiguration().getChannelInformation().setTopic(topic.limitKCode());
 };
 
 TopicChanger.prototype.cmdTopicChangerAdmin = function(user, params, func) {
@@ -121,13 +135,17 @@ TopicChanger.prototype.isAllowed = function(user) {
 };
 
 
+
+
 TopicChanger.prototype.onActivated = function() {
+    this.registerCommand("gettopic",this.cmdGetTopic);
     this.registerCommand("settopic", this.cmdSetTopic);
     this.registerCommand("previewtopic", this.cmdPreviewTopic);
     this.registerCommand("topicchangeradmin",this.cmdTopicChangerAdmin);
 };
 
 TopicChanger.prototype.onDeactivated = function() {
+    this.unregisterCommand("gettopic");
     this.unregisterCommand("settopic");
     this.unregisterCommand("previewtopic");
     this.unregisterCommand("topicchangeradmin");
