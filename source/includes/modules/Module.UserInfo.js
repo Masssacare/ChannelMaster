@@ -71,7 +71,8 @@ function UserInfo() {
         UserPersistenceNumbers.each("mUserInfo_likingChannel", function(user) {
             try {
                 if (user.isLikingChannel()) {
-                    arr.push("°BB°" + user.getProfileLink() + "°r°");
+                    var linkC = user.getUserStatus().isAtLeast(UserStatus.Stammi)?"°BB°":"°RR°";
+                    arr.push(linkC + user.getProfileLink() + "°r°");
                 } else {
                     user.getPersistence().deleteNumber("mUserInfo_likingChannel");
                 }
