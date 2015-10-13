@@ -61,27 +61,6 @@ BankKonto.prototype.onActivated = function() {
     this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
 
 
-    var i = 0;
-    //migrate to /knuddelaccount
-    UserPersistenceNumbers.each("mBankKontoKonto_amount", function(user, value, index, totalCount, key) {
-    i++;
-            var ka = user.getKnuddelAccount();
-             if(value >= 0.01) {
-                App.bot.transferKnuddel(ka, value, { 'displayReasonText': 'Account Migration', });
-
-             }
-            user.getPersistence().deleteNumber("mBankKontoKonto_amount");
-
-    },  { onEnd: function() {
-
-            if(UserPersistenceNumbers.getCount("mBankKontoKonto_amount") == 0 && i > 0) {
-                var ka = App.owner.getKnuddelAccount();
-                var value = BankKonto.self.getPayoutKnuddel();
-                App.bot.transferKnuddel(ka, value , { 'displayReasonText': 'Bot Knuddel Sicherung' });
-            }
-        }
-    });
-
 
 };
 
