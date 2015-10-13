@@ -270,6 +270,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
     if(action.toLowerCase() == "join") {
         var text = params.substr(ind+1).trim().limitKCode();
         if(text == "standard") {
+            var channame = App.channel.getChannelName();
             App.persistence.setString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
             var standard = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
             user.sendPrivateMessage("Der Begrüßungstext für den Newsletter wurde wieder auf den Standardwert gesetzt. °#°"+standard);
