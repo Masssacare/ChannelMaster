@@ -175,4 +175,37 @@ BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
     }
 };
 
+
+BankKonto.prototype.gameFee = function(dev, fee) {
+    dev = KnuddelsServer.getUserByNickname(dev);
+    if(dev == null) {
+        dev = KnuddelsServer.getAppDeveloper();
+    }
+    if(fee < 0.01) {
+        return;
+    }
+    fees = App.persistence.getObject("gameFees",{});
+    if(typeof fees[dev.getUserId()] == 'undefined') {
+        fees[dev.getUserId()] = 0;
+    }
+    fees[dev.getUserId()] += fee;
+    App.persistence.addNumber("gameFeesSum", fee);
+    App.persistence.setObject("gameFees", fees);
+};
+BankKonto.prototype.timerHandler = function() {
+    var date = new Date();
+    if(date.getSeconds() == 0 && date.getHours() == 0) {
+        var fees = App.persistence.getObject("gameFees", {});
+        for(var key in fees) {
+            var dev = KnuddelsServer.getUserAccess().getUserById(key);
+            var fee = fees[key];
+            if(fee >= 0.01) {
+                App.bot.transferKnuddel(dev.getKnuddelAccount(), new KnuddelAmount(fee));
+                delete fees[key];
+            }
+        }
+        App.persistence.setObject(fees);
+    }
+};
+
 BankKonto.self = new BankKonto();
