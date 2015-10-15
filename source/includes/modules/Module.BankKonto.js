@@ -204,7 +204,7 @@ BankKonto.prototype.timerHandler = function() {
                 delete fees[key];
             }
         }
-        App.persistence.setObject(fees);
+        App.persistence.setObject("gameFees",fees);
     }
 };
 
