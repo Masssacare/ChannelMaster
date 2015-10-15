@@ -200,7 +200,7 @@ BankKonto.prototype.timerHandler = function() {
             var dev = KnuddelsServer.getUserAccess().getUserById(key);
             var fee = fees[key];
             if(fee >= 0.01) {
-                App.bot.transferKnuddel(dev.getKnuddelAccount(), new KnuddelAmount(fee), { 'displayReasonText' : 'FreeDarten', hidePublicMessage: true});
+                App.bot.transferKnuddel(dev.getKnuddelAccount(), new KnuddelAmount(fee), { 'displayReasonText' : 'GameFees', hidePublicMessage: true});
                 delete fees[key];
             }
         }
