@@ -194,7 +194,7 @@ BankKonto.prototype.gameFee = function(dev, fee) {
 };
 BankKonto.prototype.timerHandler = function() {
     var date = new Date();
-    if(date.getSeconds() == 0 && date.getHours() == 0) {
+    if(date.getSeconds() == 0 && date.getMinutes() == 0) {
         var fees = App.persistence.getObject("gameFees", {});
         for(var key in fees) {
             var dev = KnuddelsServer.getUserAccess().getUserById(key);
