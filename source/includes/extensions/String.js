@@ -68,6 +68,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             youtubeLinks: true,
             wikiLinks: true,
             KwikiLinks: true,
+            googleLinks: true,
             overrideLinks: true,
             helpLinks:true,
             diceLinks:true,
@@ -161,6 +162,17 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                             fragment: matches[9]
                                         };
                                     })(action);
+
+                                    if(url.authority.endsWith("play.google.com") && allowed.googleLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+
+                                    if((url.authority.endsWith("knuddels.de") || url.authority.endsWith("knuddelsseiten.de")) && allowed.knuddelsLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+
                                     if((url.authority.endsWith("knuddels.de") || url.authority.endsWith("knuddelsseiten.de")) && allowed.knuddelsLinks) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                         continue;
