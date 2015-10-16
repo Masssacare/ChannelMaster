@@ -133,9 +133,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     inLink = false;
                                     continue;
                                 }
-                                if(!allowed.profileLinks && !allowed.channelLinks && !allowed.infoLinks && !allowed.allLinks) {
-                                    inLink = false;
-                                    continue;
+                                if(inLink.startsWith("{font}")) {
+                                    tmpInsideKCode += ">" + inLink + "<";
                                 }
 
                                 var parts = inLink.split('|');
