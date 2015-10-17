@@ -321,6 +321,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     case '7':
                                     case '8':
                                     case '9':
+                                    case '-':
                                         if(allowed.size)
                                             tmpInsideKCode += iChar;
                                         continue;
