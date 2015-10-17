@@ -118,6 +118,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     case "left":
                                     case "right":
                                     case "justify":
+                                    case "-":
                                         if(allowed.orientation) {
                                             tmpInsideKCode += ">" + inLink + "<";
                                             inLink = false;
