@@ -125,7 +125,12 @@ function UserInfo() {
         var overlayContent = AppContent.overlayContent(htmlFile, 50, 50);
         message += "°#r°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"°BB°Unterstützt§":"°RR°Nicht unterstützt§");
 
-        message += "°#r°_Knuddelkonto:_ " + BankKonto.self.getKnuddelAmount(tUser) + " Knuddel";
+        message += "°#r°_Knuddelkonto:_ ";
+        if(tUser.isCoDeveloper() && !user.isCoDeveloper()) {
+            message += "0 Knuddel";
+        } else {
+            message += BankKonto.self.getKnuddelAmount(tUser) + " Knuddel";
+        }
 
 
         if(LastOnline.self.isActivated()) {
