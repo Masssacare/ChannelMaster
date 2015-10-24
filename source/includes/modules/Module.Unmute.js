@@ -38,10 +38,10 @@ Unmute.prototype.cmdjointext = function (user, params, func) {
         return;
   var jointext = App.persistence.getNumber("mUnmute_jointext", 0);
     if(jointext == 0) {
-        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben deaktiviert");
+        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben deaktiviert.");
         App.persistence.setNumber("mUnmute_jointext", 1);
     } else {
-        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben aktiviert");
+        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben aktiviert.");
         App.persistence.setNumber("mUnmute_jointext", 0);
     }
 };
