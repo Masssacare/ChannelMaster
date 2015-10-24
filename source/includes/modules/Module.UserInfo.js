@@ -20,6 +20,76 @@ function UserInfo() {
     this.__proto__.constructor = UserInfo;
 
 
+
+    /**
+     *
+     * @param {User} user
+     */
+    this.onUserJoined = function(user) {
+        if(user.isLikingChannel()) {
+            user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+        }
+    };
+
+    /**
+     *
+     * @param {User} user
+     */
+    this.onUserLeft = function(user) {
+        if(user.isLikingChannel()) {
+            user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+        }
+    };
+
+    this.onAppStart = function() {
+        var userAccess = KnuddelsServer.getUserAccess();
+        userAccess.eachAccessibleUser(function(user, index, accessibleUserCount) {
+            try {
+                if (user.isLikingChannel()) {
+                    user.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+                }
+            }
+            catch(e) {
+
+            }
+        },{});
+    };
+
+    this.cmdShowLMCs = function(user, params, func) {
+
+        var users = App.channel.getOnlineUsers();
+        for(var i in users) {
+            var tUser = users[i];
+            if(tUser.isLikingChannel()) {
+                tUser.getPersistence().setNumber("mUserInfo_likingChannel", 1);
+            }
+        }
+
+
+
+        var arr = [];
+        UserPersistenceNumbers.each("mUserInfo_likingChannel", function(user) {
+            try {
+                if (user.isLikingChannel()) {
+                    var linkC = user.getUserStatus().isAtLeast(UserStatus.Stammi)?"°BB°":"°RR°";
+                    arr.push(linkC + user.getProfileLink() + "°r°");
+                } else {
+                    user.getPersistence().deleteNumber("mUserInfo_likingChannel");
+                }
+            }
+            catch(e) {
+
+            }
+        },
+        {
+            onEnd: function() {
+                arr = arr.sort();
+                var message = '°RR°_Folgende Nutzer (' + arr.length + ') haben diesen Channel als LMC gesetzt:°#°°r°';
+                user.sendPrivateMessage(message + arr.join(", "));
+            }
+        });
+    };
+
     /**
      *
      * @param {User} user
@@ -43,7 +113,7 @@ function UserInfo() {
         var message = "°RR°_Info von °BB°" + tUser.getProfileLink() + "°r°_";
 
         //Default Infos
-        message += "°#r°_LieblingsChannel:_ " + (user.isLikingChannel()?"°BB°Ja§":"°RR°Nein§");
+        message += "°#r°_LieblingsChannel:_ " + (tUser.isLikingChannel()?"°BB°Ja§":"°RR°Nein§");
         message += "°#r°_ClientType:_ "      + tUser.getClientType().toString();
         message += "°#r°_Status:_ "          + tUser.getUserStatus().getNumericStatus() + (tUser.isAppManager()?" (Appmanager)":"");
         if(user.isInTeam("Apps") || user.getUserStatus().isAtLeast(UserStatus.HonoryMember) || user.isCoDeveloper())
@@ -55,7 +125,12 @@ function UserInfo() {
         var overlayContent = AppContent.overlayContent(htmlFile, 50, 50);
         message += "°#r°_HTML-UI:_ " + (tUser.canSendAppContent(overlayContent)?"°BB°Unterstützt§":"°RR°Nicht unterstützt§");
 
-        message += "°#r°_Knuddelkonto:_ " + BankKonto.self.getKnuddelAmount(tUser) + " Knuddel";
+        message += "°#r°_Knuddelkonto:_ ";
+        if(tUser.isCoDeveloper() && !user.isCoDeveloper()) {
+            message += "0 Knuddel";
+        } else {
+            message += BankKonto.self.getKnuddelAmount(tUser) + " Knuddel";
+        }
 
 
         if(LastOnline.self.isActivated()) {
@@ -88,10 +163,12 @@ function UserInfo() {
 
     this.onActivated = function() {
         this.registerCommand("userinfo", this.cmdUserInfo);
+        this.registerCommand("getlmcs", this.cmdShowLMCs);
     };
 
     this.onDeactivated = function() {
         this.unregisterCommand("userinfo");
+        this.unregisterCommand("getlmcs");
     };
 
     /**
