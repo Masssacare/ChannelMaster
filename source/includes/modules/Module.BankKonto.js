@@ -61,27 +61,6 @@ BankKonto.prototype.onActivated = function() {
     this.publicTransfer = App.persistence.hasNumber("mBankKonto_publicTransfer");
 
 
-    var i = 0;
-    //migrate to /knuddelaccount
-    UserPersistenceNumbers.each("mBankKontoKonto_amount", function(user, value, index, totalCount, key) {
-    i++;
-            var ka = user.getKnuddelAccount();
-             if(value >= 0.01) {
-                App.bot.transferKnuddel(ka, value, { 'displayReasonText': 'Account Migration', });
-
-             }
-            user.getPersistence().deleteNumber("mBankKontoKonto_amount");
-
-    },  { onEnd: function() {
-
-            if(UserPersistenceNumbers.getCount("mBankKontoKonto_amount") == 0 && i > 0) {
-                var ka = App.owner.getKnuddelAccount();
-                var value = BankKonto.self.getPayoutKnuddel();
-                App.bot.transferKnuddel(ka, value , { 'displayReasonText': 'Bot Knuddel Sicherung' });
-            }
-        }
-    });
-
 
 };
 
@@ -193,6 +172,39 @@ BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
 
 
         user.sendPrivateMessage("Du hast dir gerade °RR°_"+ anzahl +" Knuddel°r°_ ausgezahlt. Dem AppBot stehen jetzt noch "+ this.getBotKnuddel() +" zur Verfügung.");
+    }
+};
+
+
+BankKonto.prototype.gameFee = function(dev, fee) {
+    dev = KnuddelsServer.getUserByNickname(dev);
+    if(dev == null) {
+        dev = KnuddelsServer.getAppDeveloper();
+    }
+    if(fee < 0.01) {
+        return;
+    }
+    fees = App.persistence.getObject("gameFees",{});
+    if(typeof fees[dev.getUserId()] == 'undefined') {
+        fees[dev.getUserId()] = 0;
+    }
+    fees[dev.getUserId()] += fee;
+    App.persistence.addNumber("gameFeesSum", fee);
+    App.persistence.setObject("gameFees", fees);
+};
+BankKonto.prototype.timerHandler = function() {
+    var date = new Date();
+    if(date.getSeconds() == 0 && date.getMinutes() == 0) {
+        var fees = App.persistence.getObject("gameFees", {});
+        for(var key in fees) {
+            var dev = KnuddelsServer.getUserAccess().getUserById(key);
+            var fee = fees[key];
+            if(fee >= 0.01) {
+                App.bot.transferKnuddel(dev.getKnuddelAccount(), new KnuddelAmount(fee), { 'displayReasonText' : 'GameFees', hidePublicMessage: true});
+                delete fees[key];
+            }
+        }
+        App.persistence.setObject("gameFees",fees);
     }
 };
 

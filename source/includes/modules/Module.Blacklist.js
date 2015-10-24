@@ -82,7 +82,7 @@ Blacklist.prototype.onUserJoined = function(user) {
  * @param {string} func
  */
 Blacklist.prototype.cmdBlacklist = function(user, params, func) {
-    if(!user.isChannelModerator() || !this.userAllowed(user)) {
+    if(!user.isChannelModerator()) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
     }

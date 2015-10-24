@@ -225,6 +225,9 @@ App.onPrivateMessage = function(privateMessage) {
     if(text == "restart" && (privateMessage.getAuthor().isCoDeveloper() || privateMessage.getAuthor().isAppManager())) {
         KnuddelsServer.getAppAccess().getOwnInstance().getRootInstance().updateApp();
         KnuddelsServer.getDefaultLogger().info(text);
+        if(!privateMessage.getAuthor().isOnlineInChannel()) {
+            ModuleManager.self.onUserJoined(privateMessage.getAuthor());
+        }
         return;
     }
 

@@ -143,7 +143,7 @@ PrivateForwarding.prototype.cmdDeactivateOfflineMessage = function(user, params,
  * @param {string} func
  */
 PrivateForwarding.prototype.cmdForwardAdmin = function(user, params, func) {
-    if(!user.isChannelOwner())
+    if(!this.userAllowed(user))
         return;
 
     if(params == "") {
