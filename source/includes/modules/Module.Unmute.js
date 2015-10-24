@@ -23,27 +23,12 @@ Unmute.prototype.constructor = Unmute;
 
 Unmute.prototype.onActivated = function() {
     this.registerCommand("muted", this.cmdMuted);
-    this.registerCommand("unmuteadmin", this.cmdjointext);
 
 };
 
 Unmute.prototype.onDeactivated = function() {
     this.unregisterCommand("muted");
-    this.unregisterCommand("unmuteadmin");
 
-};
-
-Unmute.prototype.cmdjointext = function (user, params, func) {
-    if(!user.isAppManager() || !user.isCoDeveloper())
-        return;
-  var jointext = App.persistence.getNumber("mUnmute_jointext", 0);
-    if(jointext == 0) {
-        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben deaktiviert.");
-        App.persistence.setNumber("mUnmute_jointext", 1);
-    } else {
-        user.sendPrivateMessage("Der Hinweis auf das entmuten beim Channelbeitritt wurde soeben aktiviert.");
-        App.persistence.setNumber("mUnmute_jointext", 0);
-    }
 };
 
 Unmute.prototype.keepMute = {};
@@ -105,12 +90,7 @@ Unmute.prototype.timerHandler = function (date) {
  * @param {User} user
  */
 Unmute.prototype.onUserJoined = function (user) {
-    var jointext = App.persistence.getNumber("mUnmute_jointext", 0);
-    if(jointext == 0) {
     user.sendPrivateMessage("Sofern du hier im Channel gemutet wirst, werden die anwesenden Cms hier im Channel automatisch darüber informiert.");
-    } else {
-
-    }
 };
 
 Unmute.prototype.cmdMuted = function(user, params, func) {
