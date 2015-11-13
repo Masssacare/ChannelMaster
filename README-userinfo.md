@@ -6,7 +6,7 @@ Das UserInfo Modul erlaubt den Channelmoderatoren des Channels eine Informations
 
 ## Befehle für UserInfo
 * **/userinfo NICK** Gibt eine Liste mit Informationen über den angegeben User wieder.
-
+* **/getlmcs** Zeigt eine Liste (inkl. Anzahl) der User die den Channel als Lieblings-Mychannel gesetzt haben.
 
 ## Entwickler
 /w Vampiric Desire

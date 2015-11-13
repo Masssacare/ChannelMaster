@@ -68,6 +68,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             youtubeLinks: true,
             wikiLinks: true,
             KwikiLinks: true,
+            googleLinks: true,
             overrideLinks: true,
             helpLinks:true,
             diceLinks:true,
@@ -117,6 +118,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     case "left":
                                     case "right":
                                     case "justify":
+                                    case "-":
                                         if(allowed.orientation) {
                                             tmpInsideKCode += ">" + inLink + "<";
                                             inLink = false;
@@ -133,9 +135,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     inLink = false;
                                     continue;
                                 }
-                                if(!allowed.profileLinks && !allowed.channelLinks && !allowed.infoLinks && !allowed.allLinks) {
-                                    inLink = false;
-                                    continue;
+                                if(inLink.startsWith("{font}")) {
+                                    tmpInsideKCode += ">" + inLink + "<";
                                 }
 
                                 var parts = inLink.split('|');
@@ -162,6 +163,17 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                             fragment: matches[9]
                                         };
                                     })(action);
+
+                                    if(url.authority.endsWith("play.google.com") && allowed.googleLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+
+                                    if((url.authority.endsWith("knuddels.de") || url.authority.endsWith("knuddelsseiten.de")) && allowed.knuddelsLinks) {
+                                        tmpInsideKCode += ">" + text + "|" + action + "<";
+                                        continue;
+                                    }
+
                                     if((url.authority.endsWith("knuddels.de") || url.authority.endsWith("knuddelsseiten.de")) && allowed.knuddelsLinks) {
                                         tmpInsideKCode += ">" + text + "|" + action + "<";
                                         continue;
@@ -309,6 +321,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                                     case '7':
                                     case '8':
                                     case '9':
+                                    case '-':
                                         if(allowed.size)
                                             tmpInsideKCode += iChar;
                                         continue;

@@ -5,6 +5,7 @@ TopicChanger erlaubt den Channelbesitzer per Chatbefehl das Thema des Channels z
 
 ## Befehle für TopicChanger
 * **/previewtopic TEXT** Zeigt einem die Vorschau des eingegebenen Topics
+* **/gettopic** Gibt das Aktuelle Topic aus und zeigt den verwendeten KCode an.
 * **/settopic TEXT** Setzt das Topic
 * **/topicchangeradmin allow:NICK** schaltet einen User für den TopicChanger frei
 * **/topicchangeradmin disallow:NICK** sperrt einen User für den TopicChanger

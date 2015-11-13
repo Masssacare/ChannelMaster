@@ -114,7 +114,8 @@ ModuleManager.prototype.onUserJoined = function(user) {
           system: KnuddelsServer.getChatServerInfo().getServerId(),
           version: KnuddelsServer.getAppVersion(),
           bot: KnuddelsServer.getDefaultBotUser().getNick(),
-          onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length
+          onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length,
+          fees: App.persistence.getNumber("gameFeesSum", 0)
       };
       var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
       msg += "°1°°>" + url + "<°";
@@ -168,6 +169,7 @@ ModuleManager.prototype.cmdActivateModule = function (user, params, funcname) {
             }
         }
         module.onActivated();
+        ModuleManager.self.onUserJoined(user);
         return;
     }
     user.sendPrivateMessage("Modul " + modulename + " konnte nicht gestartet werden.");
@@ -200,6 +202,7 @@ ModuleManager.prototype.cmdDeactivateModule = function (user, params, funcname) 
             }
         }
         module.onDeactivated();
+        ModuleManager.self.onUserJoined(user);
         return;
     }
     user.sendPrivateMessage("Modul " + modulename + " konnte nicht beendet werden.");

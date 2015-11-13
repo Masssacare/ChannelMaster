@@ -6,6 +6,7 @@ Sollte ein User gemutet sein, informiert er automatisch alle anwesenden Cms im C
 
 
 ## Befehle für Unmute
+* **/unmuteadmin** Aktiviert bzw. Deaktiviert die Nachricht beim Channelbeitritt.
 * **/muted NICK** setzt NICK auf die nicht entmuten Liste und ignoriert ihn dann beim automatischen entmuten.
 * **/muted !NICK** entfernt NICK von der nicht entmuten Liste.
 * **/muted list** Gibt eine Liste der User wieder an die nicht automatisch erinnert wird.
