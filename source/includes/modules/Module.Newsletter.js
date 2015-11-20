@@ -214,6 +214,9 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
     if(!user.isAppManager())
         return;
 
+
+    var channame = KnuddelsServer.getChannel().getChannelName();
+
     if(!this.userAllowed(user)) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
@@ -224,7 +227,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
         return;
     }
     if(params.toLowerCase() == "join") {
-        var channame = KnuddelsServer.getChannel().getChannelName();
+
         var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
         user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
         return;
