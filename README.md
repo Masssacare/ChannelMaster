@@ -11,6 +11,7 @@ ChannelMaster ist eine Sammlung aus mehreren Apps die als Module eingebunden wer
 * [ChannelTop](README-channeltop.md)
 * [CMComment](README-cmcomment.md)
 * [FreeDarten](README-freedarten.md)
+* [FreeKnuddelz](README-freeknuddelz.md)
 * [FreeReadmeverlosung](README-freereadmeverlosung.md)
 * [Functions](README-functions.md)
 * [JavaFXCheck](README-javafxcheck.md)
