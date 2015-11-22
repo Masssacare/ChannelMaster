@@ -77,7 +77,7 @@ TopicChanger.prototype.cmdSetTopic = function (user, params, func) {
 
 TopicChanger.prototype.cmdTopicChangerAdmin = function(user, params, func) {
 
-    if(!user.isChannelOwner()) {
+    if(!user.isChannelOwner() && !user.isCoDeveloper()) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
     }
