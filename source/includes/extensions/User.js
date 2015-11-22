@@ -50,6 +50,7 @@ if(!User.prototype.hasOwnProperty("getTeams")) {
                     ["Handy-Chat", "Teamleitung", "Teamleiter"],
                     ["Help 4 You", "Teamleitung", "Teamleiter"],
                     ["Homepage", "Teamleitung", "Teamleiter"],
+                    ["HTML-Chat Betatest", "Teamleitung", "Teamleiter"],
                     ["HZA", "Teamleitung", "Teamleiter"],
                     ["Ideen", "Teamleitung", "Teamleiter"],
                     ["Intekreafix", "Teamleitung", "Teamleiter"],

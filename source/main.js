@@ -388,4 +388,4 @@ require("includes/init.js");
 
 
 
-//require("includes/paidapps.js"); //@TODO: WORK ON IT
+require("includes/paidapps.js"); //@TODO: WORK ON IT
