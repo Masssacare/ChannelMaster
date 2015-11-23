@@ -94,7 +94,7 @@ Advertise.prototype.cmdAdvertise = function(user, params, func) {
             var text = texte[key];
             if(typeof text != "string")
                 continue;
-            message += "°#°"+ text + " °>Entfernen|/deadvertise "+ key +"<°" ;
+            message += "°#°"+ text + " §_°BB>Entfernen|/deadvertise "+ key +"<°§" ;
         }
         user.sendPrivateMessage(message);
 
