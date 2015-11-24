@@ -39,6 +39,7 @@ App.modules = {
     onUserJoined: [],
     onUserLeft: [],
     onShutdown: [],
+    onBeforeKnuddelReceived: [],
     onPublicMessage: [],
     onPrivateMessage: [],
     onEventReceived: [],
@@ -170,6 +171,22 @@ App.onShutdown = function() {
     }
 };
 
+/**
+ *
+ * @param {KnuddelTransfer} transfer
+ */
+App.onBeforeKnuddelReceived = function(transfer) {
+    var modules = App.modules.onBeforeKnuddelReceived;
+    for(var i = 0; i < modules.length; i++) {
+        var module = modules[i];
+        if(typeof module.onBeforeKnuddelReceived === 'function')
+            module.onBeforeKnuddelReceived(transfer);
+            if(transfer.isProcessed()) {
+                return;
+            }
+    }
+    transfer.accept();
+};
 
 App.onAccountReceivedKnuddel = function(sender, receiver, knuddelAmount, transferReason, knuddelAccount) {
     sender.sendPrivateMessage('Du hast ' + knuddelAmount.asNumber() + ' Knuddel eingezahlt.');
