@@ -179,9 +179,9 @@ ChannelTop.prototype.onUserJoined = function(user) {
     if(user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1)==1) {
         var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.ONLINE_TIME,0);
         if(onlinetime>0) {
-            user.sendPrivateMessage("Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
+            user.sendPrivateMessage(App.defaultColor + "Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
         } else {
-            user.sendPrivateMessage("Hallo, dies ist dein erster Besuch in diesem Channel.");
+            user.sendPrivateMessage(App.defaultColor + "Hallo, dies ist dein erster Besuch in diesem Channel.");
         }
     }
 };
@@ -218,7 +218,7 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
     var date = new Date();
     var avgMulti = 1;
     var keyname = "";
-    var listheader = "";
+    var listheader = App.defaultColor + "";
     switch(list) {
         case "online cm":
             keyname = ChannelTop.PKEYS.ONLINE_TIME;
@@ -286,7 +286,7 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
  */
 ChannelTop.prototype.bestlistText = function(user, list) {
     var keyname = "";
-    var listheader = "";
+    var listheader = App.defaultColor + "";
     var message = "";
     if(list == "messages") {
         keyname += ChannelTop.PKEYS.MESSAGE_COUNT;
@@ -334,7 +334,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
  */
 ChannelTop.prototype.bestlistOnline = function(user, list) {
     var keyname = "";
-    var listheader = "";
+    var listheader = App.defaultColor + "";
     var avgMulti = 1;
     var date = new Date();
     switch(list) {
@@ -475,7 +475,7 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
     if(action == "welcomemessage") {
         var status = 1 - user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1); //toggle der joinmessage
         user.getPersistence().setNumber(ChannelTop.PKEYS.JOIN_MESSAGE, status);
-        user.sendPrivateMessage("Du hast die Willkommensnachricht " + (status==0?"deaktiviert":"aktiviert") + ".");
+        user.sendPrivateMessage(App.defaultColor + "Du hast die Willkommensnachricht " + (status==0?"deaktiviert":"aktiviert") + ".");
         return;
     }
     if(action == "online"   || action == "online day" || action == "online week" || action == "online month" || action == "online year"
