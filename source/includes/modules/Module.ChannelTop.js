@@ -265,7 +265,7 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
             sum += tTime;
             var tPlace = i+1;
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
         }
         if(avgMulti != 1) {
@@ -298,7 +298,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             ""+App.defaultColor+ " mit " + tMessages + " Nachrichten.";
         }
 
@@ -313,7 +313,7 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tPlace = i+1;
             var avg = tUser.getPersistence().getNumber(ChannelTop.PKEYS.MESSAGE_CHARAVG);
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
             ""+App.defaultColor+ " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
         }
 
@@ -395,7 +395,7 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         var tTime = entries[i].getValue();
         var tPlace = i+1;
         message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-        + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+        + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
         ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
     }
     if(avgMulti != 1) {
