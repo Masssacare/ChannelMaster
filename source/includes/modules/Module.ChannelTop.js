@@ -264,13 +264,13 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
             var tTime = tUser.getPersistence().getNumber(keyname,0);
             sum += tTime;
             var tPlace = i+1;
-            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            " mit " + this.timeToString(tTime) + ".";
+            ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
         }
         if(avgMulti != 1) {
             var avg = sum * avgMulti;
-            message += "°#r°°#r°Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
+            message += "°#r°°#r°"+App.defaultColor+ "Im Durschnitt waren " + avg.toFixed(2) + " CMs anwesend.";
         }
 
         user.sendPrivateMessage(message);
@@ -297,9 +297,9 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tUser = entries[i].getUser();
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
-            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            " mit " + tMessages + " Nachrichten.";
+            ""+App.defaultColor+ " mit " + tMessages + " Nachrichten.";
         }
 
     } else if(list == "mosttext") {
@@ -312,9 +312,9 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
             var avg = tUser.getPersistence().getNumber(ChannelTop.PKEYS.MESSAGE_CHARAVG);
-            message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+            message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
             + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
+            ""+App.defaultColor+ " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
         }
 
     }
@@ -394,13 +394,13 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         var tUser = entries[i].getUser();
         var tTime = entries[i].getValue();
         var tPlace = i+1;
-        message += "°#r°" + (tPlace<10?"  "+tPlace:tPlace) + ". "
+        message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
         + (tUser == user ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-        " mit " + this.timeToString(tTime) + ".";
+        ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
     }
     if(avgMulti != 1) {
         var avg = UserPersistenceNumbers.getSum(keyname) * avgMulti;
-        message += "°#r°°#r°Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
+        message += "°#r°°#r°"+App.defaultColor+ "Im Durschnitt waren " + avg.toFixed(2) + " User anwesend.";
     }
 
     user.sendPrivateMessage(message);
@@ -449,11 +449,11 @@ ChannelTop.prototype.timeToString = function(time) {
 ChannelTop.prototype.showStats = function (user) {
     var date = new Date();
     var message = "°RR°_ChannelTop Statistik zu " + KnuddelsServer.getChannel().getChannelName().escapeKCode() + "_";
-    message += "°#r°_Anzahl Besucher:_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME);
-    message += "°#r°_Anzahl Besucher (TAG):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_DAY).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_DAY)*(1/date.getMillisecondsOfDay())).toFixed(2)+")";
-    message += "°#r°_Anzahl Besucher (WOCHE):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_WEEK).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_WEEK)*(1/date.getMillisecondsOfWeek())).toFixed(2)+")";
-    message += "°#r°_Anzahl Besucher (MONAT):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_MONTH).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_MONTH)*(1/date.getMillisecondsOfMonth())).toFixed(2)+")";
-    message += "°#r°_Anzahl Besucher (JAHR):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_YEAR).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_YEAR)*(1/date.getMillisecondsOfYear())).toFixed(2)+")";
+    message += "°#r°"+App.defaultColor+ "_Anzahl Besucher:_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME);
+    message += "°#r°"+App.defaultColor+ "_Anzahl Besucher (TAG):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_DAY).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_DAY)*(1/date.getMillisecondsOfDay())).toFixed(2)+")";
+    message += "°#r°"+App.defaultColor+ "_Anzahl Besucher (WOCHE):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_WEEK).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_WEEK)*(1/date.getMillisecondsOfWeek())).toFixed(2)+")";
+    message += "°#r°"+App.defaultColor+ "_Anzahl Besucher (MONAT):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_MONTH).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_MONTH)*(1/date.getMillisecondsOfMonth())).toFixed(2)+")";
+    message += "°#r°"+App.defaultColor+ "_Anzahl Besucher (JAHR):_ " + UserPersistenceNumbers.getCount(ChannelTop.PKEYS.ONLINE_TIME_YEAR).number_format(0,"",".") + " (\u00D8" + (UserPersistenceNumbers.getSum(ChannelTop.PKEYS.ONLINE_TIME_YEAR)*(1/date.getMillisecondsOfYear())).toFixed(2)+")";
 
 
 
