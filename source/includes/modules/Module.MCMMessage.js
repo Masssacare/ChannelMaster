@@ -47,10 +47,10 @@ MCMMessage.prototype.cmdMCMMessage = function(user, params, func) {
 
     var ind = params.indexOf("§");
     if(ind == -1) {
-        text = params.limitKCode().trim();
+        text = params.limitKCode({replaceToBotDefaultColor: false}).trim();
     } else {
-        topic = params.substring(0, ind).limitKCode().trim();
-        text = params.substring(ind+1).limitKCode().trim();
+        topic = params.substring(0, ind).limitKCode({replaceToBotDefaultColor: false}).trim();
+        text = params.substring(ind+1).limitKCode({replaceToBotDefaultColor: false}).trim();
     }
     if(topic.length == 0) {
         user.sendPrivateMessage("Du hast keinen Betreff angegeben.");

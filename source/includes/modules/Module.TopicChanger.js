@@ -36,7 +36,7 @@ TopicChanger.prototype.cmdPreviewTopic = function (user, params, func) {
         return;
     }
 
-    var topic = params.limitKCode();
+    var topic = params.limitKCode({replaceToBotDefaultColor: false});
 
     user.sendPrivateMessage("_°BB°Dieser Channel hat folgendes Thema:°r°°#°" + topic);
 };

@@ -78,22 +78,23 @@ Newsletter.prototype.cmdsendNewsletter = function(user, params, func) {
     {
         user.sendPostMessage("°RR°Newsletter aus dem Channel: "+ channame + "°r°", message);
 
-        }, { ascending: false, maximumCount: count });
+    }, { ascending: false, maximumCount: count });
+    user.sendPrivateMessage("Der Newsletter wird verschickt.");
 };
 
 /**
+ * Funktion um den Text für die Rundmail zu definieren
  * @param {User} user
  * @param {string} params
  * @param {string} func
  */
-// Funktion um den Text für die Rundmail zu definieren
 Newsletter.prototype.cmdNewsletter = function(user, params, func) {
     if(!this.userAllowed(user)) {
         user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
         return;
     }
     var AppPersistence = KnuddelsServer.getPersistence();
-    var msg = params.limitKCode();
+    var msg = params.limitKCode({replaceToBotDefaultColor: false});
     if(msg == "") {
 
         var message = AppPersistence.getString("mNewsletter_newstext", "Es gibt Neuigkeiten!");
@@ -271,7 +272,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
 
 
     if(action.toLowerCase() == "join") {
-        var text = params.substr(ind+1).trim().limitKCode();
+        var text = params.substr(ind+1).trim().limitKCode({replaceToBotDefaultColor: false});
         if(text == "standard") {
             App.persistence.setString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
             var standard = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
@@ -279,10 +280,10 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
             return;
         }
         else {
-        App.persistence.setString("mNewsletter_join", text+"§°#r°°>LEFT<°");
-        var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
-        user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
-        return;
+            App.persistence.setString("mNewsletter_join", text+"§°#r°°>LEFT<°");
+            var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+            user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
+            return;
         }
     }
     var nick = params.substr(ind+1).trim();

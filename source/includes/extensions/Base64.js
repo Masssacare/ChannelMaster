@@ -185,8 +185,4 @@
                 }));
         };
     }
-    // that's it!
-    if (global['Meteor']) {
-        Base64 = global.Base64; // for normal export in Meteor.js
-    }
 })(this);

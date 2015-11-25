@@ -14,6 +14,8 @@
  */
 var App = {};
 
+App.defaultColor = '';
+
 /**
  *
  * @type {boolean}

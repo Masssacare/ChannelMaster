@@ -50,7 +50,7 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
      * @returns {string}
      */
     String.prototype.limitKCode = function(limits) {
-        var tmpstr = "";
+
 
         var allowed = {
             size: true,
@@ -72,7 +72,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
             overrideLinks: true,
             helpLinks:true,
             diceLinks:true,
-            readmeLinks:true
+            readmeLinks:true,
+            replaceToBotDefaultColor: true
         };
 
         if (typeof limits === 'object') {
@@ -80,6 +81,9 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                 allowed[key] = limits[key];
             }
         }
+
+        var tmpstr = (allowed.replaceToBotDefaultColor?App.defaultColor:'');
+
         var escaped = false;
         var insideKCode = false;
         for(var i = 0; i < this.length; i++) {
@@ -357,6 +361,8 @@ if(!String.prototype.hasOwnProperty("limitKCode")) {
                     continue;
                 }
                 switch(char) {
+                    case '§':
+                        tmpstr += char + (allowed.replaceToBotDefaultColor?App.defaultColor:'');
                     case '\\':
                         escaped = true;
                         break;
