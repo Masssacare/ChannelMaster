@@ -72,7 +72,7 @@ TopicChanger.prototype.cmdSetTopic = function (user, params, func) {
 
     var topic = params;
 
-    App.channel.getChannelConfiguration().getChannelInformation().setTopic(topic.limitKCode());
+    App.channel.getChannelConfiguration().getChannelInformation().setTopic(topic.limitKCode({replaceToBotDefaultColor: false}));
 };
 
 TopicChanger.prototype.cmdTopicChangerAdmin = function(user, params, func) {
