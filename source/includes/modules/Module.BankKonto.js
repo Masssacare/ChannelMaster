@@ -77,7 +77,7 @@ BankKonto.prototype.onDeactivated = function() {
 BankKonto.prototype.onUserJoined = function(user) {
     var amnt = this.getKnuddelAmount(user);
     if(amnt > 0) {
-        user.sendPrivateMessage(App.defaultColor + "Du hast noch °RR°_" + amnt + " Knuddel°r°_ auf deinem Konto. Jetzt _°BB>auszahlen|/knuddelaccount<°§"+App.defaultColor+".");
+        user.sendPrivateMessage(App.defaultColor + "Du hast noch °RR°_" + amnt + " Knuddel§"+App.defaultColor+" auf deinem Konto. Jetzt _°BB>auszahlen|/knuddelaccount<°§"+App.defaultColor+".");
     }
 };
 
