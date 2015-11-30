@@ -272,7 +272,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
 
 
     if(action.toLowerCase() == "join") {
-
+        var text = params.substr(ind+1).trim();
         if(text == "standard") {
 
             App.persistence.setString("mNewsletter_join", App.defaultColor + "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§"+App.defaultColor+".")
@@ -281,7 +281,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
             return;
         }
         else {
-            var text = params.substr(ind+1).trim().limitKCode();
+            text = text.limitKCode();
             App.persistence.setString("mNewsletter_join", text+"§°#r°°>LEFT<°");
             var jointext = App.persistence.getString("mNewsletter_join");
             user.sendPrivateMessage(App.defaultColor + "Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
