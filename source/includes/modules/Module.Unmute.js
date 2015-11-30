@@ -34,7 +34,7 @@ Unmute.prototype.onDeactivated = function() {
 };
 
 Unmute.prototype.cmdjointext = function (user, params, func) {
-    if(!user.isAppManager() || !user.isCoDeveloper())
+    if(!user.isAppManager() && !user.isCoDeveloper())
         return;
     var jointext = App.persistence.getNumber("mUnmute_jointext", 0);
     if(jointext == 0) {
