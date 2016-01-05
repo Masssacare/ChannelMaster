@@ -9,6 +9,38 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 
+/**
+ *
+ * @param obj
+ * @returns {string}
+ */
+String.prototype.formater = function formater(obj) {
+    var str = this.toString();
+
+    var array = [];
+    for(var key in obj) {
+        array.push({key: key, value: obj[key]});
+    }
+
+    //verhindere dass $NAME vor $NAMEN ersetetzt wird - WICHTIG!!!!!
+    array.sort(function(a,b){
+        return b.key.length - a.key.length; // nach länge abwärts sortieren
+    });
+
+    for(var i in array) {
+        var key = array[i].key;
+        var value = array[i].value;
+
+        var ind = -1;
+        var find = '$'+key;
+        while((ind = str.indexOf(find)) >= 0) {
+            str = str.substring(0, ind) + value + str.substr(ind+find.length);
+        }
+    }
+
+    return str;
+};
+ 
 
 if(!String.prototype.hasOwnProperty("fixsplit")) {
     /**
