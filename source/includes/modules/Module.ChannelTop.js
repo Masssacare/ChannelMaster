@@ -1,19 +1,3 @@
-/**
- * @file Diese Datei definiert das ChannelTop Module
- * @author KnuddelsTools
- * @author Vampiric Desire
- * @copyright KnuddelsTools
- * @link https://github.com/KnuddelsTools KnuddelsTools on Github
- *
- * @license LGPL
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
- */
-
-/**
- * @class ChannelTop
- * @extends Module
- * @constructor
- */
 function ChannelTop() {
     App.registerModule(this);
 };
@@ -55,7 +39,7 @@ ChannelTop.prototype.onPublicMessage = function(publicMessage) {
 };
 
 ChannelTop.prototype.onActivated = function() {
-    this.registerCommand("channeltop", this.cmdChanneltop);
+    this.registerCommand("channeltoplist", this.cmdChanneltop);
 
     //löschen wir erstmal alle jointimes < wir wissen nicht wielange die app aus war
     UserPersistenceNumbers.deleteAll(ChannelTop.PKEYS.JOIN_TIME);
@@ -105,30 +89,30 @@ ChannelTop.prototype.timerHandler = function(date) {
 ChannelTop.prototype.lists = [
 
     //user liste
-    '_°BB>_hmessages|/channeltop "<°_',
-    '_°BB>_hmosttext|/channeltop "<°_',
+    '_°BB>_hmessages|/channeltoplist "<°_',
+    '_°BB>_hmosttext|/channeltoplist "<°_',
 
-    '_°BB>_honline|/channeltop "<°_',
-    '_°BB>_honline day|/channeltop "<°_',
-    '_°BB>_honline week|/channeltop "<°_',
-    '_°BB>_honline month|/channeltop "<°_',
-    '_°BB>_honline year|/channeltop "<°_',
-    '_°BB>_honline lastday|/channeltop "<°_',
-    '_°BB>_honline lastweek|/channeltop "<°_',
-    '_°BB>_honline lastmonth|/channeltop "<°_',
-    '_°BB>_honline lastyear|/channeltop "<°_',
+    '_°BB>_honline|/channeltoplist "<°_',
+    '_°BB>_honline day|/channeltoplist "<°_',
+    '_°BB>_honline week|/channeltoplist "<°_',
+    '_°BB>_honline month|/channeltoplist "<°_',
+    '_°BB>_honline year|/channeltoplist "<°_',
+    '_°BB>_honline lastday|/channeltoplist "<°_',
+    '_°BB>_honline lastweek|/channeltoplist "<°_',
+    '_°BB>_honline lastmonth|/channeltoplist "<°_',
+    '_°BB>_honline lastyear|/channeltoplist "<°_',
 
 
 
     //cm liste
-    '_°BB>_honline cm|/channeltop "<°_',
-    '_°BB>_honline day cm|/channeltop "<°_',
-    '_°BB>_honline week cm|/channeltop "<°_',
-    '_°BB>_honline month cm|/channeltop "<°_',
-    '_°BB>_honline year cm|/channeltop "<°_',
+    '_°BB>_honline cm|/channeltoplist "<°_',
+    '_°BB>_honline day cm|/channeltoplist "<°_',
+    '_°BB>_honline week cm|/channeltoplist "<°_',
+    '_°BB>_honline month cm|/channeltoplist "<°_',
+    '_°BB>_honline year cm|/channeltoplist "<°_',
 
     //info
-    '_°BB>_hstats|/channeltop "<°_'
+    '_°BB>_hstats|/channeltoplist "<°_'
 ];
 
 /**
@@ -140,7 +124,7 @@ ChannelTop.prototype.onShutdown = function() {
 };
 
 ChannelTop.prototype.onDeactivated = function() {
-    this.unregisterCommand("channeltop");
+    this.unregisterCommand("channeltoplist");
 
     //bevor wir herunterfahren aktualisieren wir erst alle user
     this.updateAllUsers();
@@ -176,14 +160,14 @@ ChannelTop.prototype.onUserJoined = function(user) {
     user.getPersistence().setNumber(ChannelTop.PKEYS.JOIN_TIME, Date.now());
 
     //Willkommensnachricht
-    if(user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1)==1) {
-        var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.ONLINE_TIME,0);
-        if(onlinetime>0) {
-            user.sendPrivateMessage(App.defaultColor + "Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
-        } else {
-            user.sendPrivateMessage(App.defaultColor + "Hallo, dies ist dein erster Besuch in diesem Channel.");
-        }
-    }
+    /*if(user.getPersistence().getNumber(ChannelTop.PKEYS.JOIN_MESSAGE,1)==1) {
+     var onlinetime = user.getPersistence().getNumber(ChannelTop.PKEYS.ONLINE_TIME,0);
+     if(onlinetime>0) {
+     user.sendPrivateMessage(App.defaultColor + "Hallo, du hast bereits " + this.timeToString(onlinetime) + " in diesem Channel verbracht.");
+     } else {
+     user.sendPrivateMessage(App.defaultColor + "Hallo, dies ist dein erster Besuch in diesem Channel.");
+     }
+     }*/
 };
 
 
@@ -255,8 +239,8 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
              * @returns {number}
              */
             function(a, b){
-            return b.getPersistence().getNumber(keyname, 0) - a.getPersistence().getNumber(keyname, 0);
-        });
+                return b.getPersistence().getNumber(keyname, 0) - a.getPersistence().getNumber(keyname, 0);
+            });
         var sum = 0;
         var message = "°RR20°_" + listheader + "°r°_";
         for(var i = 0; i < cms.length; i++) {
@@ -265,8 +249,8 @@ ChannelTop.prototype.bestlistOnlineCM = function(user, list) {
             sum += tTime;
             var tPlace = i+1;
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
+                + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+                ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
         }
         if(avgMulti != 1) {
             var avg = sum * avgMulti;
@@ -298,8 +282,8 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tMessages = entries[i].getValue();
             var tPlace = i+1;
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            ""+App.defaultColor+ " mit " + tMessages + " Nachrichten.";
+                + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+                ""+App.defaultColor+ " mit " + tMessages + " Nachrichten.";
         }
 
     } else if(list == "mosttext") {
@@ -313,8 +297,8 @@ ChannelTop.prototype.bestlistText = function(user, list) {
             var tPlace = i+1;
             var avg = tUser.getPersistence().getNumber(ChannelTop.PKEYS.MESSAGE_CHARAVG);
             message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-            ""+App.defaultColor+ " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
+                + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+                ""+App.defaultColor+ " mit " + tMessages + " Zeichen (\u00D8"+avg+").";
         }
 
     }
@@ -395,8 +379,8 @@ ChannelTop.prototype.bestlistOnline = function(user, list) {
         var tTime = entries[i].getValue();
         var tPlace = i+1;
         message += "°#r°"+App.defaultColor+ "" + (tPlace<10?"  "+tPlace:tPlace) + ". "
-        + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
-        ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
+            + (tUser.getUserId() == user.getUserId() ? "°BB°" + tUser.getProfileLink() +"°r°":tUser.getProfileLink()) +
+            ""+App.defaultColor+ " mit " + this.timeToString(tTime) + ".";
     }
     if(avgMulti != 1) {
         var avg = UserPersistenceNumbers.getSum(keyname) * avgMulti;
@@ -460,7 +444,7 @@ ChannelTop.prototype.showStats = function (user) {
     user.sendPrivateMessage(message);
 };
 /**
- * Unsere /channeltop Funktion
+ * Unsere /channeltoplist Funktion
  * @param {User} user
  * @param {string} params
  * @param {string} func
@@ -479,7 +463,7 @@ ChannelTop.prototype.cmdChanneltop = function(user, params, func) {
         return;
     }
     if(action == "online"   || action == "online day" || action == "online week" || action == "online month" || action == "online year"
-                            ||  action == "online lastday" || action == "online lastweek" || action == "online lastmonth" || action == "online lastyear") {
+        ||  action == "online lastday" || action == "online lastweek" || action == "online lastmonth" || action == "online lastyear") {
         return this.bestlistOnline(user, action);
     }
     if(action == "online cm" || action == "online day cm" || action == "online week cm" || action == "online month cm" || action == "online year cm") {

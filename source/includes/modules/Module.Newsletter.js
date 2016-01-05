@@ -45,12 +45,12 @@ Newsletter.prototype.onUserJoined = function(user) {
     var channame = KnuddelsServer.getChannel().getChannelName();
     var persis = user.getPersistence();
     var news = persis.getNumber("mNewsletter_news", 0);
-    var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
+    var jointext = App.persistence.getString("mNewsletter_join", App.defaultColor + "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§"+App.defaultColor+".")
     if (news == 0) {
         user.sendPrivateMessage(jointext);
     }
     else {
-        user.sendPrivateMessage("Falls du den Newsletter abbestellen möchtest, so kannst du das °BB°_°>hier|/sfc " + channame + ":/deactivatenewsletter<°§ tun.");
+        user.sendPrivateMessage(App.defaultColor + "Falls du den Newsletter abbestellen möchtest, so kannst du das °BB°_°>hier|/sfc " + channame + ":/deactivatenewsletter<°§"+App.defaultColor+" tun.");
     }
 };
 
@@ -229,8 +229,8 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
     }
     if(params.toLowerCase() == "join") {
 
-        var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
-        user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
+        var jointext = App.persistence.getString("mNewsletter_join", App.defaultColor + "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§"+App.defaultColor+".")
+        user.sendPrivateMessage(App.defaultColor + "Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
         return;
     }
 
@@ -254,7 +254,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
 
     if(params == "") {
         var users = this.allowedUsers();
-        user.sendPrivateMessage("Folgende User sind freigeschaltet: " + users.join(", "));
+        user.sendPrivateMessage(App.defaultColor + "Folgende User sind freigeschaltet: " + users.join(", "));
     }
     var ind = params.indexOf(":");
     if(ind == -1) {
@@ -272,34 +272,36 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
 
 
     if(action.toLowerCase() == "join") {
-        var text = params.substr(ind+1).trim().limitKCode({replaceToBotDefaultColor: false});
+        var text = params.substr(ind+1).trim();
         if(text == "standard") {
-            App.persistence.setString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
-            var standard = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
-            user.sendPrivateMessage("Der Begrüßungstext für den Newsletter wurde wieder auf den Standardwert gesetzt. °#°"+standard);
+
+            App.persistence.setString("mNewsletter_join", App.defaultColor + "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§"+App.defaultColor+".")
+            var standard = App.persistence.getString("mNewsletter_join");
+            user.sendPrivateMessage(App.defaultColor + "Der Begrüßungstext für den Newsletter wurde wieder auf den Standardwert gesetzt. °#°"+standard);
             return;
         }
         else {
+            text = text.limitKCode();
             App.persistence.setString("mNewsletter_join", text+"§°#r°°>LEFT<°");
-            var jointext = App.persistence.getString("mNewsletter_join", "Falls du über alle Neuigkeiten in diesem Channel informiert werden möchtest, so aktiviere unseren °BB°_°>Newsletter|/sfc " + channame + ":/activatenewsletter<°§.")
-            user.sendPrivateMessage("Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
+            var jointext = App.persistence.getString("mNewsletter_join");
+            user.sendPrivateMessage(App.defaultColor + "Der Folgende Text wurde als Begrüßungstext eingestellt:°#°"+jointext);
             return;
         }
     }
     var nick = params.substr(ind+1).trim();
     var tUser = KnuddelsServer.getUserByNickname(nick);
     if(tUser == null) {
-        user.sendPrivateMessage("Der User _" + nick.escapeKCode() + "_ existiert nicht.");
+        user.sendPrivateMessage(App.defaultColor + "Der User _" + nick.escapeKCode() + "_ existiert nicht.");
         return;
     }
     if(tUser.isAppManager() && !user.isChannelOwner()) {
-        user.sendPrivateMessage("Nur der Channelbesitzer darf die Rechte eines Appmanagers ändern.");
+        user.sendPrivateMessage(App.defaultColor + "Nur der Channelbesitzer darf die Rechte eines Appmanagers ändern.");
         return;
     }
 
     if(action.toLowerCase() == "allow") {
         tUser.getPersistence().setNumber("mNewsletter_allowed",1);
-        user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun freigeschaltet.");
+        user.sendPrivateMessage(App.defaultColor + "°RR°" + tUser.getProfileLink() + "§" +App.defaultColor+ "ist nun freigeschaltet.");
 
 
     } else if(action.toLowerCase() == "disallow") {
@@ -308,7 +310,7 @@ Newsletter.prototype.cmdNewsletterAdmin = function(user, params, func) {
         else
             tUser.getPersistence().deleteNumber("mNewsletter_allowed"); //bei anderen nicht, da sie Standardmäßig nicht dürfen
 
-        user.sendPrivateMessage("°RR°" + tUser.getProfileLink() + "°r° ist nun gesperrt.");
+        user.sendPrivateMessage(App.defaultColor + "°RR°" + tUser.getProfileLink() + "§"+App.defaultColor+" ist nun gesperrt.");
     }
 };
 
