@@ -408,13 +408,10 @@ App.mayJoinChannel = function(user) {
         if(typeof module.mayJoinChannel   === 'function') {
             var ret = module.mayJoinChannel(user);
             if(typeof ret != 'undefined') {
-                App.bot.sendPublicMessage("Got Return: " + ret.toSource());
                 return ret;
             }
         }
-
     }
-
     return ChannelJoinPermission.accepted();
 };
 
