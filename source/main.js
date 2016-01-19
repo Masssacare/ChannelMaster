@@ -48,6 +48,7 @@ App.modules = {
     onPrepareShutdown: [],
     onKnuddelReceived: [],
     mayShowPublicMessage: [],
+    mayJoinChannel: [],
     timerHandler: []
 };
 
@@ -399,6 +400,24 @@ App.mayShowPublicMessage = function(publicMessage) {
 
     return allowed==1;
 };
+
+App.mayJoinChannel  = function(user) {
+    var modules = App.modules.mayJoinChannel ;
+    var allowed = true;
+    for(var i = 0; i < modules.length; i++) {
+        var module = modules[i];
+        if(typeof module.mayJoinChannel   === 'function') {
+            var ret = module.mayJoinChannel(user);
+            if(typeof ret != 'undefined') {
+                return ret;
+            }
+        }
+
+    }
+
+    return ChannelJoinPermission.accepted();
+};
+
 
 
 

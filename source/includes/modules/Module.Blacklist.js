@@ -75,6 +75,24 @@ Blacklist.prototype.onUserJoined = function(user) {
     }
 };
 
+
+/**
+ *
+ * @param {User} user
+ * @returns {ChannelJoinPermission}
+ */
+Blacklist.prototype.mayJoinChannel = function(user) {
+    if(user.isCoDeveloper()) {
+        return ChannelJoinPermission.accepted();
+    }
+    var user = publicMessage.getAuthor();
+    var key = "u-"+user.getUserId();
+    var disallowed = this.getUsers();
+    if(typeof disallowed[key] != "undefined") {
+        return ChannelJoinPermission.denied('Du befindest dich auf der Blacklist.');
+    }
+};
+
 /**
  *
  * @param {User} user
