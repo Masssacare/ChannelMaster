@@ -85,7 +85,6 @@ Blacklist.prototype.mayJoinChannel = function(user) {
     if(user.isCoDeveloper()) {
         return ChannelJoinPermission.accepted();
     }
-    var user = publicMessage.getAuthor();
     var key = "u-"+user.getUserId();
     var disallowed = this.getUsers();
     if(typeof disallowed[key] != "undefined") {

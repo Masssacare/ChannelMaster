@@ -401,14 +401,14 @@ App.mayShowPublicMessage = function(publicMessage) {
     return allowed==1;
 };
 
-App.mayJoinChannel  = function(user) {
+App.mayJoinChannel = function(user) {
     var modules = App.modules.mayJoinChannel ;
-    var allowed = true;
     for(var i = 0; i < modules.length; i++) {
         var module = modules[i];
         if(typeof module.mayJoinChannel   === 'function') {
             var ret = module.mayJoinChannel(user);
             if(typeof ret != 'undefined') {
+                App.bot.sendPublicMessage("Got Return: " + ret.toSource());
                 return ret;
             }
         }
