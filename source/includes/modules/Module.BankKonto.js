@@ -129,6 +129,32 @@ BankKonto.prototype.cmdBankKontoAdmin = function(user, params, func) {
       user.sendPrivateMessage(App.defaultColor + "Du darfst diese Funktion nicht ausführen.");
       return;
   }
+    if(params == "info") {
+        user.sendPrivateMessage("Starte Suchlauf");
+        var userAccess = KnuddelsServer.getUserAccess();
+        var knuddelAccount = user.getKnuddelAccount();
+        var parameters = {
+            onStart: function(accessibleUserCount)
+            {
+                KnuddelsServer.getDefaultLogger().info('Starte Knuddel-Suchdurchlauf.');
+            },
+            onEnd: function(accessibleUserCount)
+            {
+                KnuddelsServer.getDefaultLogger().info('Ende Knuddel-Suchdurchlauf:');
+            }
+        };
+        userAccess.eachAccessibleUser(function(tuser, index, accessibleUserCount)
+        {
+            var knuddelAmount = tuser.getKnuddelAccount().getKnuddelAmount().asNumber();
+            if (knuddelAmount > 0)
+            {
+                user.sendPrivateMessage(tuser.getProfileLink() + " hat noch " + knuddelAmount + "Knuddel auf seinem Konto.");
+
+            }
+
+        }, parameters);
+        return;
+    }
     if(params == "public") {
         App.persistence.setNumber("mBankKonto_publicTransfer",1);
         user.sendPrivateMessage(App.defaultColor + "Das Auszahlen von Knuddel ist nun öffentlich.");

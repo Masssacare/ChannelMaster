@@ -90,6 +90,9 @@ PrivateForwarding.prototype.allowedUsers = function() {
  */
 PrivateForwarding.prototype.userAllowed = function(user) {
 
+    if(user.isChannelOwner())
+        return true;
+
     if(user.getPersistence().getNumber("mPrivateForwarding_allowed", 1) == 0)
         return false;
 

@@ -112,29 +112,29 @@ Functions.prototype.cmdFunctions = function(user, params, func) {
  * @param {string} func
  */
 Functions.prototype.cmdFunctionsAdmin = function(user, params, func) {
-        if(!user.isAppManager())
-            return;
+    if(!user.isAppManager())
+        return;
 
-        if(!this.userAllowed(user)) {
-            user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
-            return;
-        }
+    if(!this.userAllowed(user)) {
+        user.sendPrivateMessage("Du darfst diese Funktion nicht ausführen.");
+        return;
+    }
 
-        if (params == "") {
-            var users = this.allowedUsers();
-            user.sendPrivateMessage("Folgende User sind freigeschaltet: " + users.join(", "));
-        }
-        var ind = params.indexOf(":");
-        if (ind == -1) {
-            user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#r°" +
-                "_/functions_ -> Übersicht der Funktionsliste.°#r°" +
-                "_/functions Funktion::Beschreibung_ -> Fügt eine Funktion der Liste hinzu.°#r°" +
-                "_/" + func + " allow:NICK_ -> um einen User freizuschalten.°#r°" +
-                "_/" + func + " disallow:NICK_ -> um einen User zu sperren.°#r°");
-            return;
-        }
-        var action = params.substring(0, ind).trim();
-        var nick = params.substr(ind+1).trim();
+    if (params == "") {
+        var users = this.allowedUsers();
+        user.sendPrivateMessage("Folgende User sind freigeschaltet: " + users.join(", "));
+    }
+    var ind = params.indexOf(":");
+    if (ind == -1) {
+        user.sendPrivateMessage("Bitte nutze den Befehl wie folgt: °#r°" +
+            "_/functions_ -> Übersicht der Funktionsliste.°#r°" +
+            "_/functions Funktion::Beschreibung_ -> Fügt eine Funktion der Liste hinzu.°#r°" +
+            "_/" + func + " allow:NICK_ -> um einen User freizuschalten.°#r°" +
+            "_/" + func + " disallow:NICK_ -> um einen User zu sperren.°#r°");
+        return;
+    }
+    var action = params.substring(0, ind).trim();
+    var nick = params.substr(ind+1).trim();
 
     var tUser = KnuddelsServer.getUserByNickname(nick);
     if(tUser == null) {
