@@ -28,11 +28,14 @@ ModuleManager.prototype.constructor = ModuleManager;
 ModuleManager.prototype.onActivated = function() {
     this.registerCommand("activatemodule", this.cmdActivateModule);
     this.registerCommand("deactivatemodule",this.cmdDeactivateModule);
+    this.registerCommand("trackedinfos",this.cmdInfosTracked);
+
 };
 
 ModuleManager.prototype.onDeactivated = function() {
     this.unregisterCommand("activatemodule");
     this.unregisterCommand("deactivatemodule");
+    this.unregisterCommand("trackedinfos");
 };
 
 /**
@@ -75,6 +78,49 @@ ModuleManager.prototype.timerHandler = function(date) {
   }
 };
 
+ModuleManager.prototype.cmdInfosTracked = function (user, params, data) {
+    var appName = KnuddelsServer.getAppName();
+    var appVersion = KnuddelsServer.getAppVersion();
+
+    var activated = [];
+    var regged = [];
+    for(var i = 0; i < App.modules.registered.length; i++) {
+        var module = App.modules.registered[i];
+
+        if (module.isActivated()) {
+            activated.push("_°BB°°>_h" + module.toString().escapeKCode() + "|/tf-overridesb /deactivatemodule \"<°°r°_");
+            regged.push("_°BB°°>_h" + module.toString().escapeKCode() + "|/tf-overridesb /deactivatemodule \"<°°r°_");
+        } else {
+            regged.push("°RR°°>_h" + module.toString().escapeKCode() + "|/tf-overridesb /activatemodule \"<°°r°");
+        }
+    }
+    var info = {
+        time: Date.now(),
+        channel: KnuddelsServer.getChannel().getChannelName(),
+        modules: activated,
+        owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
+        system: KnuddelsServer.getChatServerInfo().getServerId(),
+        version: KnuddelsServer.getAppVersion(),
+        bot: KnuddelsServer.getDefaultBotUser().getNick(),
+        onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length,
+        fees: App.persistence.getNumber("gameFeesSum", 0)
+    };
+    var message = "°RR°_Folgende Informationen werden getrackt:§";
+
+    message += "°#r°_Uhrzeit:_ " +info.time;
+    message += "°#r°_Channel:_ " +info.channel;
+    message += "°#r°_Aktivierte Module:_ " +info.modules;
+    message += "°#r°_Channelinhaber:_ " +info.owner;
+    message += "°#r°_System:_ " +info.system;
+    message += "°#r°_Version:_ " +info.version;
+    message += "°#r°_BotNick:_ " +info.bot;
+    message += "°#r°_Anzahl Onlineuser:_ " +info.onlineusers;
+    message += "°#r°_Bezahlte Steuern:_ " + info.fees;
+
+    user.sendPrivateMessage(message)
+};
+
+
 ModuleManager.prototype.onUserJoined = function(user) {
   if(user.isAppManager()||user.isAppDeveloper() || user.isCoDeveloper()) {
       var appName = KnuddelsServer.getAppName();
@@ -92,6 +138,17 @@ ModuleManager.prototype.onUserJoined = function(user) {
               regged.push("°RR°°>_h"+module.toString().escapeKCode()+"|/tf-overridesb /activatemodule \"<°°r°");
           }
       }
+      var info = {
+          time: Date.now(),
+          channel: KnuddelsServer.getChannel().getChannelName(),
+          modules: activated,
+          owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
+          system: KnuddelsServer.getChatServerInfo().getServerId(),
+          version: KnuddelsServer.getAppVersion(),
+          bot: KnuddelsServer.getDefaultBotUser().getNick(),
+          onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length,
+          fees: App.persistence.getNumber("gameFeesSum", 0)
+      };
 
       var msg = "°#r°" +
       "°BB°_"+appName+"_°r° läuft in der Version _" + appVersion + "_" +
@@ -106,17 +163,6 @@ ModuleManager.prototype.onUserJoined = function(user) {
           if (module.isActivated())
               activated.push(module.toString());
       }
-      var info = {
-          time: Date.now(),
-          channel: KnuddelsServer.getChannel().getChannelName(),
-          modules: activated,
-          owner: KnuddelsServer.getChannel().getChannelConfiguration().getChannelRights().getChannelOwners()[0].getNick(),
-          system: KnuddelsServer.getChatServerInfo().getServerId(),
-          version: KnuddelsServer.getAppVersion(),
-          bot: KnuddelsServer.getDefaultBotUser().getNick(),
-          onlineusers: KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).length,
-          fees: App.persistence.getNumber("gameFeesSum", 0)
-      };
       var url = "http://channelmaster.knuddelz.eu/channelmaster-" + Base64.encode(JSON.stringify(info)) + ".png".escapeKCode();
       msg += "°1°°>" + url + "<°";
 
