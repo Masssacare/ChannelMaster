@@ -194,7 +194,7 @@ ModuleManager.prototype.cmdActivateModule = function (user, params, funcname) {
     }
     if(modulename == "") {
         ModuleManager.self.onUserJoined(user);
-        return;
+        return; 
     }
     var module = App.getModule(modulename);
     if(module == null) {
